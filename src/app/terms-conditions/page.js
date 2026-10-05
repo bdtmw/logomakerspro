@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { site } from '@/data/site';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata('/terms-conditions');
@@ -89,9 +90,9 @@ export default function TermsConditionsPage() {
                   <li>
                     Claim your refund specifying your concern by contacting us via any of the following three modes:{" "}
                     <ul className="marker-li">
-                      <li>Toll free # 844-721-6130</li>
+                      <li>Phone: <a href={`tel:${site.phoneE164}`}>{site.phone}</a></li>
                       <li>Live Chat</li>
-                      <li><a href="mailto:info@logomakerspro.com">info@logomakerspro.com</a></li>
+                      <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
                       <li>
                         We will try to resolve your concern by virtue of our revision policy immediately or else will email you a refund request approval from our refund department. After the refund, your design rights would be obtained by Logo Makers Pro and you would not be able to display any version of the design sent by company. Let us also specify that:{" "}
                         <ul className="marker-li-2">
@@ -100,7 +101,7 @@ export default function TermsConditionsPage() {
                           </li>
                           <li>
                             Working in collaboration with the Government Copyright Agencies The Logo Makers Pro would share Copyright Acquisition information for the refunded designs that would restrict the re-use of the designs as original designs in the future. If you have any questions or concerns about our Refund Policy, please contact us by clicking here{" "}
-                            <a href="mailto:info@logomakerspro.com">info@logomakerspro.com.</a>
+                            <a href={`mailto:${site.email}`}>{site.email}</a>.
                           </li>
                         </ul>
                       </li>
@@ -133,7 +134,7 @@ export default function TermsConditionsPage() {
                     <p>
                       YOU agree that The Logo Makers Pro is not liable for any correspondence from email address (es) other than the ones followed by our own domain i.e. “..
                       <Link href="/terms-conditions">@logomakerspro.com</Link>
-                      ” or/and any toll free number that is not mentioned on our website. The Logo Makers Pro should not be held responsible for any damage(s) caused by such correspondence. We only take responsibility of any communication through email address (es) under our own domain name or/and via toll free number i.e. already mentioned on The Logo Makers Pro Website.
+                      ” or/and any phone number that is not mentioned on our website. The Logo Makers Pro should not be held responsible for any damage(s) caused by such correspondence. We only take responsibility of any communication through email address (es) under our own domain name or/and via the phone number already mentioned on The Logo Makers Pro Website.
                     </p>
                     <h2>100% Unique Design Guarantee</h2>
                     <p>

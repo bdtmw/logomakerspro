@@ -94,8 +94,6 @@ and can be overridden with the `NEXT_PUBLIC_*` variables in `.env.example`.
 
 ## Still to do (outside the code)
 
-- Terms & Conditions list a different phone (844-721-6130) and email (info@logomakerspro.com) from the rest of the
-  site. Confirm which are current so the business details match everywhere.
 - Two portfolio full-size images are missing on the server (`lg-016.jpeg`, `lg-25.jpeg`); the lightbox shows the
   thumbnail instead.
 - Search Console: submit `sitemap.xml` once the domain points here, and check that Googlebot isn't blocked by the

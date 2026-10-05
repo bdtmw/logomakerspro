@@ -66,7 +66,7 @@ export default function PrivacyPolicyPage() {
               <div className="in_terms">
                 <h2>Security of Personal Information</h2>
                 <p>
-                  The information of our clients is secure, as it is protected during transmission by the use of the Secure Sockets Layer (SSL) Software which encrypts the information the client puts in. We follow generally accepted industry standards to protect the personal information submitted to us, both during transmission and once we receive it. No method of transmission over the Internet, or method of electronic storage, is 100% secure, however. Therefore, while we strive to use commercially acceptable means to protect your personal information, we cannot guarantee its absolute security. If you have any questions about security on our Web site, you can send email us at info@logomakerspro.com
+                  The information of our clients is secure, as it is protected during transmission by the use of the Secure Sockets Layer (SSL) Software which encrypts the information the client puts in. We follow generally accepted industry standards to protect the personal information submitted to us, both during transmission and once we receive it. No method of transmission over the Internet, or method of electronic storage, is 100% secure, however. Therefore, while we strive to use commercially acceptable means to protect your personal information, we cannot guarantee its absolute security. If you have any questions about security on our Web site, you can email us at support@logomakerspro.com
                 </p>
               </div>
               <div className="in_terms">
@@ -114,7 +114,7 @@ export default function PrivacyPolicyPage() {
               <div className="in_terms pb-5">
                 <h2>Questions</h2>
                 <p>
-                  If you have any questions regarding our Privacy Policy or our use of your information, call our toll free number (307) 218-3240 or email us on info@logomakerspro.com
+                  If you have any questions regarding our Privacy Policy or our use of your information, call us at (307) 218-3240 or email us at support@logomakerspro.com
                 </p>
               </div>
             </div>
