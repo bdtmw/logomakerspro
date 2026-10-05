@@ -24,6 +24,15 @@ export const tracking = {
   recaptchaSiteKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? '6LekOy8rAAAAADfvTHUIgOap9Xb7Z6s6OH8TW6sV',
 };
 
+// Discount popup (lead magnet). The code itself is server-only (OFFER_CODE) and is only revealed after signup.
+export const leadOffer = {
+  enabled: process.env.NEXT_PUBLIC_OFFER_ENABLED !== 'false',
+  percent: Number(process.env.NEXT_PUBLIC_OFFER_PERCENT) || 15,
+  delayMs: 30000, // timed trigger; desktop also opens on exit intent
+  snoozeDays: 14, // after "No thanks", wait this long before showing again
+  excludePaths: ['/order/order-now', '/contact', '/terms-conditions', '/privacy-policy'],
+};
+
 export const serviceLinks = [
   { label: 'Logo Design', href: '/logo-design' },
   { label: 'Web Design', href: '/web-design' },

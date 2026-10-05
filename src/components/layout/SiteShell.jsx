@@ -1,6 +1,7 @@
 'use client';
 
 import { UIProvider } from '@/components/ui/UIContext';
+import OfferPopup from '@/components/ui/OfferPopup';
 import QuoteModal from '@/components/ui/QuoteModal';
 import CustomCursor from './CustomCursor';
 import Footer from './Footer';
@@ -23,6 +24,7 @@ export default function SiteShell({ children }) {
         <Footer />
       </SmoothScroll>
       <QuoteModal />
+      <OfferPopup />
     </UIProvider>
   );
 }

@@ -273,3 +273,155 @@ img {
 .lmp-intro-text p + p {
   margin-top: 14px;
 }
+
+/* Discount popup (lead magnet). Centered card on desktop, bottom sheet on phones. */
+.lmp-offer {
+  position: fixed;
+  inset: 0;
+  z-index: 100001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.6);
+  animation: lmp-offer-fade 0.25s ease-out;
+}
+.lmp-offer__dialog {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  padding: 40px 32px 28px;
+  border-radius: 10px;
+  background: #fff;
+  color: #121212;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+.lmp-offer__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: #f1f1f1;
+  color: #121212;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.lmp-offer__eyebrow {
+  margin-bottom: 6px;
+  color: #e86236;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.lmp-offer__title {
+  margin-bottom: 10px;
+  color: #121212;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.15;
+}
+.lmp-offer__text {
+  margin-bottom: 18px;
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.lmp-offer input {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.lmp-offer__submit {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  border: 0;
+  border-radius: 5px;
+  background: #e86236;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}
+.lmp-offer__submit:hover {
+  background: #d4542b;
+  color: #fff;
+}
+.lmp-offer__submit[disabled] {
+  opacity: 0.7;
+  cursor: progress;
+}
+.lmp-offer__decline {
+  margin-top: 12px;
+  border: 0;
+  background: none;
+  color: #777;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.lmp-offer__fine {
+  margin: 8px 0 0;
+  color: #999;
+  font-size: 12px;
+}
+.lmp-offer__code {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 10px 10px 10px 18px;
+  border: 2px dashed #e86236;
+  border-radius: 6px;
+}
+.lmp-offer__code span {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+.lmp-offer__code button {
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 4px;
+  background: #121212;
+  color: #fff;
+  cursor: pointer;
+}
+@keyframes lmp-offer-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (max-width: 575px) {
+  /* Bottom sheet: leaves the page visible above it (Google's intrusive-interstitial guidance). */
+  .lmp-offer {
+    align-items: flex-end;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.35);
+  }
+  .lmp-offer__dialog {
+    max-width: none;
+    max-height: 75vh;
+    overflow-y: auto;
+    padding: 32px 20px 20px;
+    border-radius: 14px 14px 0 0;
+  }
+  .lmp-offer__title {
+    font-size: 24px;
+  }
+}

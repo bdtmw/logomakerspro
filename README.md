@@ -31,7 +31,7 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 | Phone, email, nav, tracking IDs, schema | `src/data/site.js` |
 | Header, off-canvas menu, footer, smooth scroll | `src/components/layout/` |
 | Quote popup, buttons, tabs, lightbox, counters | `src/components/ui/` |
-| Form endpoints (email) | `src/app/api/lead`, `src/app/api/order` |
+| Form endpoints (email) | `src/app/api/lead`, `src/app/api/order`, `src/app/api/offer` |
 | Theme CSS (original) / additions | `src/styles/vendor/theme.css`, `src/styles/site.css` |
 
 ## Forms and orders
@@ -42,6 +42,20 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 - Both endpoints verify reCAPTCHA v3 (when `RECAPTCHA_SECRET_KEY` is set) and email the submission via SMTP
   (when `SMTP_HOST` is set; otherwise they log to the console). No payment gateway is wired in; add it in
   `src/app/api/order/route.js` if needed.
+
+## Discount popup (lead magnet)
+
+- `src/components/ui/OfferPopup.jsx` offers 15% off the first package for an email address. It opens once per visit
+  after 30 seconds, or earlier when a desktop visitor moves to leave the page. On phones it is a bottom sheet.
+  It never shows on the order, contact or legal pages, or while the quote popup is open.
+- "No thanks" hides it for 14 days. After signup it never shows again on that browser.
+- Signups POST to `/api/offer`, which emails the team and sends the visitor their code (and shows it on screen).
+- The checkout form has a Discount Code field, prefilled with a claimed code. `/api/order` rejects unknown codes
+  and adds the discount and discounted price to the order email. Nothing is charged online, so the team applies it
+  when confirming payment.
+- Settings: `OFFER_CODE` (server-only, default `WELCOME15`), `NEXT_PUBLIC_OFFER_PERCENT` (default 15),
+  `NEXT_PUBLIC_OFFER_ENABLED=false` to switch it off. Timing and excluded pages: `leadOffer` in `src/data/site.js`.
+- Tracking: GA4 `view_promotion` when it opens, GA4 `generate_lead` (form `discount_popup`) and Meta `Lead` on signup.
 
 ## SEO
 

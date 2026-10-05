@@ -19,25 +19,25 @@ function getTransporter() {
 const escapeHtml = (s) =>
   String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
-/** Email a submission as a key/value table. Logs instead of sending when SMTP isn't configured. */
+/** Send one email. Logs instead of sending when SMTP isn't configured. */
+export async function sendEmail({ to, subject, text, html, replyTo }) {
+  const t = getTransporter();
+  if (!t) {
+    console.info(`[mail disabled: set SMTP_HOST] to ${to}: ${subject}\n${text}`);
+    return { sent: false };
+  }
+  await t.sendMail({ from: process.env.MAIL_FROM || 'no-reply@logomakerspro.com', to, replyTo, subject, text, html });
+  return { sent: true };
+}
+
+/** Email a submission to the team as a key/value table. */
 export async function sendSubmission({ subject, fields, replyTo }) {
   const entries = Object.entries(fields).filter(([, v]) => v !== undefined && v !== null && v !== '');
   const html = `<table>${entries
     .map(([k, v]) => `<tr><th align="left" style="padding:4px 12px 4px 0;vertical-align:top">${escapeHtml(k)}</th><td>${escapeHtml(v)}</td></tr>`)
     .join('')}</table>`;
   const text = entries.map(([k, v]) => `${k}: ${v}`).join('\n');
-  const t = getTransporter();
-  if (!t) {
-    console.info(`[mail disabled: set SMTP_HOST] ${subject}\n${text}`);
-    return { sent: false };
-  }
-  await t.sendMail({
-    from: process.env.MAIL_FROM || 'no-reply@logomakerspro.com',
-    to: process.env.MAIL_TO || 'support@logomakerspro.com',
-    replyTo,
-    subject,
-    text,
-    html,
-  });
-  return { sent: true };
+  return sendEmail({ to: process.env.MAIL_TO || 'support@logomakerspro.com', subject, text, html, replyTo });
 }
+
+export { escapeHtml };

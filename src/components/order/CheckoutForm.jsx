@@ -1,11 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { readOfferState } from '@/components/ui/OfferPopup';
 import { getRecaptchaToken, loadRecaptcha } from '@/lib/recaptcha-client';
 
 /** Customer details for an order request. Package/price are resolved on the server from packageId. */
 export default function CheckoutForm({ packageId, packageName, price }) {
   const [status, setStatus] = useState({ state: 'idle', message: '' });
+  const [code, setCode] = useState('');
+
+  // Prefill the code a visitor claimed from the discount popup.
+  useEffect(() => {
+    const saved = readOfferState();
+    if (saved?.state === 'claimed' && saved.code) setCode(saved.code);
+  }, []);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -22,7 +30,11 @@ export default function CheckoutForm({ packageId, packageName, price }) {
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.ok) throw new Error(json.error || 'Something went wrong. Please try again.');
       form.reset();
-      setStatus({ state: 'sent', message: 'Thank you! Your order request has been received. Our team will contact you shortly to confirm the details and payment.' });
+      setCode('');
+      setStatus({
+        state: 'sent',
+        message: `Thank you! Your order request has been received${json.discount ? ` with ${json.discount}` : ''}. Our team will contact you shortly to confirm the details and payment.`,
+      });
       if (typeof window.fbq === 'function') window.fbq('track', 'InitiateCheckout', { content_name: packageName, value: price, currency: 'USD' });
       if (typeof window.gtag === 'function') window.gtag('event', 'begin_checkout', { value: price, currency: 'USD', items: [{ item_name: packageName, price }] });
     } catch (err) {
@@ -61,6 +73,10 @@ export default function CheckoutForm({ packageId, packageName, price }) {
           <label htmlFor="country">Country</label>
           <input id="country" name="country" autoComplete="country-name" defaultValue="United States" />
         </div>
+      </div>
+      <div className="form-group">
+        <label htmlFor="discountCode">Discount Code</label>
+        <input id="discountCode" name="discountCode" value={code} onChange={(e) => setCode(e.target.value)} autoComplete="off" />
       </div>
       <div className="form-group">
         <label htmlFor="notes">Project Details</label>

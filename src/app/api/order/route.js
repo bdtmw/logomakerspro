@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { findPackage } from '@/data/packages';
+import { leadOffer } from '@/data/site';
 import { sendSubmission } from '@/lib/server/mailer';
+import { discounted, isOfferCode } from '@/lib/server/offer';
 import { verifyRecaptcha } from '@/lib/server/recaptcha';
 import { clean, clientIp, isEmail } from '@/lib/server/request';
 
@@ -25,6 +27,13 @@ export async function POST(request) {
     return NextResponse.json({ ok: false, error: 'Please fill in all required fields.' }, { status: 422 });
   }
 
+  const discountCode = clean(data.discountCode, 50).toUpperCase();
+  if (discountCode && !(leadOffer.enabled && isOfferCode(discountCode))) {
+    return NextResponse.json({ ok: false, error: 'That discount code is not valid.' }, { status: 422 });
+  }
+  const discount = discountCode ? `${leadOffer.percent}% off (${discountCode})` : '';
+  const hasPrice = typeof pkg.price === 'number';
+
   const ip = clientIp(request);
   const captcha = await verifyRecaptcha(data.recaptchaToken, ip);
   if (!captcha.ok) {
@@ -33,11 +42,14 @@ export async function POST(request) {
 
   try {
     await sendSubmission({
-      subject: `New order: ${pkg.orderName || pkg.title.join(' ')} (${pkg.priceLabel})`,
+      subject: `New order: ${pkg.orderName || pkg.title.join(' ')} (${pkg.priceLabel})${discount ? `, ${discount}` : ''}`,
       replyTo: email,
       fields: {
         Package: pkg.orderName || pkg.title.join(' '),
         Price: pkg.priceLabel + (pkg.period ? ` ${pkg.period}` : ''),
+        Discount: discount || undefined,
+        'Price after discount':
+          discount && hasPrice ? `$${discounted(pkg.price).toFixed(2)}${pkg.period ? ' for the first month' : ''}` : undefined,
         Category: pkg.category,
         'First name': firstName,
         'Last name': lastName,
@@ -54,5 +66,5 @@ export async function POST(request) {
     return NextResponse.json({ ok: false, error: 'We could not submit your order. Please call us.' }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, discount });
 }
