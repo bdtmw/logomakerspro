@@ -53,7 +53,7 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 - The checkout form has a Discount Code field, prefilled with a claimed code. `/api/order` rejects unknown codes
   and adds the discount and discounted price to the order email. Nothing is charged online, so the team applies it
   when confirming payment.
-- Settings: `OFFER_CODE` (server-only, default `WELCOME15`), `NEXT_PUBLIC_OFFER_PERCENT` (default 15),
+- Settings: `OFFER_CODE` (server-only, default `GOOGLE`), `NEXT_PUBLIC_OFFER_PERCENT` (default 15),
   `NEXT_PUBLIC_OFFER_ENABLED=false` to switch it off. Timing and excluded pages: `leadOffer` in `src/data/site.js`.
 - Tracking: GA4 `view_promotion` when it opens, GA4 `generate_lead` (form `discount_popup`) and Meta `Lead` on signup.
 
