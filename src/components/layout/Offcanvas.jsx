@@ -93,7 +93,7 @@ export default function Offcanvas() {
         <div className="offcanvas__left">
           <div className="offcanvas__logo">
             <Link href="/" onClick={close}>
-              <Image src="/assets/imgs/logo/site-logo-white-2.webp" alt="Offcanvas Logo" width={150} height={83} />
+              <Image src="/assets/imgs/logo/site-logo-white-2.webp" alt="Logo Makers Pro" width={150} height={83} />
             </Link>
           </div>
           <div className="offcanvas__social">
@@ -136,8 +136,8 @@ export default function Offcanvas() {
               <li>{site.address}</li>
             </ul>
           </div>
-          <Image src="/assets/imgs/shape/11.png" alt="shape" className="shape-1" width={189} height={94} />
-          <Image src="/assets/imgs/shape/12.png" alt="shape" className="shape-2" width={81} height={80} />
+          <Image src="/assets/imgs/shape/11.png" alt="" className="shape-1" width={189} height={94} />
+          <Image src="/assets/imgs/shape/12.png" alt="" className="shape-2" width={81} height={80} />
         </div>
         <div className="offcanvas__close">
           <button id="close_offcanvas" type="button" aria-label="Close menu" onClick={close}>

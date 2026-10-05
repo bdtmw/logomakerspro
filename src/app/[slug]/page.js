@@ -1,14 +1,18 @@
 import { notFound } from 'next/navigation';
 import { packageCategories } from '@/data/packages';
 import { services } from '@/data/services';
+import { packageIntros, serviceExtras } from '@/data/copy';
+import { packageFaqs, serviceFaqs } from '@/data/faqs';
 import CtaSection from '@/components/sections/CtaSection';
+import FaqSection from '@/components/sections/FaqSection';
 import PageIntro from '@/components/sections/PageIntro';
 import { CategoryPackages } from '@/components/sections/PackagesSection';
 import ServicePage from '@/components/sections/ServicePage';
+import JsonLd from '@/components/seo/JsonLd';
+import { breadcrumbSchema, faqSchema, offerCatalogSchema, serviceNames, serviceSchema } from '@/lib/schema';
 import { pageMetadata } from '@/lib/seo';
-import { PACKAGES_INTRO } from '@/data/copy';
 
-// Service pages (/logo-design, /web-design, ...) and package pages (/logo-design-package, ...).
+// Service pages (/logo-design, /wordpress, ...) and package pages (/logo-design-package, ...).
 const packagePages = Object.fromEntries(Object.keys(packageCategories).map((cat) => [`${cat}-package`, cat]));
 
 export const dynamicParams = false;
@@ -25,14 +29,48 @@ export async function generateMetadata({ params }) {
 export default async function SlugPage({ params }) {
   const { slug } = await params;
 
-  if (services[slug]) return <ServicePage blocks={services[slug]} />;
+  if (services[slug]) {
+    const extras = serviceExtras[slug] || {};
+    const faqs = serviceFaqs[slug] || [];
+    const category = extras.packages ? packageCategories[extras.packages.category] : null;
+    return (
+      <>
+        <JsonLd
+          data={[
+            serviceSchema(slug, category),
+            faqSchema(faqs),
+            breadcrumbSchema([
+              { name: 'Home', route: '/' },
+              { name: serviceNames[slug], route: `/${slug}` },
+            ]),
+          ]}
+        />
+        <ServicePage blocks={services[slug]} extras={extras} faqs={faqs} serviceName={serviceNames[slug]} />
+      </>
+    );
+  }
 
   const category = packagePages[slug];
   if (!category) notFound();
+  const cat = packageCategories[category];
+  const intro = packageIntros[category];
+  const faqs = packageFaqs[category] || [];
   return (
     <>
-      <PageIntro title={PACKAGES_INTRO.title} text={PACKAGES_INTRO.text} />
+      <JsonLd
+        data={[
+          offerCatalogSchema(cat),
+          faqSchema(faqs),
+          breadcrumbSchema([
+            { name: 'Home', route: '/' },
+            { name: 'Packages', route: '/packages' },
+            { name: cat.heading, route: `/${slug}` },
+          ]),
+        ]}
+      />
+      <PageIntro as="h1" title={intro.title} text={intro.text} />
       <CategoryPackages category={category} />
+      <FaqSection title={`${cat.heading} FAQs`} items={faqs} idPrefix={`faq-${category}`} />
       <CtaSection />
     </>
   );

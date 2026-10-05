@@ -5,7 +5,7 @@ import Script from 'next/script';
 import { usePathname } from 'next/navigation';
 import { tracking } from '@/data/site';
 
-// GA4, Meta Pixel, Zendesk chat and reCAPTCHA v3, as loaded on every page of the live site.
+// GA4, Meta Pixel and Zendesk chat on every page. reCAPTCHA v3 loads on demand from the forms (lib/recaptcha-client.js).
 export default function Analytics() {
   const pathname = usePathname();
   const first = useRef(true);
@@ -56,10 +56,6 @@ fbq('track','PageView');`}
             />
           </noscript>
         </>
-      )}
-
-      {tracking.recaptchaSiteKey && (
-        <Script src={`https://www.google.com/recaptcha/api.js?render=${tracking.recaptchaSiteKey}`} strategy="afterInteractive" />
       )}
 
       {tracking.zendeskKey && (

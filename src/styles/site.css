@@ -209,3 +209,67 @@ img {
     gap: 0;
   }
 }
+
+/* Package section heading: was a bare h1 on the live site; now an h2 kept at the same size. */
+.packagestabs .packages-heading {
+  font-size: calc(1.375rem + 1.5vw);
+}
+@media (min-width: 1200px) {
+  .packagestabs .packages-heading {
+    font-size: 2.5rem;
+  }
+}
+
+/* FAQ sections (theme faq__area-6 accordion) */
+.lmp-faq .accordion-body {
+  min-height: 0;
+  padding-bottom: 24px;
+}
+.lmp-faq .accordion-item {
+  background: transparent;
+}
+.lmp-faq .accordion-header {
+  margin: 0;
+}
+
+/* Pricing teaser on service pages */
+.lmp-pricing-teaser .workflow__title-6 {
+  margin-bottom: 6px;
+}
+.lmp-pricing-teaser__price {
+  font-size: 28px !important;
+  font-weight: 500;
+  color: var(--black-2) !important;
+  margin-bottom: 10px !important;
+}
+.lmp-pricing-teaser__cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 40px;
+}
+.lmp-pricing-teaser__cta p {
+  font-size: 18px;
+}
+@media (max-width: 767px) {
+  .lmp-pricing-teaser__cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Related work strip on service pages */
+.lmp-related-work .img-box-logo {
+  margin-bottom: 24px;
+}
+.lmp-related-work__more a {
+  font-size: 18px;
+  text-decoration: underline;
+  color: var(--black-2);
+}
+
+/* Package page intros with two paragraphs (.blog__text is a flex row in the theme) */
+.lmp-intro-text p + p {
+  margin-top: 14px;
+}

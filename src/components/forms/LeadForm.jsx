@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { getRecaptchaToken } from '@/lib/recaptcha-client';
+import { getRecaptchaToken, loadRecaptcha } from '@/lib/recaptcha-client';
 import MagneticButton from '@/components/ui/MagneticButton';
 
 const fields = (phoneRequired) => [
@@ -50,7 +50,7 @@ export default function LeadForm({ variant = 'popup', header = null, onSuccess }
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate={false}>
+    <form onSubmit={handleSubmit} onFocus={() => loadRecaptcha()}>
       {header}
       {fields(!isContact).map((row, i) => (
         <div className="row g-3" key={i}>

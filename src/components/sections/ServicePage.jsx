@@ -1,5 +1,8 @@
 import Image from 'next/image';
 import CtaSection from './CtaSection';
+import FaqSection from './FaqSection';
+import PricingTeaser from './PricingTeaser';
+import RelatedWork from './RelatedWork';
 
 function Intro({ block }) {
   const [big, small] = block.images;
@@ -10,7 +13,7 @@ function Intro({ block }) {
         <div className="row">
           <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-5">
             <div className="sec-title-wrapper">
-              <h2 className="sec-title">{block.title}</h2>
+              <h1 className="sec-title">{block.title}</h1>
             </div>
           </div>
           <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7">
@@ -26,7 +29,7 @@ function Intro({ block }) {
           {big && (
             <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8">
               <div className="development__img">
-                <Image src={big.src} alt={big.alt} width={big.width} height={big.height} data-speed={big.speed} />
+                <Image src={big.src} alt={big.alt} width={big.width} height={big.height} data-speed={big.speed} priority />
               </div>
             </div>
           )}
@@ -102,29 +105,46 @@ function Detail({ block }) {
   );
 }
 
-/** Renders a service landing page from its block list in src/data/services.jsx. */
-export default function ServicePage({ blocks }) {
-  return blocks.map((block, i) => {
-    switch (block.type) {
-      case 'intro':
-        return <Intro block={block} key={i} />;
-      case 'workflow':
-        return <Workflow block={block} key={i} />;
-      case 'detail':
-        return <Detail block={block} key={i} />;
-      case 'cta':
-        return (
-          <CtaSection
-            key={i}
-            subtitle={block.subtitle}
-            title={block.title}
-            label={block.label}
-            action={block.action}
-            containerClass={block.containerClass}
-          />
-        );
-      default:
-        return null;
-    }
-  });
+function renderBlock(block, i) {
+  switch (block.type) {
+    case 'intro':
+      return <Intro block={block} key={i} />;
+    case 'workflow':
+      return <Workflow block={block} key={i} />;
+    case 'detail':
+      return <Detail block={block} key={i} />;
+    case 'cta':
+      return (
+        <CtaSection
+          key={i}
+          subtitle={block.subtitle}
+          title={block.title}
+          label={block.label}
+          action={block.action}
+          containerClass={block.containerClass}
+        />
+      );
+    default:
+      return null;
+  }
+}
+
+/**
+ * Renders a service landing page from its block list in src/data/services.jsx, then adds the
+ * pricing teaser, related work and FAQ sections just before the closing call to action.
+ */
+export default function ServicePage({ blocks, extras = {}, faqs = [], serviceName }) {
+  const closing = blocks.at(-1)?.type === 'cta' ? blocks.at(-1) : null;
+  const body = closing ? blocks.slice(0, -1) : blocks;
+  return (
+    <>
+      {body.map(renderBlock)}
+      {extras.packages && <PricingTeaser category={extras.packages.category} ids={extras.packages.ids} />}
+      {extras.portfolio && (
+        <RelatedWork tab={extras.portfolio.tab} from={extras.portfolio.from} count={extras.portfolio.count} />
+      )}
+      <FaqSection title={`${serviceName} FAQs`} items={faqs} idPrefix="faq-service" />
+      {closing && renderBlock(closing, blocks.length - 1)}
+    </>
+  );
 }

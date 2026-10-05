@@ -14,7 +14,9 @@ import '@/styles/site.css';
 
 import Analytics from '@/components/analytics/Analytics';
 import SiteShell from '@/components/layout/SiteShell';
+import JsonLd from '@/components/seo/JsonLd';
 import { organizationSchema, site } from '@/data/site';
+import { websiteSchema } from '@/lib/schema';
 
 export const metadata = {
   metadataBase: new URL(site.url),
@@ -33,10 +35,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <SiteShell>{children}</SiteShell>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
+        <JsonLd data={[organizationSchema, websiteSchema]} />
         <Analytics />
       </body>
     </html>

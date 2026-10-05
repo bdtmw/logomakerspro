@@ -16,42 +16,42 @@ export const testimonials = [
 export const testimonialImages = [
   {
     "src": "/assets/imgs/testimonial/3/1.webp",
-    "alt": "testimonial Image",
+    "alt": "",
     "width": 170,
     "height": 200,
     "className": "testimonial3__img"
   },
   {
     "src": "/assets/imgs/testimonial/3/2.webp",
-    "alt": "testimonial Image",
+    "alt": "",
     "width": 90,
     "height": 100,
     "className": "testimonial3__img-2"
   },
   {
     "src": "/assets/imgs/testimonial/3/3.webp",
-    "alt": "testimonial Image",
+    "alt": "",
     "width": 110,
     "height": 130,
     "className": "testimonial3__img-3"
   },
   {
     "src": "/assets/imgs/testimonial/3/4.webp",
-    "alt": "testimonial Image",
+    "alt": "",
     "width": 330,
     "height": 430,
     "className": "testimonial3__img-4"
   },
   {
     "src": "/assets/imgs/testimonial/3/5.webp",
-    "alt": "testimonial Image",
+    "alt": "",
     "width": 245,
     "height": 278,
     "className": "testimonial3__img-5"
   },
   {
     "src": "/assets/imgs/testimonial/3/6.webp",
-    "alt": "testimonial Image",
+    "alt": "",
     "width": 140,
     "height": 160,
     "className": "testimonial3__img-6"

@@ -2,13 +2,48 @@
 
 import { tracking } from '@/data/site';
 
-/** Get a fresh reCAPTCHA v3 token (null if the script hasn't loaded, e.g. blocked by an ad blocker). */
-export function getRecaptchaToken(action = 'submit') {
+let loading = null;
+
+/**
+ * Load reCAPTCHA v3 on demand (first focus on a form, or on submit) instead of on every page view.
+ * Resolves to window.grecaptcha, or null if it can't load (blocked by an ad blocker, offline).
+ */
+export function loadRecaptcha() {
+  if (typeof window === 'undefined' || !tracking.recaptchaSiteKey) return Promise.resolve(null);
+  if (window.grecaptcha?.execute) return Promise.resolve(window.grecaptcha);
+  if (!loading) {
+    loading = new Promise((resolve) => {
+      const s = document.createElement('script');
+      s.src = `https://www.google.com/recaptcha/api.js?render=${tracking.recaptchaSiteKey}`;
+      s.async = true;
+      s.onload = () => resolve(window.grecaptcha || null);
+      s.onerror = () => {
+        loading = null;
+        resolve(null);
+      };
+      document.head.appendChild(s);
+    });
+  }
+  return loading;
+}
+
+/** Get a fresh reCAPTCHA v3 token (null when reCAPTCHA is unavailable; the server then decides). */
+export async function getRecaptchaToken(action = 'submit') {
+  const g = await loadRecaptcha();
+  if (!g) return null;
   return new Promise((resolve) => {
-    const g = typeof window !== 'undefined' ? window.grecaptcha : null;
-    if (!g || !tracking.recaptchaSiteKey) return resolve(null);
+    const timer = setTimeout(() => resolve(null), 8000);
     g.ready(() => {
-      g.execute(tracking.recaptchaSiteKey, { action }).then(resolve, () => resolve(null));
+      g.execute(tracking.recaptchaSiteKey, { action }).then(
+        (token) => {
+          clearTimeout(timer);
+          resolve(token);
+        },
+        () => {
+          clearTimeout(timer);
+          resolve(null);
+        },
+      );
     });
   });
 }

@@ -23,10 +23,10 @@ export default function Header() {
       <div className="header__inner-3">
         <div className="header__logo-2">
           <Link className="logo-dark" href="/">
-            <Image src="/assets/imgs/logo/logo-black.webp" alt="Site Logo" width={150} height={83} priority />
+            <Image src="/assets/imgs/logo/logo-black.webp" alt="Logo Makers Pro" width={150} height={83} priority />
           </Link>
           <Link className="logo-light" href="/">
-            <Image src="/assets/imgs/logo/site-logo-white-2.webp" alt="Site Logo" width={150} height={83} />
+            <Image src="/assets/imgs/logo/site-logo-white-2.webp" alt="Logo Makers Pro" width={150} height={83} />
           </Link>
         </div>
         <div className="header__nav-2">
@@ -51,7 +51,7 @@ export default function Header() {
         </div>
         <div className="header__nav-icon-3">
           <button id="open_offcanvas" type="button" aria-label="Open menu" onClick={() => setOffcanvasOpen(true)}>
-            <Image src="/assets/imgs/icon/menu-black.png" alt="Menubar Icon" width={21} height={15} />
+            <Image src="/assets/imgs/icon/menu-black.png" alt="" width={21} height={15} />
           </button>
         </div>
       </div>

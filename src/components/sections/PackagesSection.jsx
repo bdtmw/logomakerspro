@@ -34,7 +34,7 @@ export function CategoryPackages({ category, forceQuote = false, className = 'pr
   return (
     <Shell className={className}>
       <div className="packagestabs">
-        <h1>{cat.heading}</h1>
+        <h2 className="packages-heading">{cat.heading}</h2>
       </div>
       <div className="packagescontent">
         <div className="tab-content">

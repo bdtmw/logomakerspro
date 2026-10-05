@@ -4,10 +4,10 @@ export const services = {
   'logo-design': [
     {
       type: "intro",
-      title: <>Increase Your Brand Visibility With Logo</>,
+      title: <>Logo Design Services That Increase Your Brand Visibility</>,
       lead: <>For a captivating brand interaction, entrust your logo to Logo Makers Pro, a premier agency specializing in aesthetics logo design. Our designers excel at crafting logos that embody your brand's essence, leaving a lasting impression.</>,
       body: <><i>With a focus on high-quality strategies, we elevate brands to new heights, ensuring they shine in their respective markets. Our straightforward approach guarantees a seamless process, delivering designs that not only catch the eye but also resonate with elegance and grace.</i></>,
-      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Development Image", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/logo-page.webp", "alt": "Development Image", "width": 1708, "height": 1667}],
+      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Designers collaborating on a laptop at a shared desk", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/logo-page.webp", "alt": "Designer sketching logo ideas beside color swatches", "width": 1708, "height": 1667}],
     },
     {
       type: "workflow",
@@ -32,8 +32,8 @@ export const services = {
       type: "detail",
       title: <>Get Top-of-the-Line <br /> Logo Designing Services</>,
       text: <>We don't just focus on what to deliver but also on how to do it! Excellent design keeps your customers engaged and can distinguish your brand. Our designs assist companies in accelerating their growth through compelling visuals.</>,
-      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Service detail image", "width": 960, "height": 500},
-      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "Service shape image", "width": 51, "height": 51, "className": "sd-shape"},
+      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Logo Makers Pro team reviewing a project together", "width": 960, "height": 500},
+      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "", "width": 51, "height": 51, "className": "sd-shape"},
     },
     {
       type: "cta",
@@ -47,10 +47,10 @@ export const services = {
   'web-design': [
     {
       type: "intro",
-      title: <>Custom Web Design for Your Business</>,
+      title: <>Custom Website Design Services for Your Business</>,
       lead: <>From sparking creative ideas to crafting a visually stunning website, our affordable web design agency boasts brilliant minds who can code a well-organized website for you!</>,
       body: <><i>Logo Makers Pro, your affordable website design company, offers a comprehensive suite of services to empower your digital presence. We don't just build websites – we craft stunning, user-friendly experiences that get you noticed. From eye-catching layouts to powerful optimization, our unique approach ensures your website is both beautiful and effective.</i></>,
-      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Development Image", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/dev-2.jpg", "alt": "Development Image", "width": 410, "height": 400}],
+      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Designers collaborating on a laptop at a shared desk", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/dev-2.jpg", "alt": "Team reviewing a website design on a desktop monitor", "width": 410, "height": 400}],
     },
     {
       type: "workflow",
@@ -85,8 +85,8 @@ export const services = {
       type: "detail",
       title: <>We Develop <br /> Affordable Websites</>,
       text: <>We assist you in standing out among your competitors! We highlight any gaps in your website development and identify missed opportunities that can be utilized to attract more audience. We are a comprehensive website design and development company, offering a range of solutions for both desktop and mobile platforms, all while ensuring a perfect balance of creativity and user-friendliness.</>,
-      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Service detail image", "width": 960, "height": 500},
-      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "Service shape image", "width": 51, "height": 51, "className": "sd-shape"},
+      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Logo Makers Pro team reviewing a project together", "width": 960, "height": 500},
+      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "", "width": 51, "height": 51, "className": "sd-shape"},
     },
     {
       type: "cta",
@@ -100,10 +100,10 @@ export const services = {
   'e-commerce': [
     {
       type: "intro",
-      title: <>A Leading Team That Builds And Manages Your Online Store!</>,
+      title: <>Ecommerce Website Design That Builds and Manages Your Online Store</>,
       lead: <>Whether you're just starting fresh or a well-established high-volume corporation, our eCommerce platform development team offers the features you need to enhance your online growth.</>,
       body: <>Logo Makers Pro expert team brings your vision to life with a modern e-commerce website design. We craft beautiful, responsive websites optimized for all devices, empowering you to reach and engage your audience seamlessly. Our focus is on exceeding your business goals and turning website visitors into loyal customers.</>,
-      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Development Image", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/e-com-page.jpg", "alt": "Development Image", "width": 1708, "height": 1667}],
+      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Designers collaborating on a laptop at a shared desk", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/e-com-page.jpg", "alt": "Online store being browsed on a laptop", "width": 1708, "height": 1667}],
     },
     {
       type: "workflow",
@@ -128,8 +128,51 @@ export const services = {
       type: "detail",
       title: <>We Serve <br /> You To Sell More!</>,
       text: <>The ultimate goal is to connect with your audience. A combination of high visual appeal and effective back-end and front-end development is crucial to make your eCommerce store powerful.</>,
-      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Service detail image", "width": 960, "height": 500},
-      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "Service shape image", "width": 51, "height": 51, "className": "sd-shape"},
+      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Logo Makers Pro team reviewing a project together", "width": 960, "height": 500},
+      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "", "width": 51, "height": 51, "className": "sd-shape"},
+    },
+    {
+      type: "cta",
+      containerClass: "container line pb-110 pt-80",
+      subtitle: "Work with us",
+      title: <>Kick start your digital transformation journey today!</>,
+      label: "Let’s talk!",
+      action: "chat",
+    },
+  ],
+  wordpress: [
+    {
+      type: "intro",
+      title: <>WordPress Website Development That Grows With You</>,
+      lead: <>We design and build custom WordPress websites that reflect your brand, load fast and are easy for your team to update.</>,
+      body: <><i>From a polished business site to a content-rich hub, Logo Makers Pro handles the theme design, development, plugins and launch, so you can focus on running your business.</i></>,
+      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Designers collaborating on a laptop at a shared desk", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/dev-2.jpg", "alt": "Team reviewing a website design on a desktop monitor", "width": 410, "height": 400}],
+    },
+    {
+      type: "workflow",
+      heading: "Our Process",
+      colClass: "col-xxl-3 col-xl-3 col-lg-3 col-md-3",
+      items: [
+        { title: <>Discovery &amp; Planning</>, text: <>We learn about your business, audience and goals, then map out the pages, content and features your WordPress site needs.</> },
+        { title: <>Custom Theme Design</>, text: <>Our designers create a custom look for your site instead of a generic template, so it matches your brand on every page.</> },
+        { title: <>Development &amp; Plugins</>, text: <>We build the theme, set up the content management system and add the plugins your site needs, such as forms, search and social feeds.</> },
+        { title: <>Launch &amp; Handover</>, text: <>After testing across browsers and devices, we deploy your site and hand over full admin access and the complete source files.</> },
+      ],
+    },
+    {
+      type: "cta",
+      containerClass: "container line",
+      subtitle: "Work with us",
+      title: <>Get a WordPress website your team can actually manage</>,
+      label: "Get a Quote",
+      action: "quote",
+    },
+    {
+      type: "detail",
+      title: <>Custom WordPress <br /> Development</>,
+      text: <>We don&apos;t rely on off-the-shelf themes. Every WordPress site we build starts with a custom design, then gets the plugins and integrations your business needs, from signup forms and search to online booking and payments. You get a site that is easy to update, ready for search engines and fully yours.</>,
+      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Logo Makers Pro team reviewing a project together", "width": 960, "height": 500},
+      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "", "width": 51, "height": 51, "className": "sd-shape"},
     },
     {
       type: "cta",
@@ -143,10 +186,10 @@ export const services = {
   'video-animation': [
     {
       type: "intro",
-      title: <>Creating Magnificent Digital Animations For Your Brand!</>,
+      title: <>Video Animation Services That Bring Your Brand to Life</>,
       lead: <>As leaders in creative animation services, we collaborate with top-tier companies. Our animation process starts by capturing the essence of your vision: what defines your unique identity.</>,
       body: <>Logo Makers Pro is your go-to animation company for all your video requirements! We keep up-to-date with the latest animation trends and techniques, ensuring you stay ahead of the competition. Our outsourcing animation services cover a broad spectrum, including 3D video, explainer video, motion animation, whiteboard animation, 2D animated characters video, and more. In essence, we're your one-stop destination for all things video animation.</>,
-      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Development Image", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/animation-page.jpg", "alt": "Development Image", "width": 1708, "height": 1667}],
+      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Designers collaborating on a laptop at a shared desk", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/animation-page.jpg", "alt": "Animator editing a video on a desktop computer", "width": 1708, "height": 1667}],
     },
     {
       type: "workflow",
@@ -172,8 +215,8 @@ export const services = {
       type: "detail",
       title: <>Videos For Better Audience, <br /> More Traction, and More Eyeballs</>,
       text: <>Let's create a visual experience that addresses your needs effectively! Our proficiency in the animation video industry keeps us ahead of the competition. Our value-focused animation process is straightforward yet impactful, suitable for social media or your website!</>,
-      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Service detail image", "width": 960, "height": 500},
-      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "Service shape image", "width": 51, "height": 51, "className": "sd-shape"},
+      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Logo Makers Pro team reviewing a project together", "width": 960, "height": 500},
+      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "", "width": 51, "height": 51, "className": "sd-shape"},
     },
     {
       type: "cta",
@@ -187,10 +230,10 @@ export const services = {
   'brand-services': [
     {
       type: "intro",
-      title: <>Helping You Create An Aesthetic and Bold Digital Presence!</>,
+      title: <>Branding Services for a Bold, Consistent Digital Presence</>,
       lead: <>Logo Makers Pro offers comprehensive multi-channel branding expertise and works with you to cultivate an authentic online presence that garners love, likes, and shares organically, without resorting to paid promotions.</>,
       body: <>We craft strategic branding to ensure your prospects are delighted! Logo Makers Pro empowers your prospects to make a lasting impression on your online audience; they will not only engage but also share their impressions with potential followers. By fostering an authentic relationship with your prospects, they'll choose you without hesitation.</>,
-      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Development Image", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/branding-page.jpg", "alt": "Development Image", "width": 1708, "height": 1667}],
+      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Designers collaborating on a laptop at a shared desk", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/branding-page.jpg", "alt": "Brand design workspace with mood boards and color swatches", "width": 1708, "height": 1667}],
     },
     {
       type: "workflow",
@@ -217,8 +260,8 @@ export const services = {
       type: "detail",
       title: <>Branding Services That <br /> Draw People Toward You!</>,
       text: <>We'll ensure your audience remains engaged with your brand! Draw in and motivate an expanding fanbase with the content you produce. When your value is evident, selecting you becomes a natural choice.</>,
-      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Service detail image", "width": 960, "height": 500},
-      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "Service shape image", "width": 51, "height": 51, "className": "sd-shape"},
+      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Logo Makers Pro team reviewing a project together", "width": 960, "height": 500},
+      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "", "width": 51, "height": 51, "className": "sd-shape"},
     },
     {
       type: "cta",
@@ -235,7 +278,7 @@ export const services = {
       title: <>Stay on Top with Top-Ranked Digital Marketing Services!</>,
       lead: <>Logo Makers Pro enables you to skillfully create ad visuals and dynamic campaigns that boost engagement, optimizing revenue and audience growth.</>,
       body: <><i>Partnering with Logo Makers Pro's social media team</i>{" "}can steer your brand toward success by designing campaigns that resonate with your audience. Our social media consultation services help you reach your target audience and expand your business effectively. Receive expert guidance on social media marketing from our capable team of marketers.</>,
-      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Development Image", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/digital-page.jpg", "alt": "Development Image", "width": 1708, "height": 1667}],
+      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Designers collaborating on a laptop at a shared desk", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/digital-page.jpg", "alt": "Social media marketing on a phone and laptop", "width": 1708, "height": 1667}],
     },
     {
       type: "workflow",
@@ -271,8 +314,8 @@ export const services = {
       type: "detail",
       title: <>Maximize Your Reach With Well <br /> Planned Multi-Channel Campaigns</>,
       text: <>Our creative expertise leaves a lasting impression that customers won't forget. Your brand must be present wherever your customers are. To alleviate your marketing challenges, Logo Makers Pro's digital marketing team devises multi-layered branding strategies that seamlessly integrate your online presence across all platforms, including your social media pages.</>,
-      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Service detail image", "width": 960, "height": 500},
-      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "Service shape image", "width": 51, "height": 51, "className": "sd-shape"},
+      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Logo Makers Pro team reviewing a project together", "width": 960, "height": 500},
+      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "", "width": 51, "height": 51, "className": "sd-shape"},
     },
     {
       type: "cta",
@@ -289,7 +332,7 @@ export const services = {
       title: <>Sleek and Innovative Mobile App Development Agency</>,
       lead: <>Logo Makers Pro is a mobile app development company that specializes in creating highly functional, feature-rich, and digitally innovative mobile applications for iOS and Android devices.</>,
       body: <><i>We take an elevated approach to application development!</i>{" "}Balancing design, copy, UX, mobile performance, and speed can be challenging, but your customers' trust depends on it. Logo Makers Pro's website development and design services ensure that you make the right impression on leads without compromising performance, speed, or results.</>,
-      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Development Image", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/mobile-app-page.jpg", "alt": "Development Image", "width": 1708, "height": 1667}],
+      images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Designers collaborating on a laptop at a shared desk", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/mobile-app-page.jpg", "alt": "Developer writing mobile app code on multiple screens", "width": 1708, "height": 1667}],
     },
     {
       type: "workflow",
@@ -316,8 +359,8 @@ export const services = {
       type: "detail",
       title: <>Time-Tested Custom <br /> Mobile App Development Services</>,
       text: <>We guarantee a flawless user experience on the devices your audience prefers. Our platform's experts are highly skilled with years of experience in web and app design and development. We adhere to a rigorous project methodology to effectively meet our client's requirements.</>,
-      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Service detail image", "width": 960, "height": 500},
-      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "Service shape image", "width": 51, "height": 51, "className": "sd-shape"},
+      image: {"src": "/assets/imgs/thumb/service-detail.webp", "alt": "Logo Makers Pro team reviewing a project together", "width": 960, "height": 500},
+      shape: {"src": "/assets/imgs/icon/shape-6.png", "alt": "", "width": 51, "height": 51, "className": "sd-shape"},
     },
     {
       type: "cta",

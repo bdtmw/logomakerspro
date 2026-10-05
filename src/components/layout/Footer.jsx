@@ -39,7 +39,7 @@ export default function Footer() {
       <div className="footer__top-3">
         <div className="footer__top-wrapper-3">
           <div className="footer__logo-3 pt-120">
-            <Image src="/assets/imgs/logo/site-logo-white-2.webp" alt="Footer Logo" width={150} height={83} />
+            <Image src="/assets/imgs/logo/site-logo-white-2.webp" alt="Logo Makers Pro" width={150} height={83} />
             <p>{site.footerBlurb}</p>
           </div>
           <div className="footer__social-3">

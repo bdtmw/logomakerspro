@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { getRecaptchaToken } from '@/lib/recaptcha-client';
+import { getRecaptchaToken, loadRecaptcha } from '@/lib/recaptcha-client';
 
 /** Customer details for an order request. Package/price are resolved on the server from packageId. */
 export default function CheckoutForm({ packageId, packageName, price }) {
@@ -31,7 +31,7 @@ export default function CheckoutForm({ packageId, packageName, price }) {
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} onFocus={() => loadRecaptcha()}>
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="firstName">First Name *</label>

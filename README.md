@@ -25,6 +25,9 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 | Portfolio gallery | `src/data/portfolio.js` |
 | Testimonials | `src/data/testimonials.js` |
 | Page titles / descriptions | `src/data/seo.js` |
+| FAQs (service, package, general) | `src/data/faqs.js` |
+| Package page intros, service page extras | `src/data/copy.js` |
+| Structured data builders | `src/lib/schema.js` |
 | Phone, email, nav, tracking IDs, schema | `src/data/site.js` |
 | Header, off-canvas menu, footer, smooth scroll | `src/components/layout/` |
 | Quote popup, buttons, tabs, lightbox, counters | `src/components/ui/` |
@@ -43,8 +46,24 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 ## SEO
 
 - Clean URLs (`/logo-design`). Every old `.php` URL permanently redirects (308) to its clean route (`next.config.mjs`).
-- Per-page titles, descriptions and canonicals carried over; Organization JSON-LD and Google site verification kept.
+- Titles (50 to 60 characters) and meta descriptions (140 to 160) for every page in `src/data/seo.js`, from the
+  October 2026 audit. Canonicals point at `https://logomakerspro.com`.
+- One H1 per page. Open Graph and Twitter tags on every page, with a generated 1200x630 share image
+  (`src/app/opengraph-image.js`).
+- Structured data: Organization and WebSite site-wide, Service (with price range) on service pages, OfferCatalog
+  on package pages, FAQPage wherever FAQs show, BreadcrumbList on inner pages.
 - `sitemap.xml` and `robots.txt` are generated (`src/app/sitemap.js`, `src/app/robots.js`).
+- `src/middleware.js` sends `X-Robots-Tag: noindex` on any host that isn't in `PRODUCTION_HOSTS` (so the
+  `*.vercel.app` copy never competes with the real domain) and 308-redirects `www.` to the bare domain.
+  When the domain is connected in Vercel, the production host is indexable automatically.
+
+## Performance
+
+- Unused CSS is purged at build time (`postcss.config.js`): about 738 KB of stylesheets down to about 160 KB
+  (25 KB gzipped). Purging only runs in production builds. If you paste in markup from the original theme,
+  check that its class names appear somewhere in `src/`, or add them to the safelist.
+- reCAPTCHA v3 loads only when someone focuses a form, not on every page view.
+- Images go through `next/image` (AVIF/WebP, lazy loading, fixed dimensions); hero images load with priority.
 
 ## Tracking (kept from the live site)
 
@@ -61,17 +80,24 @@ and can be overridden with the `NEXT_PUBLIC_*` variables in `.env.example`.
   if chat hasn't loaded.
 - **Order page** uses the main site layout. The live one uses an older template (broken logo, links to pages that
   don't exist).
-- **Missing titles filled** for Branding, Combo and SEO packages, Terms and Privacy (empty on the live site).
+- **Every title and meta description rewritten** (5 titles and 11 descriptions were empty on the live site).
+- **New `/wordpress` service page.** The live nav links to `wordpress.php`, which is a 404.
+- **New sections:** FAQs on all service and package pages, a pricing band and related work on service pages,
+  unique intros on the 8 package pages.
+- **Home page** targets "custom logo design services" (H1 and title); service cards rewritten and relinked.
+- **Package card fixes:** Google+ removed (shut down in 2019), typos fixed ("Branding Ultimate", "500 Business
+  Cards", "Stationery", "Up to", "Signage", "Envelope").
 - **Font Awesome** is self-hosted from npm (the live site's local icon fonts are broken placeholders; it relies on a
   domain-locked kit).
 - Home "What We Do" panel starts at 0.6 scale, matching what the live site actually shows. See the comment in
   `src/components/sections/HomeWorkflow.jsx` to switch to the intended full-size start.
 
-## Carried over as-is (worth fixing)
+## Still to do (outside the code)
 
-- Nav links to `/wordpress`, which is a 404 on the live site too.
-- Home service cards: copy mentions "Team WebbMight", and "UI/UX DESIGN" / "LOGO DESIGN" / "ANIMATION" link to
-  `/logo-design`, `/web-design` and `/mobile-app-services`.
-- E-commerce page title reads "Log oMakers Pro".
+- Terms & Conditions list a different phone (844-721-6130) and email (info@logomakerspro.com) from the rest of the
+  site. Confirm which are current so the business details match everywhere.
 - Two portfolio full-size images are missing on the server (`lg-016.jpeg`, `lg-25.jpeg`); the lightbox shows the
   thumbnail instead.
+- Search Console: submit `sitemap.xml` once the domain points here, and check that Googlebot isn't blocked by the
+  old host's bot protection.
+- Off-site work from the audit (directory listings, guest posts, reviews) and the new industry and style pages.

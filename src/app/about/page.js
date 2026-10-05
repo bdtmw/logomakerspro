@@ -3,6 +3,8 @@ import Counter from '@/components/ui/Counter';
 import Link from 'next/link';
 import MagneticButton from '@/components/ui/MagneticButton';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
+import JsonLd from '@/components/seo/JsonLd';
+import { breadcrumbSchema } from '@/lib/schema';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata('/about');
@@ -10,6 +12,7 @@ export const metadata = pageMetadata('/about');
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: 'Home', route: '/' }, { name: 'About', route: '/about' }])} />
       <section className="hero__about">
         <div className="container g-0 line">
           <span className="line-3"></span>
@@ -31,7 +34,7 @@ export default function AboutPage() {
                     </p>
                   </div>
                   <div className="hero__about-award">
-                    <Image src="/assets/imgs/logo/logo-black.webp" alt="Best Studio Award" width={150} height={83} />
+                    <Image src="/assets/imgs/logo/logo-black.webp" alt="Logo Makers Pro logo" width={150} height={83} />
                   </div>
                 </div>
               </div>
@@ -59,19 +62,19 @@ export default function AboutPage() {
           <div className="row">
             <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-3">
               <div className="story__img-wrapper">
-                <Image src="/assets/imgs/story/333.webp" alt="Story Thumbnail" width={300} height={450} className="w-100" />
+                <Image src="/assets/imgs/story/333.webp" alt="Two designers reviewing a project on a laptop" width={300} height={450} className="w-100" />
               </div>
             </div>
             <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-5">
               <div className="story__img-wrapper img-anim">
-                <Image src="/assets/imgs/story/12345.webp" alt="Story Thumbnail" width={520} height={700} data-speed="auto" />
+                <Image src="/assets/imgs/story/12345.webp" alt="Team discussing a website design at a meeting table" width={520} height={700} data-speed="auto" />
               </div>
             </div>
             <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-4">
               <div className="story__img-wrapper">
-                <Image src="/assets/imgs/story/3.webp" alt="Story Thumbnail" width={230} height={140} />
+                <Image src="/assets/imgs/story/3.webp" alt="Brainstorming session with sticky notes on a glass wall" width={230} height={140} />
                 {" "}
-                <Image src="/assets/imgs/story/34.webp" alt="Story Thumbnail" width={410} height={330} />
+                <Image src="/assets/imgs/story/34.webp" alt="Designers presenting a concept on a laptop" width={410} height={330} />
               </div>
             </div>
           </div>

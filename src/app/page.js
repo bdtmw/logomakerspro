@@ -19,19 +19,20 @@ export default function HomePage() {
             <div className="col-xxl-12">
               <div className="hero__inner-3">
                 <div className="sec-title-wrapper">
-                  <h2 className="sec-sub-title">Logo Design Company</h2>
+                  <h1 className="sec-sub-title">Custom Logo Design Services</h1>
                   <h4 className="sec-title">Logo</h4>
                   <h4 className="sec-title right-text-head">Makers Pro</h4>
                 </div>
                 <div className="hero__text-3">
                   <p>
                     Elevate your business with captivating logo design solutions at Logo Makers Pro. We craft unique designs that enhance your brand's identity and leave a lasting impression. Achieve excellence with our{" "}
-                    <strong>professional logo design services.</strong>
+                    <strong>professional logo design services</strong>, created by a professional logo maker team
+                    rather than a template generator.
                   </p>
                 </div>
                 <div className="scroll-down">
                   <button>
-                    <Image src="/assets/imgs/icon/arrow-down-sm.png" alt="arrow icon" width={17} height={28} />
+                    <Image src="/assets/imgs/icon/arrow-down-sm.png" alt="Scroll down" width={17} height={28} />
                   </button>
                 </div>
               </div>
@@ -47,7 +48,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="hero3-img-ani">
-          <Image src="/assets/imgs/hero/3/1_003.webp" alt="Hero Image" width={1195} height={350} className="hero3-img" />
+          <Image src="/assets/imgs/hero/3/1_003.webp" alt="Logo Makers Pro team working in a bright open-plan office" width={1195} height={350} className="hero3-img" priority sizes="(min-width: 1200px) 1195px, 100vw" />
         </div>
       </section>
       <section className="about__area-3">
@@ -55,7 +56,7 @@ export default function HomePage() {
           <div className="row">
             <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
               <div className="about__img-3">
-                <Image src="/assets/imgs/about/3/1.webp" alt="About Thumbnail" width={550} height={765} data-speed="auto" />
+                <Image src="/assets/imgs/about/3/1.webp" alt="Designers at work in the Logo Makers Pro studio" width={550} height={765} data-speed="auto" />
               </div>
             </div>
             <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
@@ -102,16 +103,18 @@ export default function HomePage() {
               <div className="single__bg">
                 <div className="single__service">
                   <div className="single__service-icon">
-                    <Image src="/assets/imgs/s-icon-1.png" alt="icon" width={241} height={266} />
+                    <Image src="/assets/imgs/s-icon-1.png" alt="Logo design service icon" width={241} height={266} />
                   </div>
                   <div className="single__service-content">
                     <h3>
-                      UI/UX
+                      LOGO
                       <br />
                       DESIGN
                     </h3>
                     <p>
-                      Your company logo isn’t just a tiny artwork! It has to have an idea, a story behind the design. Team WebbMight aims to give your brand an edge, we design logos that become the talk of the town, making brands approachable!
+                      Your logo is more than a small piece of artwork. It carries the idea and story behind your brand. Our
+                      designers create logos people remember, so your business stands out and feels approachable at first
+                      glance.
                     </p>
                   </div>
                   <div className="single__service-link"><Link href="/logo-design" className="s-btn">Details</Link></div>
@@ -122,16 +125,17 @@ export default function HomePage() {
               <div className="single__bg">
                 <div className="single__service">
                   <div className="single__service-icon">
-                    <Image src="/assets/imgs/s-icon-2.webp" alt="icon" width={241} height={241} />
+                    <Image src="/assets/imgs/s-icon-2.webp" alt="Web design service icon" width={241} height={241} />
                   </div>
                   <div className="single__service-content">
                     <h3>
-                      LOGO
+                      WEB
                       <br />
                       DESIGN
                     </h3>
                     <p>
-                      Designing engaging logos that resonate with your brand's identity. Our team ensures your logo reflects your products and services, establishing a memorable and impactful brand presence.
+                      Your website is the front door of your brand. We design responsive, SEO-friendly websites that look
+                      sharp on every screen and turn visitors into enquiries, from 3-page sites to full online stores.
                     </p>
                   </div>
                   <div className="single__service-link"><Link href="/web-design" className="s-btn">Details</Link></div>
@@ -142,7 +146,7 @@ export default function HomePage() {
               <div className="single__bg">
                 <div className="single__service">
                   <div className="single__service-icon">
-                    <Image src="/assets/imgs/s-icon-3.webp" alt="icon" width={241} height={241} />
+                    <Image src="/assets/imgs/s-icon-3.webp" alt="Animation service icon" width={241} height={241} />
                   </div>
                   <div className="single__service-content">
                     <h3>ANIMATION</h3>
@@ -150,7 +154,7 @@ export default function HomePage() {
                       Creating dynamic animations that bring your brand to life. Our team specializes in delivering captivating motion graphics and animations that engage and captivate your audience.
                     </p>
                   </div>
-                  <div className="single__service-link"><Link href="/mobile-app-services" className="s-btn">Details</Link></div>
+                  <div className="single__service-link"><Link href="/video-animation" className="s-btn">Details</Link></div>
                 </div>
               </div>
             </div>
@@ -228,7 +232,7 @@ export default function HomePage() {
               </div>
               <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7">
                 <div className="counter__img-3">
-                  <Image src="/assets/imgs/thumb/counter-3.webp" alt="Counter Image" width={717} height={670} />
+                  <Image src="/assets/imgs/thumb/counter-3.webp" alt="Logo Makers Pro designers and developers" width={717} height={670} />
                 </div>
               </div>
             </div>
