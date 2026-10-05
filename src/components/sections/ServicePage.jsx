@@ -61,7 +61,7 @@ function Workflow({ block }) {
             {block.items.map((item, i) => (
               <div className={block.colClass} key={i}>
                 <div className="workflow__slide-6">
-                  <h6 className="workflow__title-6">{item.title}</h6>
+                  <h3 className="workflow__title-6">{item.title}</h3>
                   <p>{item.text}</p>
                 </div>
               </div>

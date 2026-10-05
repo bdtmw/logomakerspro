@@ -58,7 +58,7 @@ export const packageLinks = [
 // Header uses lowercase "home"; the off-canvas menu uses "Home" and shorter labels (as on the live site).
 export const headerNav = [
   { label: 'home', href: '/', className: 'has-megamenu' },
-  { label: 'Services', href: '#', children: serviceLinks },
+  { label: 'Services', href: '/services', children: serviceLinks },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Packages', href: '/packages', children: packageLinks },
   { label: 'About Us', href: '/about' },
@@ -67,7 +67,7 @@ export const headerNav = [
 
 export const offcanvasNav = [
   { label: 'Home', href: '/' },
-  { label: 'Services', href: '#', children: serviceLinks },
+  { label: 'Services', href: '/services', children: serviceLinks },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Packages', href: '/packages', children: packageLinks },
   { label: 'About', href: '/about' },
@@ -83,16 +83,20 @@ export const footerNav = [
   { label: 'Privacy Policy', href: '/privacy-policy' },
 ];
 
+// Other schema (Service, WebSite, offers) points at this node by its @id.
+export const organizationId = `${site.url}/#organization`;
+
 export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'Logo Makers Pro',
-  url: 'https://logomakerspro.com/',
-  logo: 'https://logomakerspro.com/assets/imgs/logo/logo-black.webp',
-  sameAs: ['https://www.facebook.com/logomakerspro'],
+  '@id': organizationId,
+  name: site.name,
+  url: `${site.url}/`,
+  logo: `${site.url}/assets/imgs/logo/logo-black.webp`,
+  sameAs: ['https://www.facebook.com/logomakerspro', 'https://www.instagram.com/logomakerspro'],
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+1-307-218-3240',
+    telephone: site.phoneE164,
     contactType: 'Customer Service',
     areaServed: 'US',
     availableLanguage: 'English',
@@ -107,6 +111,6 @@ export const organizationSchema = {
   },
   description:
     'Logo Makers Pro is a digital design agency dedicated to helping businesses elevate their online presence through outstanding design. We specialize in logo design and web design, creating visually striking and functional solutions that reflect your brand identity.',
-  email: 'support@logomakerspro.com',
-  telephone: '+1-307-218-3240',
+  email: site.email,
+  telephone: site.phoneE164,
 };

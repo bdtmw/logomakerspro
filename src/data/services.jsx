@@ -275,7 +275,7 @@ export const services = {
   'digital-marketing-services': [
     {
       type: "intro",
-      title: <>Stay on Top with Top-Ranked Digital Marketing Services!</>,
+      title: <>Digital Marketing Services That Grow Traffic and Leads</>,
       lead: <>Logo Makers Pro enables you to skillfully create ad visuals and dynamic campaigns that boost engagement, optimizing revenue and audience growth.</>,
       body: <><i>Partnering with Logo Makers Pro's social media team</i>{" "}can steer your brand toward success by designing campaigns that resonate with your audience. Our social media consultation services help you reach your target audience and expand your business effectively. Receive expert guidance on social media marketing from our capable team of marketers.</>,
       images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Designers collaborating on a laptop at a shared desk", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/digital-page.jpg", "alt": "Social media marketing on a phone and laptop", "width": 1708, "height": 1667}],
@@ -329,7 +329,7 @@ export const services = {
   'mobile-app-services': [
     {
       type: "intro",
-      title: <>Sleek and Innovative Mobile App Development Agency</>,
+      title: <>Mobile App Development Services for iOS and Android</>,
       lead: <>Logo Makers Pro is a mobile app development company that specializes in creating highly functional, feature-rich, and digitally innovative mobile applications for iOS and Android devices.</>,
       body: <><i>We take an elevated approach to application development!</i>{" "}Balancing design, copy, UX, mobile performance, and speed can be challenging, but your customers' trust depends on it. Logo Makers Pro's website development and design services ensure that you make the right impression on leads without compromising performance, speed, or results.</>,
       images: [{"src": "/assets/imgs/thumb/dev-1.webp", "alt": "Designers collaborating on a laptop at a shared desk", "width": 850, "height": 400, "speed": "auto"}, {"src": "/assets/imgs/thumb/mobile-app-page.jpg", "alt": "Developer writing mobile app code on multiple screens", "width": 1708, "height": 1667}],

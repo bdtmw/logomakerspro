@@ -62,11 +62,15 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 - Clean URLs (`/logo-design`). Every old `.php` URL permanently redirects (308) to its clean route (`next.config.mjs`).
 - Titles (50 to 60 characters) and meta descriptions (140 to 160) for every page in `src/data/seo.js`, from the
   October 2026 audit. Canonicals point at `https://logomakerspro.com`.
-- One H1 per page. Open Graph and Twitter tags on every page, with a generated 1200x630 share image
-  (`src/app/opengraph-image.js`).
-- Structured data: Organization and WebSite site-wide, Service (with price range) on service pages, OfferCatalog
-  on package pages, FAQPage wherever FAQs show, BreadcrumbList on inner pages.
-- `sitemap.xml` and `robots.txt` are generated (`src/app/sitemap.js`, `src/app/robots.js`).
+- One H1 per page, headings in order (no skipped levels). Open Graph and Twitter tags on every page, with a
+  generated 1200x630 share image (`src/app/opengraph-image.js`) set explicitly in `pageMetadata()`.
+- `/services` hub lists all 8 services and is the target of the "Services" menu item.
+- Structured data: Organization (`@id` `/#organization`, referenced by Service, offers and WebSite) and WebSite
+  site-wide, Service (with price range) on service pages, OfferCatalog on package pages, ItemList on `/services`,
+  FAQPage wherever FAQs show, BreadcrumbList on inner pages.
+- `sitemap.xml` and `robots.txt` are generated (`src/app/sitemap.js`, `src/app/robots.js`). Sitemap `lastmod`
+  comes from `SITE_UPDATED` / `CONTENT_UPDATED` in `sitemap.js`: bump them when copy changes. robots.txt blocks only
+  `/api/`; the order page is kept out of the index by its own `noindex` (which Google can only see if it may crawl it).
 - `src/middleware.js` sends `X-Robots-Tag: noindex` on any host that isn't in `PRODUCTION_HOSTS` (so the
   `*.vercel.app` copy never competes with the real domain) and 308-redirects `www.` to the bare domain.
   When the domain is connected in Vercel, the production host is indexable automatically.

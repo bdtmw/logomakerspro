@@ -48,7 +48,7 @@ export default function AboutPage() {
           <div className="sec-title-wrapper">
             <div className="row">
               <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-5">
-                <h3 className="sec-title">Building Brands with Impactful Designs</h3>
+                <h2 className="sec-title">Building Brands with Impactful Designs</h2>
               </div>
               <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7">
                 <div className="story__text">
@@ -98,7 +98,7 @@ export default function AboutPage() {
                 <div className="counter__item-2">
                   <Counter value="200+" />
                   <p>
-                    Websites
+                    Website
                     <br />
                     Designs
                   </p>

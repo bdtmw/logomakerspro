@@ -1,8 +1,8 @@
 import { seo } from '@/data/seo';
-import { site } from '@/data/site';
+import { organizationId, site } from '@/data/site';
 import { absoluteUrl } from '@/lib/seo';
 
-const provider = { '@type': 'Organization', name: site.name, url: `${site.url}/` };
+const provider = { '@id': organizationId };
 
 export const serviceNames = {
   'logo-design': 'Logo Design',
@@ -93,7 +93,7 @@ export function offerCatalogSchema(category) {
               },
             }
           : {}),
-        url: absoluteUrl(`/order/order-now?package=${encodeURIComponent(c.id)}`),
+        url: absoluteUrl(`/${category.slug}-package`),
         itemOffered: { '@type': 'Service', name: c.orderName || c.title.join(' '), provider },
       })),
   };
@@ -102,6 +102,8 @@ export function offerCatalogSchema(category) {
 export const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': `${site.url}/#website`,
   name: site.name,
   url: `${site.url}/`,
+  publisher: { '@id': organizationId },
 };

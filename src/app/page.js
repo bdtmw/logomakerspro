@@ -20,8 +20,8 @@ export default function HomePage() {
               <div className="hero__inner-3">
                 <div className="sec-title-wrapper">
                   <h1 className="sec-sub-title">Custom Logo Design Services</h1>
-                  <h4 className="sec-title">Logo</h4>
-                  <h4 className="sec-title right-text-head">Makers Pro</h4>
+                  <div className="sec-title">Logo</div>
+                  <div className="sec-title right-text-head">Makers Pro</div>
                 </div>
                 <div className="hero__text-3">
                   <p>
@@ -207,7 +207,7 @@ export default function HomePage() {
                   <div className="counter__item-3">
                     <Counter value="200+" />
                     <p>
-                      Websites
+                      Website
                       <br />
                       Designs
                     </p>
@@ -243,7 +243,7 @@ export default function HomePage() {
             <div className="row">
               <div className="col-xxl-12">
                 <div className="cta__content-3">
-                  <p className="cta__sub-title-2">Have you project in mind?</p>
+                  <p className="cta__sub-title-2">Have a project in mind?</p>
                   <h2 className="cta__title-2">Let’s make something great together!</h2>
                   <MagneticButton href="/contact" className="wc-btn-black btn-hover btn-item">
                     Contact

@@ -51,7 +51,12 @@ export function CategoryPackages({ category, forceQuote = false, className = 'pr
 export function AllPackages() {
   const tabs = packagesTabOrder.map((t) => ({
     label: t.label,
-    content: <CardGrid cards={packageCategories[t.category].cards} />,
+    content: (
+      <>
+        <h2 className="packages-panel-heading">{packageCategories[t.category].heading}</h2>
+        <CardGrid cards={packageCategories[t.category].cards} />
+      </>
+    ),
   }));
   return (
     <Shell className="price__area pt-130 pb-140">

@@ -16,7 +16,7 @@ export default function ContactPage() {
         <div className="row">
           <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
             <div className="sec-title-wrapper">
-              <h1 className="sec-title-2">Let’s get in touch</h1>
+              <h1 className="sec-title-2">Contact Us for a Free Quote</h1>
             </div>
           </div>
           <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
@@ -31,11 +31,11 @@ export default function ContactPage() {
         <div className="row contact__btm">
           <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-5">
             <div className="contact__info">
-              <h3 className="sub-title-anim-top">
+              <h2 className="sub-title-anim-top">
                 Have a Question?
                 <br />
                 Say Hello!
-              </h3>
+              </h2>
               <ul className="contact-icons">
                 <li>
                   <i className="fa-solid fa-phone-volume" /> <a href={`tel:${site.phone}`}>{site.phone}</a>

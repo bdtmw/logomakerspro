@@ -1,9 +1,26 @@
 // Page intros and per-page settings shared by several components.
 
 export const PACKAGES_INTRO = {
-  title: 'Customized packages that cater to the unique needs of each client',
+  title: 'Logo, Website and Branding Packages',
   text: 'Logo Makers Pro packages cater to businesses of all sizes, from small startups to large corporations. Explore our offerings to find the package that aligns best with your requirements.',
 };
+
+export const SERVICES_INTRO = {
+  title: 'Logo Design, Web Design and Branding Services',
+  text: 'Everything a growing business needs to look professional online, from a custom logo to a full website, store or app. Pick a service to see how we work, what you get and what it costs.',
+};
+
+// One card per service on /services. Order = order on the page.
+export const servicesHub = [
+  { slug: 'logo-design', text: 'Original logo concepts from professional designers, unlimited revisions on most packages and every final file you need.' },
+  { slug: 'web-design', text: 'Responsive, SEO-friendly websites from 3 to 20 pages that look sharp on every screen and turn visitors into enquiries.' },
+  { slug: 'e-commerce', text: 'Online stores with product search, secure checkout and payment setup, built to be easy for you to manage.' },
+  { slug: 'wordpress', text: 'Custom WordPress themes, WooCommerce stores and plugin setup, tuned for speed so your site is quick and easy to update.' },
+  { slug: 'brand-services', text: 'A consistent identity across your logo, stationery, social media and brand guidelines, so every touchpoint looks like you.' },
+  { slug: 'video-animation', text: 'Explainer and promo videos with script, voice-over and custom 2D or 3D animation that make your offer easy to grasp.' },
+  { slug: 'digital-marketing-services', text: 'SEO, paid ads, social media and content marketing that grow traffic and leads, with a progress report every month.' },
+  { slug: 'mobile-app-services', text: 'iOS and Android apps designed for speed and a great user experience, from first wireframe to app store launch.' },
+];
 
 export const PORTFOLIO_INTRO = {
   title: 'Selected Logo & Web Design Projects',

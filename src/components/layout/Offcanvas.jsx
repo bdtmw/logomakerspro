@@ -97,7 +97,7 @@ export default function Offcanvas() {
             </Link>
           </div>
           <div className="offcanvas__social">
-            <h3 className="social-title">Follow Us</h3>
+            <p className="social-title">Follow Us</p>
             <ul>
               {site.socials.map((s) => (
                 <li key={s.label}>
@@ -125,10 +125,10 @@ export default function Offcanvas() {
         <div className="offcanvas__right">
           <div className="offcanvas__search" />
           <div className="offcanvas__contact">
-            <h3>Get in touch</h3>
+            <p className="offcanvas__contact-title">Get in touch</p>
             <ul>
               <li>
-                <a href={`tel:${site.phone}`}>{site.phone}</a>
+                <a href={`tel:${site.phoneE164}`}>{site.phone}</a>
               </li>
               <li>
                 <a href={`mailto:${site.email}`}>{site.email}</a>

@@ -47,6 +47,11 @@ export const seo = {
     description:
       'Mobile app development services for iOS and Android. Business-driven, cross-platform apps designed for performance, speed and a great user experience.',
   },
+  '/services': {
+    title: 'Logo, Web Design & Branding Services | Logo Makers Pro',
+    description:
+      'Explore our services: custom logo design, website and ecommerce design, WordPress, branding, video animation, digital marketing and mobile app development.',
+  },
   '/portfolio': {
     title: 'Logo Design Portfolio & Web Design Work | Logo Makers Pro',
     description:

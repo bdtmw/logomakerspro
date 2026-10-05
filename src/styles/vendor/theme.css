@@ -1965,7 +1965,7 @@ img {
 .dark .contact__form input:focus {
   border-color: var(--white);
 }
-.dark .contact__info h3,
+.dark .contact__info h2,
 .dark .contact__info ul li span,
 .dark .contact__info ul li a {
   color: var(--white);
@@ -5941,7 +5941,7 @@ img {
   height: 100%;
   border-radius: 0 100% 100% 0;
 }
-.offcanvas__contact h3 {
+.offcanvas__contact .offcanvas__contact-title {
   font-weight: 500;
   font-size: 24px;
   line-height: 1.5;
@@ -5949,7 +5949,7 @@ img {
   padding-bottom: 20px;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  .offcanvas__contact h3 {
+  .offcanvas__contact .offcanvas__contact-title {
     font-size: 20px;
   }
 }
@@ -20252,7 +20252,7 @@ img {
     padding-bottom: 50px;
   }
 }
-.contact__info h3 {
+.contact__info h2 {
   font-weight: 500;
   font-size: 26px;
   line-height: 1.2;
@@ -27694,7 +27694,7 @@ textarea#pop-up-message {
 .price__amount p span {
     text-decoration-line: line-through;
 }
-h4.sec-title.right-text-head {
+.sec-title.right-text-head {
     position: absolute;
     right: 0;
 }
