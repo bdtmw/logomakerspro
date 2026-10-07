@@ -17,9 +17,8 @@ export const site = {
 };
 
 export const tracking = {
-  // GA4 measurement IDs, comma separated; every page view and event goes to each. G-VX4M5HDTGV is the new
-  // property, G-ZPXY7DQZ8D the one the old PHP site used (drop it once you no longer need its reports).
-  gaIds: (process.env.NEXT_PUBLIC_GA_ID ?? 'G-VX4M5HDTGV,G-ZPXY7DQZ8D')
+  // GA4 measurement IDs, comma separated; every page view and event goes to each.
+  gaIds: (process.env.NEXT_PUBLIC_GA_ID ?? 'G-VX4M5HDTGV')
     .split(',')
     .map((id) => id.trim())
     .filter(Boolean),
