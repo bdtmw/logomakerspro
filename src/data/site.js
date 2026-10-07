@@ -16,6 +16,13 @@ export const site = {
   ],
 };
 
+// Public review profiles, linked under the client reviews on service pages. Fill in rating and count only with the
+// numbers currently shown on the platform (they change), and update them when they do; leave null to show just the link.
+// Never mark these up as AggregateRating schema: Google ignores self-hosted review stars for your own business.
+export const reviewProfiles = [
+  { name: 'Trustpilot', url: 'https://www.trustpilot.com/review/logomakerspro.com', rating: null, count: null },
+];
+
 export const tracking = {
   // GA4 measurement IDs, comma separated; every page view and event goes to each.
   gaIds: (process.env.NEXT_PUBLIC_GA_ID ?? 'G-VX4M5HDTGV')

@@ -74,8 +74,13 @@ Every service and industry page renders through `src/components/sections/Service
 5. The service's own sections from its data file, with a "Not sure which package fits?" band after the first.
 6. Why choose us: the service's intro copy beside four reason cards (`whyChooseUs` in `src/data/copy.js`, same
    rule as the highlights: every claim is backed by `packages.js`).
-7. Client reviews as cards (`src/data/testimonials.js`, minus the one quoted in the hero) with a quote card,
-   then related links and FAQs.
+7. Client reviews as cards (`src/data/testimonials.js`, minus the one quoted in the hero, up to 5, platform
+   reviews first) with a quote card and a link to each review profile (`reviewProfiles` in `src/data/site.js`),
+   then related links and FAQs. Reviews copied from Trustpilot, Google and so on take `rating`, `source`, `date`
+   and `url` and show stars and "via <platform>". Copy review text exactly. The hero quote is the review tagged
+   `hero: 'logo'` (logo pages) or `hero: 'general'`. A profile's "Rated X/5 from N reviews" line appears only once its
+   `rating` and `count` are filled in; keep them in step with the platform. No AggregateRating schema: Google
+   ignores self-hosted review stars for your own business.
 8. Closing quote form with phone and email.
 
 A "Get a Quote" button sits in the header on screens 992px and wider.

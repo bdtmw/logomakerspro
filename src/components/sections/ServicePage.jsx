@@ -167,8 +167,8 @@ export default function ServicePage({ blocks, extras = {}, faqs = [], serviceNam
   const workBlock = blocks.find((b) => b.type === 'work');
   const body = blocks.filter((b) => !['intro', 'cta', 'work'].includes(b.type));
   const isLogo = extras.packages?.category === 'logo-design';
-  // Real client quotes (src/data/testimonials.js): the logo one on logo pages, a general one elsewhere.
-  const heroQuote = testimonials[isLogo ? 2 : 1];
+  // Real client quote under the hero form: the review tagged hero: 'logo' on logo pages, 'general' elsewhere.
+  const heroQuote = testimonials.find((t) => t.hero === (isLogo ? 'logo' : 'general')) || testimonials[0];
   const cat = extras.packages && packageCategories[extras.packages.category];
   const first = cat?.cards[0];
   const price = first ? { label: `from ${first.priceLabel}${first.period ? ` ${first.period.toLowerCase()}` : ''}` } : null;

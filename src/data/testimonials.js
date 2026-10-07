@@ -1,3 +1,7 @@
+// Client reviews. Optional fields for reviews copied from a review platform (copy the text exactly, never edit
+// it): rating (1-5), source ('Trustpilot', 'Google', 'Facebook'...), date ('YYYY-MM-DD') and url (link to the review).
+// Service pages show them as cards with stars and a "via <platform>" link; entries without these show as before.
+// hero: 'logo' or 'general' marks the review quoted under the hero form on logo / other service pages.
 export const testimonials = [
   {
     "quote": "In the beginning the procedure sounded very lengthy and costly, but Jay guided me through each step with great clarity and offered additional discounts. This made the two main aspects much more manageable. Thank you, team!",
@@ -5,11 +9,13 @@ export const testimonials = [
   },
   {
     "quote": "Working with Logo Makers Pro was an excellent experience. The team is exceptionally professional and incredibly friendly. I would definitely recommend their services to all new businesses, as they provided valuable tips to enhance my online presence.",
-    "name": "Amy Gill"
+    "name": "Amy Gill",
+    "hero": "general"
   },
   {
     "quote": "Jay and his exceptional team are truly remarkable individuals. They are genuine experts in their field. Jay assisted me every step of the way during the process. I am extremely satisfied with the outcome of their work on my logo.",
-    "name": "Stefan Fernandes"
+    "name": "Stefan Fernandes",
+    "hero": "logo"
   }
 ];
 
