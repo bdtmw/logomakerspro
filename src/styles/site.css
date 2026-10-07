@@ -1381,3 +1381,37 @@ img {
   font-size: 13px;
   margin-left: 4px;
 }
+
+/* Hero: five-star share on Trustpilot, and the quoted review's stars */
+.lmp-hero__rating {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin-top: 22px;
+  color: var(--black-2);
+  font-size: 16px;
+  font-weight: 500;
+}
+.lmp-hero__rating small {
+  color: #777;
+  font-weight: 400;
+}
+.lmp-hero__rating:hover span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.lmp-hero__quote figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+.lmp-hero__quote figcaption .lmp-stars {
+  font-size: 14px;
+}
+.lmp-hero__quote figcaption a {
+  color: var(--black-2);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

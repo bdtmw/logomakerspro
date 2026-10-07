@@ -59,6 +59,7 @@ export default async function SlugPage({ params }) {
           serviceName={serviceNames[slug]}
           highlights={serviceHighlights[slug]}
           reasons={whyChooseUs[slug]}
+          topic={slug}
         />
       </>
     );

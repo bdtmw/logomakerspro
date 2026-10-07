@@ -1,6 +1,7 @@
 import QuoteForm from '@/components/forms/QuoteForm';
+import Stars from '@/components/ui/Stars';
 import TrackedLink from '@/components/ui/TrackedLink';
-import { site } from '@/data/site';
+import { reviewProfiles, site } from '@/data/site';
 
 /**
  * Above-the-fold block for service pages: the promise (H1 + lead), three verified highlights, the starting
@@ -34,6 +35,24 @@ export default function ServiceHero({ eyebrow, title, lead, highlights = [], pri
                 <i className="fa-solid fa-phone" aria-hidden="true" /> {site.phone}
               </TrackedLink>
             </div>
+            {reviewProfiles
+              .filter((p) => p.fiveStarPct && p.count)
+              .map((p) => (
+                <TrackedLink
+                  key={p.name}
+                  href={p.url}
+                  cta={`reviews_${p.name.toLowerCase()}`}
+                  location="hero"
+                  className="lmp-hero__rating"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Stars value={5} />
+                  <span>
+                    {p.fiveStarPct}% five-star reviews on {p.name} <small>({p.count} reviews)</small>
+                  </span>
+                </TrackedLink>
+              ))}
           </div>
           <div className="col-lg-5">
             <div className="lmp-hero__card">
@@ -44,7 +63,19 @@ export default function ServiceHero({ eyebrow, title, lead, highlights = [], pri
             {testimonial && (
               <figure className="lmp-hero__quote">
                 <blockquote>“{testimonial.quote}”</blockquote>
-                <figcaption>{testimonial.name}, Logo Makers Pro client</figcaption>
+                <figcaption>
+                  {testimonial.rating && <Stars value={testimonial.rating} />}
+                  <span>
+                    {testimonial.name},{' '}
+                    {testimonial.source ? (
+                      <a href={testimonial.url} target="_blank" rel="noopener noreferrer">
+                        via {testimonial.source}
+                      </a>
+                    ) : (
+                      'Logo Makers Pro client'
+                    )}
+                  </span>
+                </figcaption>
               </figure>
             )}
           </div>

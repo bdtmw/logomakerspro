@@ -2,7 +2,7 @@ import QuoteButton from '@/components/ui/QuoteButton';
 import Stars from '@/components/ui/Stars';
 import TrackedLink from '@/components/ui/TrackedLink';
 import { reviewProfiles } from '@/data/site';
-import { testimonials } from '@/data/testimonials';
+import { platformReviews, testimonials } from '@/data/testimonials';
 
 const formatDate = (iso) =>
   new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
@@ -11,13 +11,27 @@ const formatDate = (iso) =>
  * Client reviews on service pages as cards (all at once, no slider), skipping the one already quoted in the
  * hero, plus a closing card that turns the proof into a quote request.
  */
-export default function TestimonialGrid({ exclude, max = 5 }) {
-  // Only 5-star platform reviews (plus the site's own testimonials, which carry no rating); platform reviews
-  // first, newest first. The "Read all our reviews" link below shows visitors the full picture.
-  const items = testimonials
-    .filter((t) => t !== exclude && (t.rating === undefined || t.rating === 5))
-    .sort((a, b) => Number(Boolean(b.source)) - Number(Boolean(a.source)) || (b.date || '').localeCompare(a.date || ''))
-    .slice(0, max);
+/**
+ * Pick the reviews for a page: 5-star only, minus the hero quote. Reviews about this page's topic come first.
+ * Featured reviews follow, rotated by topic so different pages show a different mix, then other platform reviews
+ * (newest first), then the site's own testimonials. Reviews tagged with another topic are left out.
+ */
+function pickReviews({ exclude, topic, max }) {
+  const pool = [...platformReviews, ...testimonials].filter(
+    (t) => t !== exclude && (t.rating === undefined || t.rating === 5) && (!t.topics || t.topics.includes(topic)),
+  );
+  const onTopic = pool.filter((t) => t.topics?.includes(topic));
+  const featured = pool.filter((t) => t.featured && !onTopic.includes(t));
+  const shift = [...(topic || '')].reduce((n, c) => n + c.charCodeAt(0), 0) % (featured.length || 1);
+  const rotated = [...featured.slice(shift), ...featured.slice(0, shift)];
+  const rest = pool
+    .filter((t) => !onTopic.includes(t) && !featured.includes(t))
+    .sort((a, b) => Number(Boolean(b.source)) - Number(Boolean(a.source)) || (b.date || '').localeCompare(a.date || ''));
+  return [...onTopic, ...rotated, ...rest].slice(0, max);
+}
+
+export default function TestimonialGrid({ exclude, topic, max = 5 }) {
+  const items = pickReviews({ exclude, topic, max });
   return (
     <section className="lmp-reviews">
       <div className="container">
@@ -38,7 +52,8 @@ export default function TestimonialGrid({ exclude, max = 5 }) {
                     .split(' ')
                     .map((w) => w[0])
                     .join('')
-                    .slice(0, 2)}
+                    .slice(0, 2)
+                    .toUpperCase()}
                 </span>
                 <span>
                   <strong>{t.name}</strong>
@@ -72,13 +87,18 @@ export default function TestimonialGrid({ exclude, max = 5 }) {
           <ul className="lmp-reviews__profiles">
             {reviewProfiles.map((p) => (
               <li key={p.name}>
-                {p.rating && p.count && (
+                {p.fiveStarPct && p.count && (
                   <>
-                    <Stars value={p.rating} />
+                    <Stars value={5} />
                     <span>
-                      Rated {p.rating}/5 from {p.count} reviews on {p.name}.
+                      {p.fiveStarPct}% of our {p.count} {p.name} reviews are 5 stars.
                     </span>{' '}
                   </>
+                )}
+                {p.rating && p.count && (
+                  <span>
+                    Rated {p.rating}/5 from {p.count} reviews on {p.name}.
+                  </span>
                 )}
                 <TrackedLink href={p.url} cta={`reviews_${p.name.toLowerCase()}`} location="reviews" target="_blank" rel="noopener noreferrer">
                   Read all our reviews on {p.name} <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" />

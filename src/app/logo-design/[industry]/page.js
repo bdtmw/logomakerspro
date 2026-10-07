@@ -80,6 +80,7 @@ export default async function IndustryLogoPage({ params }) {
         serviceName={page.name}
         highlights={serviceHighlights['logo-design']}
         reasons={whyChooseUs['logo-design']}
+        topic={industry}
         pricingNote={page.packagesNote}
       />
     </>

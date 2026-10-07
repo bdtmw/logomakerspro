@@ -13,7 +13,7 @@ import StickyCta from './StickyCta';
 import TestimonialGrid from './TestimonialGrid';
 import TrustStrip from './TrustStrip';
 import WhyChooseUs from './WhyChooseUs';
-import { testimonials } from '@/data/testimonials';
+import { platformReviews, testimonials } from '@/data/testimonials';
 
 function Workflow({ block }) {
   return (
@@ -160,7 +160,7 @@ function renderBlock(block, i) {
  * action, related work, the longer intro copy, testimonials, links, FAQs and a closing quote form. On phones a
  * sticky Get a quote / Call bar appears once the hero form is off screen.
  */
-export default function ServicePage({ blocks, extras = {}, faqs = [], serviceName, highlights, reasons, eyebrow, pricingNote }) {
+export default function ServicePage({ blocks, extras = {}, faqs = [], serviceName, highlights, reasons, eyebrow, pricingNote, topic }) {
   const intro = blocks.find((b) => b.type === 'intro');
   const hasMidCta = blocks.some((b) => b.type === 'cta' && b.action === 'quote');
   // Proof comes straight after the trust strip: hand-picked work (industry pages) or the service's portfolio run.
@@ -168,7 +168,8 @@ export default function ServicePage({ blocks, extras = {}, faqs = [], serviceNam
   const body = blocks.filter((b) => !['intro', 'cta', 'work'].includes(b.type));
   const isLogo = extras.packages?.category === 'logo-design';
   // Real client quote under the hero form: the review tagged hero: 'logo' on logo pages, 'general' elsewhere.
-  const heroQuote = testimonials.find((t) => t.hero === (isLogo ? 'logo' : 'general')) || testimonials[0];
+  const heroQuote =
+    [...platformReviews, ...testimonials].find((t) => t.hero === (isLogo ? 'logo' : 'general')) || testimonials[0];
   const cat = extras.packages && packageCategories[extras.packages.category];
   const first = cat?.cards[0];
   const price = first ? { label: `from ${first.priceLabel}${first.period ? ` ${first.period.toLowerCase()}` : ''}` } : null;
@@ -204,7 +205,7 @@ export default function ServicePage({ blocks, extras = {}, faqs = [], serviceNam
         </Fragment>
       ))}
       <WhyChooseUs title={`Why choose Logo Makers Pro for ${serviceName.toLowerCase()}`} intro={intro?.body} items={reasons} />
-      <TestimonialGrid exclude={heroQuote} />
+      <TestimonialGrid exclude={heroQuote} topic={topic} />
       {extras.links && renderBlock({ type: 'links', ...extras.links }, 'links')}
       <FaqSection title={`${serviceName} FAQs`} items={faqs} idPrefix="faq-service" />
       <ServiceQuote serviceName={serviceName} />

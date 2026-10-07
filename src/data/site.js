@@ -16,11 +16,13 @@ export const site = {
   ],
 };
 
-// Public review profiles, linked under the client reviews on service pages. Fill in rating and count only with the
-// numbers currently shown on the platform (they change), and update them when they do; leave null to show just the link.
+// Public review profiles, linked under the client reviews on service pages and in the hero. Numbers must match what
+// the platform shows right now (they change), so update them when you add reviews. fiveStarPct + count drive the
+// "92% five-star" line; rating (the overall score) shows only if filled in. Trustpilot as of 2026-10-07:
+// 48 reviews, 4.3 overall, 92% five-star.
 // Never mark these up as AggregateRating schema: Google ignores self-hosted review stars for your own business.
 export const reviewProfiles = [
-  { name: 'Trustpilot', url: 'https://www.trustpilot.com/review/logomakerspro.com', rating: null, count: null },
+  { name: 'Trustpilot', url: 'https://www.trustpilot.com/review/logomakerspro.com', rating: null, count: 48, fiveStarPct: 92 },
 ];
 
 export const tracking = {
