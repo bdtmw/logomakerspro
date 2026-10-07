@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { packageCategories } from '@/data/packages';
 import { services } from '@/data/services';
-import { packageIntros, serviceExtras } from '@/data/copy';
+import { packageIntros, serviceExtras, serviceHighlights } from '@/data/copy';
 import { industries, industrySlugs } from '@/data/industries';
 import { packageFaqs, serviceFaqs } from '@/data/faqs';
 import CtaSection from '@/components/sections/CtaSection';
@@ -52,7 +52,13 @@ export default async function SlugPage({ params }) {
             ]),
           ]}
         />
-        <ServicePage blocks={services[slug]} extras={extras} faqs={faqs} serviceName={serviceNames[slug]} />
+        <ServicePage
+          blocks={services[slug]}
+          extras={extras}
+          faqs={faqs}
+          serviceName={serviceNames[slug]}
+          highlights={serviceHighlights[slug]}
+        />
       </>
     );
   }

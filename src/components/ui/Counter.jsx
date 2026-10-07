@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 /** Counts the number in `value` (e.g. "1000+") up from 0 when fully in view, like counterUp. */
-export default function Counter({ value, className = 'counter__number', duration = 1000 }) {
+export default function Counter({ value, className = 'counter__number', duration = 1000, as: Tag = 'h2' }) {
   const ref = useRef(null);
   const [display, setDisplay] = useState(value);
 
@@ -36,8 +36,8 @@ export default function Counter({ value, className = 'counter__number', duration
   }, [value, duration]);
 
   return (
-    <h2 className={className} ref={ref}>
+    <Tag className={className} ref={ref}>
       {display}
-    </h2>
+    </Tag>
   );
 }

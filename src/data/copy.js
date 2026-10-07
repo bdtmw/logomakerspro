@@ -119,3 +119,24 @@ export const serviceExtras = {
     portfolio: { tab: 'Mobile Apps', from: 0, count: 4 },
   },
 };
+
+// Service page hero: three promises per service, each backed by the package features in src/data/packages.js
+// (check them there before changing). Industry logo pages use the 'logo-design' set.
+export const serviceHighlights = {
+  'logo-design': ['First logo concepts in 24 to 72 hours', 'Unlimited revisions from the Silver package up', '100% ownership of your final logo'],
+  'web-design': ['No monthly or hidden fees', 'Unlimited revisions from the Startup package up', '100% ownership and a money-back guarantee'],
+  wordpress: ['An easy-to-edit CMS, included from Professional up', 'No monthly or hidden fees', '100% ownership and a money-back guarantee'],
+  'e-commerce': ['A CMS to manage products and orders', 'Mobile-responsive store design', '100% ownership and a money-back guarantee'],
+  'video-animation': ['Script writing and HD delivery on every package', 'Unlimited revisions from the Startup package up', '100% ownership and a money-back guarantee'],
+  'brand-services': ['Logo, stationery and website in one identity', 'Unlimited revisions', '100% ownership of every design'],
+  'digital-marketing-services': ['SEO, social media and paid ads in one team', 'Plans for 10 to 100 target keywords', 'A progress report every month'],
+  'mobile-app-services': ['Apps for iOS and Android', 'UX design and development in one team', 'A custom quote for your app’s scope'],
+};
+
+// Figures shown in the trust strip on service pages (same numbers as the home page counters).
+export const trustStats = [
+  { value: '1000+', label: 'Logos designed' },
+  { value: '200+', label: 'Websites built' },
+  { value: '150+', label: 'Ecommerce stores' },
+  { value: '100+', label: 'Mobile apps' },
+];

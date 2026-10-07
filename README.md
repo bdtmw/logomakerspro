@@ -59,6 +59,24 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
   `NEXT_PUBLIC_OFFER_ENABLED=false` to switch it off. Timing and excluded pages: `leadOffer` in `src/data/site.js`.
 - Tracking: GA4 `view_promotion` when it opens, GA4 `generate_lead` (form `discount_popup`) and Meta `Lead` on signup.
 
+## Service pages (conversion layout)
+
+Every service and industry page renders through `src/components/sections/ServicePage.jsx` in this order:
+
+1. Hero: H1, lead, three highlights (`serviceHighlights` in `src/data/copy.js`, each backed by a package feature;
+   check `packages.js` before changing one), "See packages from $X", a call button and a short quote form.
+2. Trust strip with the project counts (`trustStats`).
+3. Packages and pricing (`#packages`): three cards with features and an Order now button, plus a quote button.
+4. The service's own sections from its data file, with one "Get a Quote" band after the first.
+5. Related work, the longer intro copy and photos, testimonials, related links and FAQs.
+6. Closing quote form with phone and email.
+
+On phones a sticky Get a free quote / Call bar appears whenever neither quote form is on screen.
+
+Measuring: every button sends a GA4 `cta_click` event (`cta`, `location`: hero, pricing, sticky, closing), and the
+two forms send `generate_lead` with `form` = `service-hero` or `service-footer`. Compare them in GA4 to see which
+placements convert.
+
 ## SEO
 
 - Clean URLs (`/logo-design`). Every old `.php` URL permanently redirects (308) to its clean route (`next.config.mjs`).
@@ -92,6 +110,8 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 - Unused CSS is purged at build time (`postcss.config.js`): about 738 KB of stylesheets down to about 160 KB
   (25 KB gzipped). Purging only runs in production builds. If you paste in markup from the original theme,
   check that its class names appear somewhere in `src/`, or add them to the safelist.
+  `next.config.mjs` resets the webpack build cache whenever the set of names used in `src/` changes, so a newly used
+  class (a Font Awesome icon, a Bootstrap utility) is never left purged by a cached build.
 - reCAPTCHA v3 loads only when someone focuses a form, not on every page view.
 - Images go through `next/image` (AVIF/WebP, lazy loading, fixed dimensions); hero images load with priority.
 

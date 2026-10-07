@@ -17,13 +17,12 @@ const fields = (phoneRequired) => [
 ];
 
 /**
- * Enquiry form used by the quote popup and the contact page. Posts JSON to /api/lead
- * (replaces assets/include/bannerFormController.php).
+ * Submit handler shared by the enquiry forms: posts the form to /api/lead (with reCAPTCHA), then fires the
+ * Meta Lead and GA4 generate_lead events tagged with `variant`, so each form's conversions can be compared.
  */
-export default function LeadForm({ variant = 'popup', header = null, onSuccess }) {
+export function useLeadSubmit(variant, onSuccess) {
   const pathname = usePathname();
   const [status, setStatus] = useState({ state: 'idle', message: '' });
-  const isContact = variant === 'contact';
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -48,6 +47,17 @@ export default function LeadForm({ variant = 'popup', header = null, onSuccess }
       setStatus({ state: 'error', message: err.message });
     }
   }
+
+  return { status, handleSubmit };
+}
+
+/**
+ * Enquiry form used by the quote popup and the contact page. Posts JSON to /api/lead
+ * (replaces assets/include/bannerFormController.php).
+ */
+export default function LeadForm({ variant = 'popup', header = null, onSuccess }) {
+  const { status, handleSubmit } = useLeadSubmit(variant, onSuccess);
+  const isContact = variant === 'contact';
 
   return (
     <form onSubmit={handleSubmit} onFocus={() => loadRecaptcha()}>

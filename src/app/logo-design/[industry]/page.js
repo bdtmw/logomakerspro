@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import ServicePage from '@/components/sections/ServicePage';
 import JsonLd from '@/components/seo/JsonLd';
-import { serviceExtras } from '@/data/copy';
+import { serviceExtras, serviceHighlights } from '@/data/copy';
 import { industries, industrySlugs } from '@/data/industries';
 import { packageCategories } from '@/data/packages';
 import { services } from '@/data/services';
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }) {
 // Same intro photos as /logo-design: they show the design studio, not a specific industry.
 const introImages = services['logo-design'].find((b) => b.type === 'intro').images;
 
-/** The page as ServicePage blocks: intro, copy and styles, related work, then packages, links and FAQs. */
+/** The page as ServicePage blocks: intro (hero), copy, styles, a mid-page quote prompt and related work. */
 function blocksFor(page) {
   const [why, uses] = page.sections;
   return [
@@ -40,15 +40,6 @@ function blocksFor(page) {
       action: 'quote',
     },
     { type: 'work', ...page.work },
-    { type: 'text', heading: 'Choosing a package', paragraphs: [page.packagesNote] },
-    {
-      type: 'cta',
-      containerClass: 'container line pb-110 pt-80',
-      subtitle: 'Work with us',
-      title: 'Kick start your digital transformation journey today!',
-      label: 'Let’s talk!',
-      action: 'chat',
-    },
   ];
 }
 
@@ -86,7 +77,14 @@ export default async function IndustryLogoPage({ params }) {
           ]),
         ]}
       />
-      <ServicePage blocks={blocksFor(page)} extras={{ packages: logoPackages, links }} faqs={page.faqs} serviceName={page.name} />
+      <ServicePage
+        blocks={blocksFor(page)}
+        extras={{ packages: logoPackages, links }}
+        faqs={page.faqs}
+        serviceName={page.name}
+        highlights={serviceHighlights['logo-design']}
+        pricingNote={page.packagesNote}
+      />
     </>
   );
 }

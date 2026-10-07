@@ -1,12 +1,20 @@
+import { Fragment } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { packageCategories } from '@/data/packages';
 import CtaSection from './CtaSection';
 import FaqSection from './FaqSection';
 import PricingTeaser from './PricingTeaser';
 import RelatedWork from './RelatedWork';
+import ServiceHero from './ServiceHero';
+import ServiceQuote from './ServiceQuote';
+import StickyCta from './StickyCta';
+import TestimonialsSection from './TestimonialsSection';
+import TrustStrip from './TrustStrip';
 
-function Intro({ block }) {
-  const [big, small] = block.images;
+/** The service's longer intro copy and studio photos, below the proof sections (the H1 is in the hero). */
+function About({ block, title }) {
+  const [big, small] = block.images || [];
   return (
     <section className="development__area">
       <div className="container g-0 line pt-130 pb-150">
@@ -14,23 +22,16 @@ function Intro({ block }) {
         <div className="row">
           <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-5">
             <div className="sec-title-wrapper">
-              <h1 className="sec-title">{block.title}</h1>
+              <h2 className="sec-title">{title}</h2>
             </div>
           </div>
           <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7">
-            <div className="development__wrapper">
-              {block.lead && (
-                <div className="development__content">
-                  <p>{block.lead}</p>
-                </div>
-              )}
-              {block.body && <p>{block.body}</p>}
-            </div>
+            <div className="development__wrapper">{block.body && <p>{block.body}</p>}</div>
           </div>
           {big && (
             <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8">
               <div className="development__img">
-                <Image src={big.src} alt={big.alt} width={big.width} height={big.height} data-speed={big.speed} priority />
+                <Image src={big.src} alt={big.alt} width={big.width} height={big.height} data-speed={big.speed} />
               </div>
             </div>
           )}
@@ -160,8 +161,6 @@ function LinksBlock({ block }) {
 
 function renderBlock(block, i) {
   switch (block.type) {
-    case 'intro':
-      return <Intro block={block} key={i} />;
     case 'workflow':
       return <Workflow block={block} key={i} />;
     case 'detail':
@@ -189,22 +188,46 @@ function renderBlock(block, i) {
 }
 
 /**
- * Renders a service landing page from its block list in src/data/services.jsx, then adds the
- * pricing teaser, related work and FAQ sections just before the closing call to action.
+ * Service landing page, laid out for conversion: hero with a quote form, proof, pricing near the top, then the
+ * service's own sections from its block list (src/data/services.jsx or industries.js) with one mid-page call to
+ * action, related work, the longer intro copy, testimonials, links, FAQs and a closing quote form. On phones a
+ * sticky Get a quote / Call bar appears once the hero form is off screen.
  */
-export default function ServicePage({ blocks, extras = {}, faqs = [], serviceName }) {
-  const closing = blocks.at(-1)?.type === 'cta' ? blocks.at(-1) : null;
-  const body = closing ? blocks.slice(0, -1) : blocks;
+export default function ServicePage({ blocks, extras = {}, faqs = [], serviceName, highlights, eyebrow, pricingNote }) {
+  const intro = blocks.find((b) => b.type === 'intro');
+  const midCta = blocks.find((b) => b.type === 'cta' && b.action === 'quote');
+  const body = blocks.filter((b) => b.type !== 'intro' && b.type !== 'cta');
+  const cat = extras.packages && packageCategories[extras.packages.category];
+  const first = cat?.cards[0];
+  const price = first ? { label: `from ${first.priceLabel}${first.period ? ` ${first.period.toLowerCase()}` : ''}` } : null;
+
   return (
     <>
-      {body.map(renderBlock)}
-      {extras.packages && <PricingTeaser category={extras.packages.category} ids={extras.packages.ids} />}
+      <ServiceHero
+        eyebrow={eyebrow || serviceName}
+        title={intro?.title}
+        lead={intro?.lead}
+        highlights={highlights}
+        price={price}
+        serviceName={serviceName}
+      />
+      <TrustStrip />
+      {extras.packages && <PricingTeaser category={extras.packages.category} ids={extras.packages.ids} note={pricingNote} />}
+      {body.map((b, i) => (
+        <Fragment key={i}>
+          {renderBlock(b, i)}
+          {i === 0 && midCta && renderBlock(midCta, 'mid-cta')}
+        </Fragment>
+      ))}
       {extras.portfolio && (
         <RelatedWork tab={extras.portfolio.tab} from={extras.portfolio.from} count={extras.portfolio.count} />
       )}
+      {intro?.body && <About block={intro} title={`Why choose us for ${serviceName.toLowerCase()}`} />}
+      <TestimonialsSection />
       {extras.links && renderBlock({ type: 'links', ...extras.links }, 'links')}
       <FaqSection title={`${serviceName} FAQs`} items={faqs} idPrefix="faq-service" />
-      {closing && renderBlock(closing, blocks.length - 1)}
+      <ServiceQuote serviceName={serviceName} />
+      <StickyCta />
     </>
   );
 }

@@ -232,33 +232,6 @@ img {
   margin: 0;
 }
 
-/* Pricing teaser on service pages */
-.lmp-pricing-teaser .workflow__title-6 {
-  margin-bottom: 6px;
-}
-.lmp-pricing-teaser__price {
-  font-size: 28px !important;
-  font-weight: 500;
-  color: var(--black-2) !important;
-  margin-bottom: 10px !important;
-}
-.lmp-pricing-teaser__cta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding-top: 40px;
-}
-.lmp-pricing-teaser__cta p {
-  font-size: 18px;
-}
-@media (max-width: 767px) {
-  .lmp-pricing-teaser__cta {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
 /* Related work strip on service pages */
 .lmp-related-work .img-box-logo {
   margin-bottom: 24px;
@@ -731,4 +704,346 @@ img {
 /* Portfolio tabs: centered. The theme's rule targets ul#pills-tab, which the React tabs don't render. */
 .home-portfolio__area .nav-pills {
   justify-content: center;
+}
+
+/* ---------- Service pages (conversion layout) ---------- */
+.lmp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.lmp-btn--dark {
+  background: var(--black-2);
+  color: #fff;
+}
+.lmp-btn--dark:hover {
+  background: #333;
+  color: #fff;
+}
+.lmp-btn--accent {
+  background: #e86236;
+  color: #fff;
+}
+.lmp-btn--accent:hover {
+  background: #d4542b;
+  color: #fff;
+}
+.lmp-btn--ghost {
+  border-color: var(--black-2);
+  color: var(--black-2);
+  background: transparent;
+}
+.lmp-btn--ghost:hover {
+  background: var(--black-2);
+  color: #fff;
+}
+.lmp-btn--block {
+  width: 100%;
+}
+.lmp-section-title {
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--black-2);
+}
+.lmp-section-title--light {
+  color: #fff;
+}
+
+/* Hero */
+.lmp-hero {
+  padding: 150px 0 70px;
+}
+.lmp-hero__eyebrow {
+  margin-bottom: 14px;
+  color: #e86236;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.lmp-hero__title {
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 1.05;
+  color: var(--black-2);
+}
+.lmp-hero__lead {
+  margin-top: 22px;
+  font-size: 19px;
+  line-height: 1.6;
+}
+.lmp-hero__highlights {
+  margin-top: 26px;
+}
+.lmp-hero__highlights li {
+  padding: 6px 0;
+  font-size: 18px;
+  color: var(--black-2);
+}
+.lmp-hero__highlights i {
+  width: 26px;
+  color: #1b8a3a;
+}
+.lmp-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 32px;
+}
+.lmp-hero__card {
+  padding: 32px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
+}
+.lmp-hero__card-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--black-2);
+}
+.lmp-hero__card-text {
+  margin: 6px 0 18px;
+}
+
+/* Compact quote form */
+.lmp-quote-form label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--black-2);
+}
+.lmp-quote-form label span {
+  color: #888;
+  font-weight: 400;
+}
+.lmp-quote-form input,
+.lmp-quote-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 11px 13px;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--black-2);
+  background: #fff;
+}
+.lmp-quote-form input:focus,
+.lmp-quote-form textarea:focus {
+  outline: 2px solid #e86236;
+  outline-offset: 0;
+  border-color: #e86236;
+}
+.lmp-quote-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 14px;
+}
+.lmp-quote-form__submit {
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  border-radius: 6px;
+  background: #e86236;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lmp-quote-form__submit:hover {
+  background: #d4542b;
+}
+.lmp-quote-form__submit[disabled] {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+/* Trust strip */
+.lmp-trust {
+  padding: 34px 0;
+  background: var(--black-2);
+}
+.lmp-trust__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+.lmp-trust__list li {
+  color: #c2c2c2;
+  font-size: 15px;
+}
+.lmp-trust__value {
+  display: block;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+/* Pricing */
+.lmp-pricing {
+  padding: 110px 0;
+  background: var(--pink-3);
+}
+.lmp-pricing__head {
+  max-width: 760px;
+  margin-bottom: 40px;
+}
+.lmp-pricing__head p {
+  margin-top: 14px;
+  font-size: 18px;
+}
+.lmp-pricing__card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 30px;
+  border-radius: 12px;
+  background: #fff;
+}
+.lmp-pricing__card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--black-2);
+}
+.lmp-pricing__price {
+  margin: 8px 0 18px;
+  font-size: 40px !important;
+  font-weight: 600;
+  color: var(--black-2) !important;
+}
+.lmp-pricing__price small {
+  font-size: 16px;
+  font-weight: 400;
+  color: #777;
+}
+.lmp-pricing__card ul {
+  flex: 1;
+  margin-bottom: 24px;
+}
+.lmp-pricing__card li {
+  padding: 5px 0 5px 24px;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--black-3);
+}
+.lmp-pricing__card li i {
+  position: absolute;
+  left: 0;
+  top: 9px;
+  color: #1b8a3a;
+  font-size: 13px;
+}
+.lmp-pricing__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 36px;
+}
+.lmp-pricing__foot p {
+  font-size: 18px;
+}
+.lmp-pricing__foot a {
+  color: var(--black-2);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Closing quote section */
+.lmp-service-quote {
+  padding: 110px 0;
+  background: var(--black-2);
+}
+.lmp-service-quote__text {
+  margin: 18px 0 26px;
+  color: #c2c2c2;
+  font-size: 18px;
+}
+.lmp-service-quote__contact li {
+  padding: 6px 0;
+}
+.lmp-service-quote__contact a {
+  color: #fff;
+  font-size: 19px;
+}
+.lmp-service-quote__contact i {
+  width: 28px;
+  color: #e86236;
+}
+
+/* Sticky phone CTA bar */
+.lmp-sticky-cta {
+  display: none;
+}
+@media (max-width: 767px) {
+  .lmp-sticky-cta {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9990;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    background: #fff;
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(110%);
+    transition: transform 0.25s ease-out;
+  }
+  .lmp-sticky-cta.is-visible {
+    transform: translateY(0);
+  }
+  .lmp-sticky-cta .lmp-btn {
+    padding: 13px 10px;
+  }
+  body.has-sticky-cta .scroll-top {
+    bottom: 86px !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .lmp-hero {
+    padding: 120px 0 50px;
+  }
+  .lmp-hero__title {
+    font-size: 40px;
+  }
+  .lmp-section-title {
+    font-size: 34px;
+  }
+  .lmp-trust__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .lmp-pricing,
+  .lmp-service-quote {
+    padding: 70px 0;
+  }
+}
+@media (max-width: 575px) {
+  .lmp-hero__card {
+    padding: 22px;
+  }
+  .lmp-quote-form__row {
+    grid-template-columns: 1fr;
+  }
+  .lmp-hero__actions .lmp-btn {
+    width: 100%;
+  }
 }
