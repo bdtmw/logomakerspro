@@ -70,6 +70,8 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
   Add an entry there plus a title and description in `src/data/seo.js` to publish another; the route, sitemap,
   schema and the "Logo design by industry" links on `/logo-design` pick it up. Give each page its own copy, styles
   and FAQs, not a copy of another industry with the name swapped, or Google treats them as doorway pages.
+  To show your own niche logos, put the files in `public/assets/imgs/industries/<industry>/` and list them in that
+  industry's `work.items` as `{ src, alt, width, height, caption }`.
 - Structured data: Organization (`@id` `/#organization`, referenced by Service, offers and WebSite) and WebSite
   site-wide, Service (with price range) on service pages, OfferCatalog on package pages, ItemList on `/services`,
   FAQPage wherever FAQs show, BreadcrumbList on inner pages.

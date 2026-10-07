@@ -22,6 +22,16 @@ export const seo = {
     description:
       'Real estate logo design for agents, brokerages and property managers. Original concepts in 24 to 72 hours, files ready for yard signs and cards. From $29.',
   },
+  '/logo-design/construction': {
+    title: 'Construction Logo Design for Contractors | Logo Makers Pro',
+    description:
+      'Construction logo design for contractors, builders and trades. Original concepts in 24 to 72 hours, vector files for truck wraps and job site signs. From $29.',
+  },
+  '/logo-design/trucking': {
+    title: 'Trucking Logo Design for Fleets & Haulers | Logo Makers Pro',
+    description:
+      'Trucking logo design for owner-operators, fleets and haulers. Original concepts in 24 to 72 hours, vector files ready for cab door decals and wraps. From $29.',
+  },
   '/web-design': {
     title: 'Custom Website Design Services for Brands | Logo Makers Pro',
     description:

@@ -1,7 +1,8 @@
 // Industry logo design pages (/logo-design/<slug>). Each page has its own copy, related work and FAQs so it
 // answers that industry's questions rather than repeating /logo-design with a different word swapped in.
 // Related work picks items by their portfolio tab and position (src/data/portfolio.js) and gives each a
-// caption saying what the piece actually is, since some are websites or apps rather than logos.
+// caption saying what the piece actually is, since some are websites or apps rather than logos. An item can also
+// be its own image: { src: '/assets/imgs/industries/restaurant/bistro.webp', alt, width, height, caption }.
 
 export const industries = {
   restaurant: {
@@ -147,6 +148,152 @@ export const industries = {
       {
         q: 'How long does a real estate logo take?',
         a: 'Your first concepts arrive within 24 to 72 hours, depending on the package. Revisions come back within 48 hours, so you can order signs and cards within days.',
+      },
+    ],
+  },
+
+  construction: {
+    name: 'Construction Logo Design',
+    audience: 'Construction companies, contractors, builders and trades',
+    title: 'Construction Logo Design for Contractors Who Build to Last',
+    lead: 'Your logo rides on your trucks, hangs on your job site fence and sits at the top of every bid you send. We design construction logos for general contractors, builders, excavation crews and trades that look tough, professional and easy to spot from the road.',
+    body: 'Tell us what you build, where you work and the jobs you want more of. Our designers create original concepts, then refine your favorite until it is ready for vehicle wraps, signs, hard hats and paperwork.',
+    sections: [
+      {
+        heading: 'What makes a strong construction logo',
+        paragraphs: [
+          'Clients hiring a contractor want proof you are established and reliable. Strong, solid type, a clear shape and a confident color pairing say that faster than a crowded illustration. Equipment, buildings and tools can work well, as long as they stay simple enough to read at a distance.',
+          'Construction logos take a beating: they are printed on job site banners, cut in vinyl for trucks, embroidered on caps and stamped on invoices in black and white. We check every concept in one color and at small sizes so it holds up on all of them.',
+        ],
+      },
+      {
+        heading: 'Where your construction logo will appear',
+        list: [
+          'Truck doors, trailer wraps and equipment decals',
+          'Job site signs, fence banners and yard signs',
+          'Hard hats, hi-vis vests, shirts and caps',
+          'Bids, proposals, contracts and invoices',
+          'Your website, Google Business Profile and directory listings',
+          'Business cards and estimate folders',
+        ],
+        after:
+          'Every logo package from Silver up includes vector files (AI, EPS and PDF), which vehicle wrap and sign shops need to print your logo large without blurring.',
+      },
+    ],
+    styles: {
+      heading: 'Construction logo styles we design',
+      items: [
+        { title: 'Equipment emblem', text: 'An excavator, crane or dump truck inside a badge. Popular with excavation, grading and heavy civil contractors.' },
+        { title: 'Building skyline', text: 'Clean building or roofline shapes that suit general contractors, builders and developers.' },
+        { title: 'Bold monogram', text: 'Your initials in heavy, structural letters. Works well on hard hats and small decals.' },
+        { title: 'Trade icon', text: 'A hammer, paint roller or trowel paired with your name for roofers, painters, concrete and specialty trades.' },
+      ],
+    },
+    work: {
+      heading: 'Construction and trades logos we have designed',
+      intro: 'A few of the logos we have created for contractors and trade businesses.',
+      items: [
+        { tab: 'Logo', index: 14, caption: 'DFM Concrete Construction' },
+        { tab: 'Logo', index: 20, caption: 'Middleton’s Contracting' },
+        { tab: 'Logo', index: 9, caption: 'Embry’s Home Services' },
+        { tab: 'Logo', index: 4, caption: 'Superior Finish Painting & Spray Foam' },
+      ],
+    },
+    packagesNote:
+      'Logo packages start at $29. Logo Gold and above add business card, letterhead and envelope designs, so your bids and invoices match the logo on your trucks.',
+    faqs: [
+      {
+        q: 'How much does a construction logo cost?',
+        a: 'Construction logos use the same packages as all our logos: from $29 for Logo Basic up to $599 for The Boss. Most contractors choose Silver ($89) or Gold ($129) for unlimited revisions and the vector files sign and wrap shops ask for.',
+      },
+      {
+        q: 'Will my logo work on truck wraps and hard hats?',
+        a: 'Yes. We design with vinyl cutting, embroidery and one-color printing in mind, and Silver and above include vector files that scale from a hard hat sticker to a full trailer wrap without losing quality.',
+      },
+      {
+        q: 'Should my construction logo show equipment or tools?',
+        a: 'It can, and for excavation or heavy equipment companies it often helps customers understand what you do at a glance. For general contractors a clean building shape or monogram can look more established. We can show you both directions as concepts.',
+      },
+      {
+        q: 'How long does a construction logo take?',
+        a: 'Your first concepts arrive within 24 to 72 hours, depending on the package. Revisions come back within 48 hours, so you can order truck lettering and signs within days.',
+      },
+      {
+        q: 'Do I own my construction logo?',
+        a: 'Yes. You get full ownership rights to your final logo, and every design is created from scratch. Registering it as a trademark is your responsibility.',
+      },
+    ],
+  },
+
+  trucking: {
+    name: 'Trucking Logo Design',
+    audience: 'Trucking companies, owner-operators, haulers and logistics businesses',
+    title: 'Trucking Logo Design That Looks Sharp at 70 Miles an Hour',
+    lead: 'Your trucks are moving billboards. We design trucking, hauling and logistics logos for owner-operators and fleets that read clearly from the next lane, look professional to shippers and brokers, and print cleanly on cab doors and trailers.',
+    body: 'Tell us what you haul, where you run and how you want shippers to see you. Our designers create original concepts, then refine your favorite until it is ready for decals, wraps and paperwork.',
+    sections: [
+      {
+        heading: 'What makes a strong trucking logo',
+        paragraphs: [
+          'A trucking logo is usually seen for a few seconds, from a distance, at speed. Bold shapes, high contrast and a short, clear name do the work. A truck silhouette or a sense of motion can tell people what you do instantly, as long as fine detail does not turn to mush on a moving trailer.',
+          'Shippers and brokers judge your company by your paperwork and online profile too. A logo that looks the same on a rate confirmation, an invoice and your website makes a small operation look established.',
+        ],
+      },
+      {
+        heading: 'Where your trucking logo will appear',
+        list: [
+          'Cab door decals and trailer wraps',
+          'Rate confirmations, invoices and bills of lading',
+          'Load board profiles, your website and email signature',
+          'Driver shirts, jackets and caps',
+          'Business cards and recruiting flyers',
+          'Mud flaps, stickers and promotional items',
+        ],
+        after:
+          'Commercial trucks also have to show your company name and USDOT number on both sides, so we design door layouts with room for that lettering. Silver and above include the vector files decal shops need.',
+      },
+    ],
+    styles: {
+      heading: 'Trucking logo styles we design',
+      items: [
+        { title: 'Truck emblem', text: 'A detailed rig or dump truck inside a shield or badge. Great on caps, mud flaps and social media.' },
+        { title: 'Line-art silhouette', text: 'A clean, minimal truck outline that stays crisp on cab doors and paperwork.' },
+        { title: 'Speed wordmark', text: 'Slanted, motion-styled type that suits fleets and logistics companies that want a modern look.' },
+        { title: 'Shield or crest', text: 'A solid, trustworthy shape for hauling, junk removal and transport companies.' },
+      ],
+    },
+    work: {
+      heading: 'Trucking and hauling logos we have designed',
+      intro: 'A few of the logos we have created for transport and hauling businesses.',
+      items: [
+        { tab: 'Logo', index: 10, caption: 'Quality Transport Refrigeration' },
+        { tab: 'Logo', index: 11, caption: 'Greene’s Truck Painter’s & Collision' },
+        { tab: 'Logo', index: 23, caption: 'N-E Where Hauling & Junk Removal' },
+        { tab: 'Logo', index: 28, caption: 'HDA Hauling and Grading' },
+      ],
+    },
+    packagesNote:
+      'Logo packages start at $29. Logo Gold and above add business card, letterhead and envelope designs, so your invoices and rate confirmations match your trucks.',
+    faqs: [
+      {
+        q: 'How much does a trucking logo cost?',
+        a: 'Trucking logos use the same packages as all our logos: from $29 for Logo Basic up to $599 for The Boss. Most owner-operators choose Silver ($89) or Gold ($129) for unlimited revisions and vector files for decals.',
+      },
+      {
+        q: 'Can you design my truck door layout with the USDOT number?',
+        a: 'We design your logo so it sits well beside the company name and USDOT number that must appear on both sides of commercial vehicles. Your decal shop then lays out the final door lettering using our vector files.',
+      },
+      {
+        q: 'Will my logo be readable on a moving truck?',
+        a: 'Yes. We test concepts at a distance and in one color, keeping shapes bold and contrast high so your name can be read from the next lane.',
+      },
+      {
+        q: 'How long does a trucking logo take?',
+        a: 'Your first concepts arrive within 24 to 72 hours, depending on the package. Revisions come back within 48 hours, so you can get decals ordered quickly.',
+      },
+      {
+        q: 'Do I own my trucking logo?',
+        a: 'Yes. You get full ownership rights to your final logo, and every design is created from scratch. Registering it as a trademark is your responsibility.',
       },
     ],
   },

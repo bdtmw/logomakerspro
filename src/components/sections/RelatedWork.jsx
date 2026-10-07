@@ -7,11 +7,14 @@ const pick = (label, index) => portfolioTabs.find((t) => t.label === label)?.ite
 
 /**
  * Four portfolio pieces related to a service, linking to the full portfolio. Pass `tab`/`from`/`count` for a run
- * from one tab, or `picks` ([{ tab, index, caption }]) to hand-pick pieces from any tab with a caption each.
+ * from one tab, or `picks` to hand-pick pieces with a caption each: [{ tab, index, caption }] for a portfolio item,
+ * or [{ src, alt, width, height, caption }] for an image that isn't in the portfolio.
  */
 export default function RelatedWork({ tab, from = 0, count = 4, picks, heading, intro }) {
   const items = picks
-    ? picks.map((p) => ({ ...pick(p.tab, p.index), caption: p.caption })).filter((it) => it.thumb)
+    ? picks
+        .map((p) => (p.src ? { thumb: p, caption: p.caption } : { ...pick(p.tab, p.index), caption: p.caption }))
+        .filter((it) => it.thumb)
     : (portfolioTabs.find((t) => t.label === tab)?.items || []).slice(from, from + count);
   if (!items.length) return null;
 
