@@ -2,6 +2,7 @@
 // it): rating (1-5), source ('Trustpilot', 'Google', 'Facebook'...), date ('YYYY-MM-DD') and url (link to the review).
 // Service pages show them as cards with stars and a "via <platform>" link; entries without these show as before.
 // hero: 'logo' or 'general' marks the review quoted under the hero form on logo / other service pages.
+// Only 5-star reviews are displayed (TestimonialGrid filters the rest), so it's fine to add only those here.
 export const testimonials = [
   {
     "quote": "In the beginning the procedure sounded very lengthy and costly, but Jay guided me through each step with great clarity and offered additional discounts. This made the two main aspects much more manageable. Thank you, team!",

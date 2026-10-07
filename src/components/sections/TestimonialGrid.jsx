@@ -12,9 +12,10 @@ const formatDate = (iso) =>
  * hero, plus a closing card that turns the proof into a quote request.
  */
 export default function TestimonialGrid({ exclude, max = 5 }) {
-  // Platform reviews (rated, with a source) first, newest first; then the site's own testimonials.
+  // Only 5-star platform reviews (plus the site's own testimonials, which carry no rating); platform reviews
+  // first, newest first. The "Read all our reviews" link below shows visitors the full picture.
   const items = testimonials
-    .filter((t) => t !== exclude)
+    .filter((t) => t !== exclude && (t.rating === undefined || t.rating === 5))
     .sort((a, b) => Number(Boolean(b.source)) - Number(Boolean(a.source)) || (b.date || '').localeCompare(a.date || ''))
     .slice(0, max);
   return (
