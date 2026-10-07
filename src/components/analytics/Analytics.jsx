@@ -22,15 +22,15 @@ export default function Analytics() {
 
   return (
     <>
-      {tracking.gaId && (
+      {tracking.gaIds.length > 0 && (
         <>
-          <Script src={`https://www.googletagmanager.com/gtag/js?id=${tracking.gaId}`} strategy="afterInteractive" />
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${tracking.gaIds[0]}`} strategy="afterInteractive" />
           <Script id="gtag-init" strategy="afterInteractive">
             {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 window.gtag = gtag;
 gtag('js', new Date());
-gtag('config', '${tracking.gaId}');`}
+${tracking.gaIds.map((id) => `gtag('config', '${id}');`).join('\n')}`}
           </Script>
         </>
       )}

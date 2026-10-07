@@ -100,6 +100,10 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 GA4, Meta Pixel, Zendesk chat, reCAPTCHA v3, plus the Google Ads tag on the order page. IDs default to the live ones
 and can be overridden with the `NEXT_PUBLIC_*` variables in `.env.example`.
 
+GA4 sends every page view and event to two properties: `G-VX4M5HDTGV` (new) and `G-ZPXY7DQZ8D` (the old PHP
+site's). `NEXT_PUBLIC_GA_ID` takes a comma-separated list; set it to `G-VX4M5HDTGV` alone to stop sending to the old
+property.
+
 ## Differences from the live site
 
 - **Italics bug fixed.** `/logo-design` and `/web-design` have an unclosed `<i>` tag on the live site, which makes

@@ -17,7 +17,12 @@ export const site = {
 };
 
 export const tracking = {
-  gaId: process.env.NEXT_PUBLIC_GA_ID ?? 'G-ZPXY7DQZ8D',
+  // GA4 measurement IDs, comma separated; every page view and event goes to each. G-VX4M5HDTGV is the new
+  // property, G-ZPXY7DQZ8D the one the old PHP site used (drop it once you no longer need its reports).
+  gaIds: (process.env.NEXT_PUBLIC_GA_ID ?? 'G-VX4M5HDTGV,G-ZPXY7DQZ8D')
+    .split(',')
+    .map((id) => id.trim())
+    .filter(Boolean),
   googleAdsId: process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ?? 'AW-10973222728',
   metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID ?? '861664211729887',
   zendeskKey: process.env.NEXT_PUBLIC_ZENDESK_KEY ?? 'd9bf55c7-7b4e-40f2-8fa5-d7ad83b0b767',
