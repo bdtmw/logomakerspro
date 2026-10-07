@@ -1,5 +1,6 @@
 import { packageCategories } from '@/data/packages';
 import QuoteButton from '@/components/ui/QuoteButton';
+import OfferCallout from './OfferCallout';
 import TrackedLink from '@/components/ui/TrackedLink';
 
 // Lines every package shares (guarantees, rights); left off the cards so the differences stand out.
@@ -9,7 +10,7 @@ const COMMON = /guarantee|satisfaction|ownership|money back|dedicated (support|a
  * "Packages and pricing" on a service page (anchor #packages): three package cards, each with its key features
  * and an Order now button, then a link to the full price list and a quote option for undecided visitors.
  */
-export default function PricingTeaser({ category, ids, note }) {
+export default function PricingTeaser({ category, ids, note, popular }) {
   const cat = packageCategories[category];
   if (!cat) return null;
   const picks = ids.map((id) => cat.cards.find((c) => c.id === id)).filter(Boolean);
@@ -22,10 +23,12 @@ export default function PricingTeaser({ category, ids, note }) {
           <h2 className="lmp-section-title">Packages and pricing</h2>
           {note && <p>{note}</p>}
         </div>
+        <OfferCallout />
         <div className="row g-4">
           {picks.map((pkg) => (
             <div className="col-lg-4" key={pkg.id}>
-              <div className="lmp-pricing__card">
+              <div className={`lmp-pricing__card${pkg.id === popular ? ' is-popular' : ''}`}>
+                {pkg.id === popular && <span className="lmp-pricing__badge">Most popular</span>}
                 <h3>{pkg.title.join(' ')}</h3>
                 <p className="lmp-pricing__price">
                   {pkg.priceLabel}

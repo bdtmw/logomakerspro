@@ -8,6 +8,9 @@ import { getRecaptchaToken, loadRecaptcha } from '@/lib/recaptcha-client';
 import { useUI } from './UIContext';
 
 export const OFFER_STORAGE_KEY = 'lmp_offer';
+// window events: OPEN asks the popup to open now (from an on-page offer callout); CLAIMED fires after signup.
+export const OFFER_OPEN_EVENT = 'lmp:open-offer';
+export const OFFER_CLAIMED_EVENT = 'lmp:offer-claimed';
 
 /** { state: 'dismissed' | 'claimed', at, code? } from localStorage, or null (also when storage is blocked). */
 export function readOfferState() {
@@ -80,6 +83,19 @@ export default function OfferPopup() {
     };
   }, [show]);
 
+  // Opened on request (the visitor clicked an offer callout): skip the timing and once-per-visit rules.
+  useEffect(() => {
+    if (!leadOffer.enabled) return undefined;
+    const onOpen = () => {
+      shown.current = true;
+      lastFocus.current = document.activeElement;
+      setOpen(true);
+      if (typeof window.gtag === 'function') window.gtag('event', 'view_promotion', { promotion_name: 'discount_popup', source: 'callout' });
+    };
+    window.addEventListener(OFFER_OPEN_EVENT, onOpen);
+    return () => window.removeEventListener(OFFER_OPEN_EVENT, onOpen);
+  }, []);
+
   useEffect(() => {
     if (!open) return undefined;
     emailRef.current?.focus();
@@ -102,6 +118,7 @@ export default function OfferPopup() {
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.ok) throw new Error(json.error || 'Something went wrong. Please try again.');
       writeOfferState({ state: 'claimed', code: json.code });
+      window.dispatchEvent(new CustomEvent(OFFER_CLAIMED_EVENT, { detail: json }));
       setResult(json);
       setStatus({ state: 'idle', message: '' });
       if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: 'Discount popup' });

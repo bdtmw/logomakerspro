@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { headerNav } from '@/data/site';
+import QuoteButton from '@/components/ui/QuoteButton';
 import { useUI } from '@/components/ui/UIContext';
 import MenuText from './MenuText';
 
@@ -50,6 +51,9 @@ export default function Header() {
           </ul>
         </div>
         <div className="header__nav-icon-3">
+          <QuoteButton location="header" className="lmp-btn lmp-btn--accent lmp-header-cta">
+            Get a Quote
+          </QuoteButton>
           <button id="open_offcanvas" type="button" aria-label="Open menu" onClick={() => setOffcanvasOpen(true)}>
             <Image src="/assets/imgs/icon/menu-black.png" alt="" width={21} height={15} />
           </button>

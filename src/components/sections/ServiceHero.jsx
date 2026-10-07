@@ -6,7 +6,7 @@ import { site } from '@/data/site';
  * Above-the-fold block for service pages: the promise (H1 + lead), three verified highlights, the starting
  * price and two ways to act (see pricing, call), with a short quote form beside it.
  */
-export default function ServiceHero({ eyebrow, title, lead, highlights = [], price, serviceName }) {
+export default function ServiceHero({ eyebrow, title, lead, highlights = [], price, serviceName, testimonial }) {
   return (
     <section className="lmp-hero" id="service-hero">
       <div className="container">
@@ -41,6 +41,12 @@ export default function ServiceHero({ eyebrow, title, lead, highlights = [], pri
               <p className="lmp-hero__card-text">Tell us what you need. No obligation, just ideas and a clear price.</p>
               <QuoteForm variant="service-hero" subject={`${serviceName} quote`} idPrefix="hero-quote" />
             </div>
+            {testimonial && (
+              <figure className="lmp-hero__quote">
+                <blockquote>“{testimonial.quote}”</blockquote>
+                <figcaption>{testimonial.name}, Logo Makers Pro client</figcaption>
+              </figure>
+            )}
           </div>
         </div>
       </div>

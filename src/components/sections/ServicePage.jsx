@@ -6,11 +6,13 @@ import CtaSection from './CtaSection';
 import FaqSection from './FaqSection';
 import PricingTeaser from './PricingTeaser';
 import RelatedWork from './RelatedWork';
+import ServiceCtaBand from './ServiceCtaBand';
 import ServiceHero from './ServiceHero';
 import ServiceQuote from './ServiceQuote';
 import StickyCta from './StickyCta';
 import TestimonialsSection from './TestimonialsSection';
 import TrustStrip from './TrustStrip';
+import { testimonials } from '@/data/testimonials';
 
 /** The service's longer intro copy and studio photos, below the proof sections (the H1 is in the hero). */
 function About({ block, title }) {
@@ -195,8 +197,13 @@ function renderBlock(block, i) {
  */
 export default function ServicePage({ blocks, extras = {}, faqs = [], serviceName, highlights, eyebrow, pricingNote }) {
   const intro = blocks.find((b) => b.type === 'intro');
-  const midCta = blocks.find((b) => b.type === 'cta' && b.action === 'quote');
-  const body = blocks.filter((b) => b.type !== 'intro' && b.type !== 'cta');
+  const hasMidCta = blocks.some((b) => b.type === 'cta' && b.action === 'quote');
+  // Proof comes straight after the trust strip: hand-picked work (industry pages) or the service's portfolio run.
+  const workBlock = blocks.find((b) => b.type === 'work');
+  const body = blocks.filter((b) => !['intro', 'cta', 'work'].includes(b.type));
+  const isLogo = extras.packages?.category === 'logo-design';
+  // Real client quotes (src/data/testimonials.js): the logo one on logo pages, a general one elsewhere.
+  const heroQuote = testimonials[isLogo ? 2 : 1];
   const cat = extras.packages && packageCategories[extras.packages.category];
   const first = cat?.cards[0];
   const price = first ? { label: `from ${first.priceLabel}${first.period ? ` ${first.period.toLowerCase()}` : ''}` } : null;
@@ -210,18 +217,27 @@ export default function ServicePage({ blocks, extras = {}, faqs = [], serviceNam
         highlights={highlights}
         price={price}
         serviceName={serviceName}
+        testimonial={heroQuote}
       />
       <TrustStrip />
-      {extras.packages && <PricingTeaser category={extras.packages.category} ids={extras.packages.ids} note={pricingNote} />}
+      {workBlock && renderBlock(workBlock, 'work')}
+      {!workBlock && extras.portfolio && (
+        <RelatedWork tab={extras.portfolio.tab} from={extras.portfolio.from} count={extras.portfolio.count} />
+      )}
+      {extras.packages && (
+        <PricingTeaser
+          category={extras.packages.category}
+          ids={extras.packages.ids}
+          popular={extras.packages.popular}
+          note={pricingNote}
+        />
+      )}
       {body.map((b, i) => (
         <Fragment key={i}>
           {renderBlock(b, i)}
-          {i === 0 && midCta && renderBlock(midCta, 'mid-cta')}
+          {i === 0 && hasMidCta && <ServiceCtaBand />}
         </Fragment>
       ))}
-      {extras.portfolio && (
-        <RelatedWork tab={extras.portfolio.tab} from={extras.portfolio.from} count={extras.portfolio.count} />
-      )}
       {intro?.body && <About block={intro} title={`Why choose us for ${serviceName.toLowerCase()}`} />}
       <TestimonialsSection />
       {extras.links && renderBlock({ type: 'links', ...extras.links }, 'links')}

@@ -90,7 +90,8 @@ export const packageIntros = {
 // Extra sections on each service page: a pricing teaser (package ids) and related portfolio work.
 export const serviceExtras = {
   'logo-design': {
-    packages: { category: 'logo-design', ids: ['logo-design--logo-basic', 'logo-design--logo-silver', 'logo-design--logo-gold'] },
+    // popular: badge shown on that card. Only set it where it is true (logo FAQ: Silver and Gold sell most).
+    packages: { category: 'logo-design', ids: ['logo-design--logo-basic', 'logo-design--logo-silver', 'logo-design--logo-gold'], popular: 'logo-design--logo-silver' },
     portfolio: { tab: 'Logo', from: 0, count: 4 },
   },
   'web-design': {
