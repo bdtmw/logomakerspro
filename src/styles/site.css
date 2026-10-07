@@ -1183,3 +1183,164 @@ img {
     width: 100%;
   }
 }
+
+/* Service pages: why choose us */
+.lmp-why {
+  padding: 110px 0;
+}
+.lmp-why__intro {
+  margin-top: 20px;
+  font-size: 17px;
+  line-height: 1.65;
+}
+.lmp-why__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+.lmp-why__card {
+  padding: 28px;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  background: #fff;
+}
+.lmp-why__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  background: #fdf0eb;
+  color: #e86236;
+  font-size: 20px;
+}
+.lmp-why__card h3 {
+  margin-bottom: 8px;
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--black-2);
+}
+.lmp-why__card p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Service pages: client reviews */
+.lmp-reviews {
+  padding: 110px 0;
+  background: var(--pink-3);
+}
+.lmp-reviews__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 40px;
+}
+.lmp-reviews__card {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 30px;
+  border-radius: 12px;
+  background: #fff;
+}
+.lmp-reviews__mark {
+  color: #e86236;
+  font-size: 26px;
+}
+.lmp-reviews__card blockquote {
+  flex: 1;
+  margin: 16px 0 24px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--black-2);
+}
+.lmp-reviews__card figcaption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lmp-reviews__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--black-2);
+  color: #fff;
+  font-weight: 600;
+}
+.lmp-reviews__card figcaption strong {
+  display: block;
+  color: var(--black-2);
+}
+.lmp-reviews__card figcaption small {
+  color: #777;
+  font-size: 14px;
+}
+.lmp-reviews__card--cta {
+  justify-content: center;
+  background: var(--black-2);
+}
+.lmp-reviews__card--cta p {
+  color: #c2c2c2;
+  font-size: 17px;
+  margin-bottom: 22px;
+}
+.lmp-reviews__card--cta .lmp-reviews__cta-title {
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.lmp-reviews__card--cta .lmp-btn {
+  align-self: flex-start;
+}
+@media (max-width: 991px) {
+  .lmp-why,
+  .lmp-reviews {
+    padding: 70px 0;
+  }
+  .lmp-reviews__grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 575px) {
+  .lmp-why__grid {
+    grid-template-columns: 1fr;
+  }
+  .lmp-why__card,
+  .lmp-reviews__card {
+    padding: 22px;
+  }
+}
+.lmp-why__intro i {
+  font-style: normal;
+}
+.lmp-links-block {
+  padding-top: 90px;
+}
+@media (max-width: 575px) {
+  /* Reason cards: icon beside the text to keep the list short on phones */
+  .lmp-why__card {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    column-gap: 16px;
+  }
+  .lmp-why__icon {
+    grid-row: span 2;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 0;
+  }
+  .lmp-why__grid {
+    gap: 14px;
+  }
+  .lmp-links-block {
+    padding-top: 60px;
+  }
+}

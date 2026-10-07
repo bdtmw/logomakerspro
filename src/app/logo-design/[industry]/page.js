@@ -1,10 +1,9 @@
 import { notFound } from 'next/navigation';
 import ServicePage from '@/components/sections/ServicePage';
 import JsonLd from '@/components/seo/JsonLd';
-import { serviceExtras, serviceHighlights } from '@/data/copy';
+import { serviceExtras, serviceHighlights, whyChooseUs } from '@/data/copy';
 import { industries, industrySlugs } from '@/data/industries';
 import { packageCategories } from '@/data/packages';
-import { services } from '@/data/services';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
 import { pageMetadata } from '@/lib/seo';
 
@@ -20,14 +19,11 @@ export async function generateMetadata({ params }) {
   return pageMetadata(`/logo-design/${industry}`);
 }
 
-// Same intro photos as /logo-design: they show the design studio, not a specific industry.
-const introImages = services['logo-design'].find((b) => b.type === 'intro').images;
-
 /** The page as ServicePage blocks: intro (hero), copy, styles, a mid-page quote prompt and related work. */
 function blocksFor(page) {
   const [why, uses] = page.sections;
   return [
-    { type: 'intro', title: page.title, lead: page.lead, body: page.body, images: introImages },
+    { type: 'intro', title: page.title, lead: page.lead, body: page.body },
     { type: 'text', ...why },
     { type: 'workflow', heading: page.styles.heading, colClass: 'col-xxl-3 col-xl-3 col-lg-3 col-md-6', items: page.styles.items },
     { type: 'text', ...uses },
@@ -83,6 +79,7 @@ export default async function IndustryLogoPage({ params }) {
         faqs={page.faqs}
         serviceName={page.name}
         highlights={serviceHighlights['logo-design']}
+        reasons={whyChooseUs['logo-design']}
         pricingNote={page.packagesNote}
       />
     </>

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { packageCategories } from '@/data/packages';
 import { services } from '@/data/services';
-import { packageIntros, serviceExtras, serviceHighlights } from '@/data/copy';
+import { packageIntros, serviceExtras, serviceHighlights, whyChooseUs } from '@/data/copy';
 import { industries, industrySlugs } from '@/data/industries';
 import { packageFaqs, serviceFaqs } from '@/data/faqs';
 import CtaSection from '@/components/sections/CtaSection';
@@ -58,6 +58,7 @@ export default async function SlugPage({ params }) {
           faqs={faqs}
           serviceName={serviceNames[slug]}
           highlights={serviceHighlights[slug]}
+          reasons={whyChooseUs[slug]}
         />
       </>
     );

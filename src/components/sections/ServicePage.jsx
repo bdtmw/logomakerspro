@@ -10,45 +10,10 @@ import ServiceCtaBand from './ServiceCtaBand';
 import ServiceHero from './ServiceHero';
 import ServiceQuote from './ServiceQuote';
 import StickyCta from './StickyCta';
-import TestimonialsSection from './TestimonialsSection';
+import TestimonialGrid from './TestimonialGrid';
 import TrustStrip from './TrustStrip';
+import WhyChooseUs from './WhyChooseUs';
 import { testimonials } from '@/data/testimonials';
-
-/** The service's longer intro copy and studio photos, below the proof sections (the H1 is in the hero). */
-function About({ block, title }) {
-  const [big, small] = block.images || [];
-  return (
-    <section className="development__area">
-      <div className="container g-0 line pt-130 pb-150">
-        <div className="line-3" />
-        <div className="row">
-          <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-5">
-            <div className="sec-title-wrapper">
-              <h2 className="sec-title">{title}</h2>
-            </div>
-          </div>
-          <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7">
-            <div className="development__wrapper">{block.body && <p>{block.body}</p>}</div>
-          </div>
-          {big && (
-            <div className="col-xxl-8 col-xl-8 col-lg-8 col-md-8">
-              <div className="development__img">
-                <Image src={big.src} alt={big.alt} width={big.width} height={big.height} data-speed={big.speed} />
-              </div>
-            </div>
-          )}
-          {small && (
-            <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-4">
-              <div className="development__img">
-                <Image src={small.src} alt={small.alt} width={small.width} height={small.height} data-speed={small.speed} />
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Workflow({ block }) {
   return (
@@ -195,7 +160,7 @@ function renderBlock(block, i) {
  * action, related work, the longer intro copy, testimonials, links, FAQs and a closing quote form. On phones a
  * sticky Get a quote / Call bar appears once the hero form is off screen.
  */
-export default function ServicePage({ blocks, extras = {}, faqs = [], serviceName, highlights, eyebrow, pricingNote }) {
+export default function ServicePage({ blocks, extras = {}, faqs = [], serviceName, highlights, reasons, eyebrow, pricingNote }) {
   const intro = blocks.find((b) => b.type === 'intro');
   const hasMidCta = blocks.some((b) => b.type === 'cta' && b.action === 'quote');
   // Proof comes straight after the trust strip: hand-picked work (industry pages) or the service's portfolio run.
@@ -238,8 +203,8 @@ export default function ServicePage({ blocks, extras = {}, faqs = [], serviceNam
           {i === 0 && hasMidCta && <ServiceCtaBand />}
         </Fragment>
       ))}
-      {intro?.body && <About block={intro} title={`Why choose us for ${serviceName.toLowerCase()}`} />}
-      <TestimonialsSection />
+      <WhyChooseUs title={`Why choose Logo Makers Pro for ${serviceName.toLowerCase()}`} intro={intro?.body} items={reasons} />
+      <TestimonialGrid exclude={heroQuote} />
       {extras.links && renderBlock({ type: 'links', ...extras.links }, 'links')}
       <FaqSection title={`${serviceName} FAQs`} items={faqs} idPrefix="faq-service" />
       <ServiceQuote serviceName={serviceName} />

@@ -72,13 +72,16 @@ Every service and industry page renders through `src/components/sections/Service
    once claimed), three cards with features and an Order now button, a "Most popular" badge where
    `serviceExtras[...].packages.popular` is set (only Logo Silver, which the logo FAQ backs), and a quote button.
 5. The service's own sections from its data file, with a "Not sure which package fits?" band after the first.
-6. The longer intro copy and photos, testimonials, related links and FAQs.
-7. Closing quote form with phone and email.
+6. Why choose us: the service's intro copy beside four reason cards (`whyChooseUs` in `src/data/copy.js`, same
+   rule as the highlights: every claim is backed by `packages.js`).
+7. Client reviews as cards (`src/data/testimonials.js`, minus the one quoted in the hero) with a quote card,
+   then related links and FAQs.
+8. Closing quote form with phone and email.
 
 A "Get a Quote" button sits in the header on screens 992px and wider.
 On phones a sticky Get a free quote / Call bar appears whenever neither quote form is on screen.
 
-Measuring: every button sends a GA4 `cta_click` event (`cta`, `location`: header, hero, pricing, mid, sticky, closing), and the
+Measuring: every button sends a GA4 `cta_click` event (`cta`, `location`: header, hero, pricing, mid, reviews, sticky, closing), and the
 two forms send `generate_lead` with `form` = `service-hero` or `service-footer`. Compare them in GA4 to see which
 placements convert.
 

@@ -130,7 +130,7 @@ export const serviceHighlights = {
   'e-commerce': ['A CMS to manage products and orders', 'Mobile-responsive store design', '100% ownership and a money-back guarantee'],
   'video-animation': ['Script writing and HD delivery on every package', 'Unlimited revisions from the Startup package up', '100% ownership and a money-back guarantee'],
   'brand-services': ['Logo, stationery and website in one identity', 'Unlimited revisions', '100% ownership of every design'],
-  'digital-marketing-services': ['SEO, social media and paid ads in one team', 'Plans for 10 to 100 target keywords', 'A progress report every month'],
+  'digital-marketing-services': ['SEO, social media and paid ads in one team', 'Plans for 10 to 100 target keywords', 'Blog writing and link building on every SEO plan'],
   'mobile-app-services': ['Apps for iOS and Android', 'UX design and development in one team', 'A custom quote for your app’s scope'],
 };
 
@@ -141,3 +141,61 @@ export const trustStats = [
   { value: '150+', label: 'Ecommerce stores' },
   { value: '100+', label: 'Mobile apps' },
 ];
+
+// "Why choose us" on service pages: four reasons per service, each tied to package features in packages.js
+// (same rule as serviceHighlights: check the data before changing a claim). Industry logo pages use 'logo-design'.
+const ownRiskFree = {
+  icon: 'fa-shield-halved',
+  title: 'You own it, risk free',
+  text: 'Full ownership rights to the final work, plus our money-back guarantee. See our terms for the details.',
+};
+export const whyChooseUs = {
+  'logo-design': [
+    { icon: 'fa-pen-nib', title: 'Designed from scratch', text: 'Every concept is drawn for your brand by our designers, never pulled from a template, under our unique design guarantee.' },
+    { icon: 'fa-users', title: 'Real choice', text: 'Get from 4 concepts up to unlimited concepts by as many as 10 designers, so you pick from genuinely different directions.' },
+    { icon: 'fa-rotate', title: 'Fast, with room to refine', text: 'First concepts in 24 to 72 hours, then unlimited revisions from the Silver package up until it feels right.' },
+    ownRiskFree,
+  ],
+  'web-design': [
+    { icon: 'fa-pen-ruler', title: 'Custom design, not a theme', text: 'Every site starts from a custom layout built around your brand and your customers.' },
+    { icon: 'fa-receipt', title: 'One price, no surprises', text: 'No monthly or hidden fees. The package price is what you pay for the design and build.' },
+    { icon: 'fa-rotate', title: 'Revisions included', text: 'Unlimited revisions from the Startup package up, and first concepts within 48 hours on the Basic to Professional packages.' },
+    ownRiskFree,
+  ],
+  wordpress: [
+    { icon: 'fa-pen-ruler', title: 'Custom design, not a theme', text: 'Your WordPress site is designed around your brand, then built so it stays fast and easy to manage.' },
+    { icon: 'fa-pen-to-square', title: 'Edit it yourself', text: 'A content management system is included from the Professional package up, so you can update pages without a developer.' },
+    { icon: 'fa-receipt', title: 'One price, no surprises', text: 'No monthly or hidden fees. The package price covers the design and build.' },
+    ownRiskFree,
+  ],
+  'e-commerce': [
+    { icon: 'fa-cart-shopping', title: 'Built to sell', text: 'Easy product search and payment integration on every store package, so customers can find and buy quickly.' },
+    { icon: 'fa-sliders', title: 'Run it yourself', text: 'A content management system on every package lets you add products and manage orders without a developer.' },
+    { icon: 'fa-mobile-screen', title: 'Shoppable on any device', text: 'Every store is mobile responsive, because many of your customers will shop from their phones.' },
+    ownRiskFree,
+  ],
+  'video-animation': [
+    { icon: 'fa-file-lines', title: 'Script to screen', text: 'Script writing and HD delivery come with every animation package, so you don’t need to hire a writer.' },
+    { icon: 'fa-palette', title: 'Made for your brand', text: 'Custom artwork on our starter video, custom 2D characters on Classic and full 3D models on our 3D package.' },
+    { icon: 'fa-rotate', title: 'Revisions included', text: 'Unlimited revisions from the Startup package up, and unlimited storyboard revisions on 3D videos.' },
+    ownRiskFree,
+  ],
+  'brand-services': [
+    { icon: 'fa-layer-group', title: 'One consistent identity', text: 'Your logo, business card, letterhead, envelope and website designed together, so everything matches.' },
+    { icon: 'fa-users', title: 'Plenty of logo options', text: 'From 6 unique logo concepts up to unlimited concepts, depending on the package.' },
+    { icon: 'fa-rotate', title: 'Unlimited revisions', text: 'Every branding package includes unlimited revisions on your designs.' },
+    { icon: 'fa-key', title: '100% yours', text: 'Full ownership rights to every design we create for your brand.' },
+  ],
+  'digital-marketing-services': [
+    { icon: 'fa-bullhorn', title: 'One team for every channel', text: 'SEO, social media and paid ads planned together, so every channel pushes the same message.' },
+    { icon: 'fa-chart-line', title: 'Plans that grow with you', text: 'SEO plans target from 10 to 100 keywords, so you can start small and scale up.' },
+    { icon: 'fa-pen-fancy', title: 'Content done for you', text: 'Blog writing and link building on every SEO plan, and content creation on our larger social plans.' },
+    { icon: 'fa-file-signature', title: 'Clear pricing', text: 'Monthly plans from $299, with the deliverables for each plan listed upfront.' },
+  ],
+  'mobile-app-services': [
+    { icon: 'fa-mobile-screen-button', title: 'iOS and Android', text: 'Apps planned for the platforms your customers actually use.' },
+    { icon: 'fa-object-group', title: 'Design and code together', text: 'UX designers and developers work as one team, so what you approve is what gets built.' },
+    { icon: 'fa-gauge-high', title: 'Built for speed', text: 'We balance design, copy and performance so your app feels fast and easy to use.' },
+    { icon: 'fa-file-invoice-dollar', title: 'A clear quote first', text: 'Tell us your app idea and get a custom quote based on its scope.' },
+  ],
+};
