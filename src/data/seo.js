@@ -12,6 +12,16 @@ export const seo = {
     description:
       'Professional logo design services for startups and growing brands. Multiple concepts, unlimited revisions on most packages and all final files. From $29.',
   },
+  '/logo-design/restaurant': {
+    title: 'Restaurant Logo Design for Food Businesses | Logo Makers Pro',
+    description:
+      'Restaurant logo design for restaurants, cafes, bakeries and food trucks. Original concepts in 24 to 72 hours, print-ready files for signage. From $29.',
+  },
+  '/logo-design/real-estate': {
+    title: 'Real Estate Logo Design for Agents | Logo Makers Pro',
+    description:
+      'Real estate logo design for agents, brokerages and property managers. Original concepts in 24 to 72 hours, files ready for yard signs and cards. From $29.',
+  },
   '/web-design': {
     title: 'Custom Website Design Services for Brands | Logo Makers Pro',
     description:

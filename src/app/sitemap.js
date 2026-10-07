@@ -1,3 +1,4 @@
+import { industrySlugs } from '@/data/industries';
 import { packageCategories } from '@/data/packages';
 import { services } from '@/data/services';
 import { site } from '@/data/site';
@@ -11,6 +12,7 @@ export default function sitemap() {
   const routes = [
     '/', '/services', '/portfolio', '/packages', '/about', '/contact', '/terms-conditions', '/privacy-policy',
     ...Object.keys(services).map((s) => `/${s}`),
+    ...industrySlugs.map((s) => `/logo-design/${s}`),
     ...Object.keys(packageCategories).map((c) => `/${c}-package`),
   ];
   return routes.map((r) => ({

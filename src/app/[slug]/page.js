@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { packageCategories } from '@/data/packages';
 import { services } from '@/data/services';
 import { packageIntros, serviceExtras } from '@/data/copy';
+import { industries, industrySlugs } from '@/data/industries';
 import { packageFaqs, serviceFaqs } from '@/data/faqs';
 import CtaSection from '@/components/sections/CtaSection';
 import FaqSection from '@/components/sections/FaqSection';
@@ -13,6 +14,12 @@ import { breadcrumbSchema, faqSchema, offerCatalogSchema, serviceNames, serviceS
 import { pageMetadata } from '@/lib/seo';
 
 // Service pages (/logo-design, /wordpress, ...) and package pages (/logo-design-package, ...).
+
+// /logo-design links to every industry page (/logo-design/restaurant, ...).
+const industryLinks = {
+  heading: 'Logo design by industry',
+  links: industrySlugs.map((s) => ({ label: industries[s].name, href: `/logo-design/${s}` })),
+};
 const packagePages = Object.fromEntries(Object.keys(packageCategories).map((cat) => [`${cat}-package`, cat]));
 
 export const dynamicParams = false;
@@ -30,7 +37,7 @@ export default async function SlugPage({ params }) {
   const { slug } = await params;
 
   if (services[slug]) {
-    const extras = serviceExtras[slug] || {};
+    const extras = { ...serviceExtras[slug], ...(slug === 'logo-design' ? { links: industryLinks } : {}) };
     const faqs = serviceFaqs[slug] || [];
     const category = extras.packages ? packageCategories[extras.packages.category] : null;
     return (

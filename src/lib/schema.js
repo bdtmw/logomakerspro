@@ -41,18 +41,22 @@ export function faqSchema(items) {
   };
 }
 
-/** Service schema; with a package category it carries the price range as an AggregateOffer. */
-export function serviceSchema(slug, category) {
-  const route = `/${slug}`;
+/**
+ * Service schema; with a package category it carries the price range as an AggregateOffer.
+ * `page` overrides the route and name for pages that aren't top-level services (industry logo pages).
+ */
+export function serviceSchema(slug, category, page = {}) {
+  const route = page.route || `/${slug}`;
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: serviceNames[slug],
+    name: page.name || serviceNames[slug],
     serviceType: serviceNames[slug],
     url: absoluteUrl(route),
     ...(seo[route]?.description ? { description: seo[route].description } : {}),
     provider,
     areaServed: { '@type': 'Country', name: 'United States' },
+    ...(page.audience ? { audience: { '@type': 'BusinessAudience', audienceType: page.audience } } : {}),
   };
   const prices = (category?.cards || []).map((c) => c.price).filter((p) => typeof p === 'number');
   if (prices.length) {

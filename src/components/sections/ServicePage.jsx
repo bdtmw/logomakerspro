@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import CtaSection from './CtaSection';
 import FaqSection from './FaqSection';
 import PricingTeaser from './PricingTeaser';
@@ -105,6 +106,58 @@ function Detail({ block }) {
   );
 }
 
+/** Heading on the left, copy (paragraphs, a bullet list, a closing line) on the right. */
+function TextBlock({ block }) {
+  return (
+    <section className="lmp-text-block">
+      <div className="container g-0 line pb-110">
+        <div className="line-3" />
+        <div className="row">
+          <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-5">
+            <h2 className="sec-title">{block.heading}</h2>
+          </div>
+          <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-7">
+            <div className="lmp-text-block__body">
+              {block.paragraphs?.map((p, i) => <p key={i}>{p}</p>)}
+              {block.list && (
+                <ul>
+                  {block.list.map((li, i) => (
+                    <li key={i}>{li}</li>
+                  ))}
+                </ul>
+              )}
+              {block.after && <p>{block.after}</p>}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Links to related pages (industry logo pages on /logo-design, sibling pages on an industry page). */
+function LinksBlock({ block }) {
+  return (
+    <section className="workflow__area-6 lmp-links-block">
+      <div className="container g-0 line pb-110">
+        <div className="col-sm-12">
+          <h2 className="workflow-head">{block.heading}</h2>
+        </div>
+        <div className="line-3" />
+        <ul className="lmp-links-block__list">
+          {block.links.map((l) => (
+            <li key={l.href}>
+              <Link href={l.href}>
+                {l.label} <i className="fa-solid fa-arrow-right" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 function renderBlock(block, i) {
   switch (block.type) {
     case 'intro':
@@ -113,6 +166,12 @@ function renderBlock(block, i) {
       return <Workflow block={block} key={i} />;
     case 'detail':
       return <Detail block={block} key={i} />;
+    case 'text':
+      return <TextBlock block={block} key={i} />;
+    case 'work':
+      return <RelatedWork key={i} picks={block.items} heading={block.heading} intro={block.intro} />;
+    case 'links':
+      return block.links?.length ? <LinksBlock block={block} key={i} /> : null;
     case 'cta':
       return (
         <CtaSection
@@ -143,6 +202,7 @@ export default function ServicePage({ blocks, extras = {}, faqs = [], serviceNam
       {extras.portfolio && (
         <RelatedWork tab={extras.portfolio.tab} from={extras.portfolio.from} count={extras.portfolio.count} />
       )}
+      {extras.links && renderBlock({ type: 'links', ...extras.links }, 'links')}
       <FaqSection title={`${serviceName} FAQs`} items={faqs} idPrefix="faq-service" />
       {closing && renderBlock(closing, blocks.length - 1)}
     </>

@@ -473,3 +473,63 @@ img {
     row-gap: 0;
   }
 }
+
+/* Industry pages: two-column copy sections, captions on hand-picked work, related links */
+.lmp-text-block .sec-title {
+  font-size: 40px;
+  line-height: 1.1;
+  padding-bottom: 24px;
+}
+.lmp-text-block__body p,
+.lmp-text-block__body li {
+  font-size: 18px;
+  line-height: 1.6;
+}
+.lmp-text-block__body p + p,
+.lmp-text-block__body ul + p {
+  margin-top: 16px;
+}
+.lmp-text-block__body ul {
+  margin-top: 16px;
+}
+.lmp-text-block__body li {
+  padding-left: 22px;
+  color: var(--black-3);
+}
+.lmp-text-block__body li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e86236;
+}
+@media (max-width: 767px) {
+  .lmp-text-block .sec-title {
+    font-size: 30px;
+  }
+}
+.lmp-related-work__intro {
+  max-width: 640px;
+  padding-bottom: 30px;
+  font-size: 18px;
+}
+.lmp-related-work__caption {
+  margin: -12px 0 24px;
+  color: var(--black-2);
+  font-weight: 500;
+}
+.lmp-links-block__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+}
+.lmp-links-block__list a {
+  color: var(--black-2);
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

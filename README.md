@@ -21,6 +21,7 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 | --- | --- |
 | Pages | `src/app/**/page.js` (`[slug]` renders the 7 service pages and 8 package pages) |
 | Service page content | `src/data/services.jsx` |
+| Industry logo pages (`/logo-design/<industry>`) | `src/data/industries.js` |
 | Package cards (all prices) | `src/data/packages.js` |
 | Portfolio gallery | `src/data/portfolio.js` |
 | Testimonials | `src/data/testimonials.js` |
@@ -65,6 +66,10 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 - One H1 per page, headings in order (no skipped levels). Open Graph and Twitter tags on every page, with a
   generated 1200x630 share image (`src/app/opengraph-image.js`) set explicitly in `pageMetadata()`.
 - `/services` hub lists all 8 services and is the target of the "Services" menu item.
+- Industry logo pages (`/logo-design/restaurant`, `/logo-design/real-estate`) come from `src/data/industries.js`.
+  Add an entry there plus a title and description in `src/data/seo.js` to publish another; the route, sitemap,
+  schema and the "Logo design by industry" links on `/logo-design` pick it up. Give each page its own copy, styles
+  and FAQs, not a copy of another industry with the name swapped, or Google treats them as doorway pages.
 - Structured data: Organization (`@id` `/#organization`, referenced by Service, offers and WebSite) and WebSite
   site-wide, Service (with price range) on service pages, OfferCatalog on package pages, ItemList on `/services`,
   FAQPage wherever FAQs show, BreadcrumbList on inner pages.
