@@ -22,6 +22,7 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 | Pages | `src/app/**/page.js` (`[slug]` renders the 7 service pages and 8 package pages) |
 | Service page content | `src/data/services.jsx` |
 | Industry logo pages (`/logo-design/<industry>`) | `src/data/industries.js` |
+| Blog posts (`/blog/<slug>`) | `src/data/blog.jsx` |
 | Package cards (all prices) | `src/data/packages.js` |
 | Portfolio gallery | `src/data/portfolio.js` |
 | Testimonials | `src/data/testimonials.js` |
@@ -72,6 +73,10 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
   and FAQs, not a copy of another industry with the name swapped, or Google treats them as doorway pages.
   To show your own niche logos, put the files in `public/assets/imgs/industries/<industry>/` and list them in that
   industry's `work.items` as `{ src, alt, width, height, caption }`.
+- Blog: `/blog` and `/blog/<slug>` come from `src/data/blog.jsx` (newest post first). Each post carries its own
+  title and description, BlogPosting + FAQPage + BreadcrumbList schema, `og:type` article with published and
+  modified times, and a sitemap entry whose `lastmod` is the post's `updated` date. A `packages` block renders live
+  prices from `packages.js`, so posts never quote an old price.
 - Structured data: Organization (`@id` `/#organization`, referenced by Service, offers and WebSite) and WebSite
   site-wide, Service (with price range) on service pages, OfferCatalog on package pages, ItemList on `/services`,
   FAQPage wherever FAQs show, BreadcrumbList on inner pages.

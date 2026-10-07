@@ -77,6 +77,7 @@ export const offcanvasNav = [
 export const footerNav = [
   { label: 'Packages', href: '/packages' },
   { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Blog', href: '/blog' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact', href: '/contact' },
   { label: 'Terms & Conditions', href: '/terms-conditions' },

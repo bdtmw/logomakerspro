@@ -179,7 +179,7 @@ export default function OfferPopup() {
               No thanks
             </button>
             <p className="lmp-offer__fine">
-              One code per customer, valid on your first order. Unsubscribe any time.
+              One code per customer, valid on your first order.
             </p>
           </form>
         )}

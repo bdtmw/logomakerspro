@@ -72,6 +72,11 @@ export const seo = {
     description:
       'Explore our services: custom logo design, website and ecommerce design, WordPress, branding, video animation, digital marketing and mobile app development.',
   },
+  '/blog': {
+    title: 'Logo Design Blog: Tips, Pricing and Ideas | Logo Makers Pro',
+    description:
+      'Practical guides on logo design, branding and websites for small businesses: what things cost, how the process works and how to get the most for your money.',
+  },
   '/portfolio': {
     title: 'Logo Design Portfolio & Web Design Work | Logo Makers Pro',
     description:

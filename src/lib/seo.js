@@ -10,7 +10,9 @@ const shareImage = { url: '/opengraph-image', width: 1200, height: 630, alt: 'Lo
 
 /** Next.js metadata for a route: title, description, canonical, Open Graph and Twitter card. */
 export function pageMetadata(route, overrides = {}) {
-  const entry = seo[route] || {};
+  // `overrides.seo` supplies the title/description for routes whose copy lives with their content (blog posts).
+  const { seo: own, ...rest } = overrides;
+  const entry = own || seo[route] || {};
   const title = entry.title || site.name;
   const url = absoluteUrl(route);
   return {
@@ -32,6 +34,6 @@ export function pageMetadata(route, overrides = {}) {
       ...(entry.description ? { description: entry.description } : {}),
       images: [shareImage],
     },
-    ...overrides,
+    ...rest,
   };
 }
