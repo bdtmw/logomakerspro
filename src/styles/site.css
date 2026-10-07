@@ -727,3 +727,8 @@ img {
     color: var(--black-2);
   }
 }
+
+/* Portfolio tabs: centered. The theme's rule targets ul#pills-tab, which the React tabs don't render. */
+.home-portfolio__area .nav-pills {
+  justify-content: center;
+}
