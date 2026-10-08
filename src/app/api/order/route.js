@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { findPackage } from '@/data/packages';
 import { leadOffer } from '@/data/site';
+import { leadUrl, recordSubmission } from '@/lib/server/crm';
 import { sendSubmission } from '@/lib/server/mailer';
 import { discounted, isOfferCode } from '@/lib/server/offer';
 import { verifyRecaptcha } from '@/lib/server/recaptcha';
@@ -40,30 +41,46 @@ export async function POST(request) {
     return NextResponse.json({ ok: false, error: 'Spam check failed. Please try again.' }, { status: 400 });
   }
 
+  const packageName = pkg.orderName || pkg.title.join(' ');
+  const finalPrice = hasPrice ? (discount ? discounted(pkg.price) : pkg.price) : null;
+  const fields = {
+    Package: packageName,
+    Price: pkg.priceLabel + (pkg.period ? ` ${pkg.period}` : ''),
+    Discount: discount || undefined,
+    'Price after discount':
+      discount && hasPrice ? `$${discounted(pkg.price).toFixed(2)}${pkg.period ? ' for the first month' : ''}` : undefined,
+    Category: pkg.category,
+    'First name': firstName,
+    'Last name': lastName,
+    Email: email,
+    Phone: phone,
+    Company: clean(data.company, 200),
+    Country: clean(data.country, 100),
+    Notes: clean(data.notes),
+    IP: ip,
+  };
+  const saved = await recordSubmission({
+    source: 'order',
+    name: [firstName, lastName].filter(Boolean).join(' '),
+    email,
+    phone,
+    company: fields.Company,
+    interest: packageName,
+    value: finalPrice,
+    message: fields.Notes,
+    summary: `Ordered ${packageName} (${pkg.priceLabel})${discount ? `, ${discount}` : ''}`,
+    fields,
+  });
+
   try {
     await sendSubmission({
-      subject: `New order: ${pkg.orderName || pkg.title.join(' ')} (${pkg.priceLabel})${discount ? `, ${discount}` : ''}`,
+      subject: `New order: ${packageName} (${pkg.priceLabel})${discount ? `, ${discount}` : ''}`,
       replyTo: email,
-      fields: {
-        Package: pkg.orderName || pkg.title.join(' '),
-        Price: pkg.priceLabel + (pkg.period ? ` ${pkg.period}` : ''),
-        Discount: discount || undefined,
-        'Price after discount':
-          discount && hasPrice ? `$${discounted(pkg.price).toFixed(2)}${pkg.period ? ' for the first month' : ''}` : undefined,
-        Category: pkg.category,
-        'First name': firstName,
-        'Last name': lastName,
-        Email: email,
-        Phone: phone,
-        Company: clean(data.company, 200),
-        Country: clean(data.country, 100),
-        Notes: clean(data.notes),
-        IP: ip,
-      },
+      fields: { ...fields, CRM: leadUrl(saved) },
     });
   } catch (err) {
     console.error('order mail failed', err);
-    return NextResponse.json({ ok: false, error: 'We could not submit your order. Please call us.' }, { status: 500 });
+    if (!saved) return NextResponse.json({ ok: false, error: 'We could not submit your order. Please call us.' }, { status: 500 });
   }
 
   return NextResponse.json({ ok: true, discount });

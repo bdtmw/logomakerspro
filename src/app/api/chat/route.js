@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { site } from '@/data/site';
 import { buildSystemPrompt } from '@/lib/server/chat-knowledge';
+import { leadUrl, recordSubmission } from '@/lib/server/crm';
 import { sendSubmission } from '@/lib/server/mailer';
 import { clean, clientIp, isEmail } from '@/lib/server/request';
 
@@ -86,25 +87,35 @@ async function submitLead(input, { turns, ip, pageUrl }) {
   if (!name || !isEmail(email) || !project) {
     return { ok: false, error: 'Missing or invalid name, email or project summary. Ask the visitor for what is missing.' };
   }
+  const interest = clean(input?.package_interest, 200);
+  const fields = {
+    Name: name,
+    Email: email,
+    Phone: clean(input?.phone, 50),
+    'Interested in': interest,
+    Project: project,
+    Form: 'chatbot',
+    Page: clean(pageUrl, 500),
+    IP: ip,
+    Transcript: transcriptOf(turns),
+  };
+  const saved = await recordSubmission({
+    source: 'chatbot',
+    name,
+    email,
+    phone: fields.Phone,
+    interest: interest || project.slice(0, 300),
+    message: project,
+    pageUrl: fields.Page,
+    summary: interest || 'Chat lead',
+    fields,
+  });
   try {
-    await sendSubmission({
-      subject: `New chatbot lead: ${name}`,
-      replyTo: email,
-      fields: {
-        Name: name,
-        Email: email,
-        Phone: clean(input?.phone, 50),
-        'Interested in': clean(input?.package_interest, 200),
-        Project: project,
-        Form: 'chatbot',
-        Page: clean(pageUrl, 500),
-        IP: ip,
-        Transcript: transcriptOf(turns),
-      },
-    });
+    await sendSubmission({ subject: `New chatbot lead: ${name}`, replyTo: email, fields: { ...fields, CRM: leadUrl(saved) } });
     return { ok: true };
   } catch (err) {
     console.error('chatbot lead mail failed', err);
+    if (saved) return { ok: true };
     return { ok: false, error: 'The lead could not be sent. Give the visitor the phone number and email instead.' };
   }
 }

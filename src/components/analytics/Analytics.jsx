@@ -20,6 +20,9 @@ export default function Analytics() {
     if (typeof window.fbq === 'function') window.fbq('track', 'PageView');
   }, [pathname]);
 
+  // No tracking in the CRM.
+  if (pathname.startsWith('/admin')) return null;
+
   return (
     <>
       {tracking.gaIds.length > 0 && (

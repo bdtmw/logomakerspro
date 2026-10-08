@@ -76,6 +76,27 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
   The conversation is kept for the browser session only.
 - Tracking: GA4 `chat_open`, `chat_message`, and `generate_lead` (form `chatbot`) plus Meta `Lead` when a lead is sent.
 
+## CRM (/admin)
+
+- Every quote form, contact form, order, discount signup and chatbot lead is saved to Postgres as well as emailed.
+  The notification email includes a "CRM" link straight to the lead.
+- A new submission from an email that already has an open lead is added to that lead's timeline (blank contact
+  details are filled in) instead of creating a duplicate. Orders set the deal value to the package price after any
+  discount.
+- `/admin`: dashboard (new leads, open pipeline value, won this month, follow-ups due, lead sources),
+  `/admin/leads` (search and filter by stage or source), lead pages (edit details, stage, deal value and follow-up
+  date; notes; every submission with its fields and chat transcript; email and call buttons), `/admin/pipeline`
+  (board by stage, move leads with the arrows), manual "Add lead", and a CSV export of all leads.
+- Stages: New, Contacted, Quoted, Won, Lost. Stage changes are logged on the lead's timeline.
+- Setup: add a Postgres database (Vercel > Storage > Neon or Supabase, connected to the project, sets
+  `DATABASE_URL`) and set `ADMIN_PASSWORD` (8+ characters). Tables are created on first use. Without a database,
+  forms keep emailing as before and `/admin` shows setup steps.
+- Security: one password, compared in constant time; a signed, httpOnly session cookie for 14 days; 10 login
+  attempts per 15 minutes per IP; every page, action and the export check the session. `/admin` is noindex,
+  disallowed in robots.txt, and has no analytics, header, popups or chat.
+- Code: `src/lib/server/crm.js` (queries), `src/lib/server/db.js` (connection and schema),
+  `src/lib/server/admin-auth.js`, `src/app/admin/`.
+
 ## Service pages (conversion layout)
 
 Every service and industry page renders through `src/components/sections/ServicePage.jsx` in this order:

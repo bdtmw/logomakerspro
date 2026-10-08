@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { leadOffer, site } from '@/data/site';
+import { leadUrl, recordSubmission } from '@/lib/server/crm';
 import { escapeHtml, sendEmail, sendSubmission } from '@/lib/server/mailer';
 import { offerCode } from '@/lib/server/offer';
 import { verifyRecaptcha } from '@/lib/server/recaptcha';
@@ -31,22 +32,30 @@ export async function POST(request) {
   const code = offerCode();
   const { percent } = leadOffer;
 
+  const pageUrl = clean(data.pageUrl, 500);
+  const fields = {
+    Name: name,
+    Email: email,
+    Offer: `${percent}% off (${code})`,
+    Page: pageUrl,
+    IP: ip,
+    'reCAPTCHA score': captcha.score,
+  };
+  const saved = await recordSubmission({
+    source: 'discount',
+    name,
+    email,
+    interest: `${percent}% off first package`,
+    pageUrl,
+    summary: `Claimed ${percent}% off code`,
+    fields,
+  });
+
   try {
-    await sendSubmission({
-      subject: `New discount signup: ${email}`,
-      replyTo: email,
-      fields: {
-        Name: name,
-        Email: email,
-        Offer: `${percent}% off (${code})`,
-        Page: clean(data.pageUrl, 500),
-        IP: ip,
-        'reCAPTCHA score': captcha.score,
-      },
-    });
+    await sendSubmission({ subject: `New discount signup: ${email}`, replyTo: email, fields: { ...fields, CRM: leadUrl(saved) } });
   } catch (err) {
     console.error('offer signup mail failed', err);
-    return NextResponse.json({ ok: false, error: 'We could not sign you up. Please try again.' }, { status: 500 });
+    if (!saved) return NextResponse.json({ ok: false, error: 'We could not sign you up. Please try again.' }, { status: 500 });
   }
 
   // The code is shown on screen too, so a failed welcome email shouldn't fail the signup.
