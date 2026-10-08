@@ -48,19 +48,20 @@ export function CategoryPackages({ category, forceQuote = false, className = 'pr
   );
 }
 
-/** All categories in tabs (/packages). */
-export function AllPackages() {
+/** All categories in tabs (/packages). popular: { [category]: package id } for the Most popular badge. */
+export function AllPackages({ id, before, popular = {} }) {
   const tabs = packagesTabOrder.map((t) => ({
     label: t.label,
     content: (
       <>
         <h2 className="packages-panel-heading">{packageCategories[t.category].heading}</h2>
-        <CardGrid cards={packageCategories[t.category].cards} />
+        <CardGrid cards={packageCategories[t.category].cards} popular={popular[t.category]} />
       </>
     ),
   }));
   return (
-    <Shell className="price__area pt-130 pb-140">
+    <Shell className="price__area pt-80 pb-60" id={id}>
+      {before}
       <Tabs tabs={tabs} />
     </Shell>
   );

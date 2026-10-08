@@ -92,6 +92,10 @@ package card (`#packages`, "Most popular" where set), the mid-page band, reasons
 form. Highlights and reasons come from the matching service (`packageService` in `src/data/copy.js`); combo and
 social media packages have their own highlights (`packageHighlights`).
 
+`/packages` uses the same layout across all 37 packages in tabs (`PACKAGES_INTRO` in `src/data/copy.js` holds its
+highlights). The home page hero has a quote button, a "Logo packages from $29" link and the five-star line; home and
+About show the Trustpilot review cards (the old testimonial slider and its stock photos are gone).
+
 Checkout (`/order/order-now`): a "no payment is taken on this page" note under the button, the five-star line, the
 package's own guarantees and timing (quoted from its features, so each package shows only what it includes), a
 review, phone and email, a "Change package" link and three "What happens next" steps. Without a valid package it

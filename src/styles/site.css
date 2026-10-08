@@ -1582,3 +1582,27 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+/* Home hero: quote button, logo packages link and five-star line under the intro */
+.lmp-home-hero__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 26px;
+}
+.lmp-home-hero__cta .lmp-btn {
+  min-width: 240px;
+}
+.lmp-home-hero__cta .lmp-hero__rating {
+  margin-top: 4px;
+  font-size: 15px;
+}
+@media only screen and (min-width: 1400px) and (max-width: 1919px) {
+  /* The theme lifts .hero__text-3 by 30% of its own height. Fix it near the lift the intro paragraph alone had (a little lower, to clear LOGO), so
+     the quote buttons below it don't pull the paragraph up over the big LOGO lettering. */
+  .hero__inner-3 .hero__text-3 {
+    -webkit-transform: translateY(-88px);
+    transform: translateY(-88px);
+  }
+}

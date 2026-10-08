@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Counter from '@/components/ui/Counter';
 import Link from 'next/link';
 import MagneticButton from '@/components/ui/MagneticButton';
-import TestimonialsSection from '@/components/sections/TestimonialsSection';
+import TestimonialGrid from '@/components/sections/TestimonialGrid';
 import JsonLd from '@/components/seo/JsonLd';
 import { breadcrumbSchema } from '@/lib/schema';
 import { pageMetadata } from '@/lib/seo';
@@ -127,7 +127,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-      <TestimonialsSection />
+      <TestimonialGrid topic="about" />
       <section className="cta__area">
         <div className="container line pb-110">
           <div className="line-3"></div>

@@ -4,11 +4,20 @@ import HomeWorkflow from '@/components/sections/HomeWorkflow';
 import Link from 'next/link';
 import MagneticButton from '@/components/ui/MagneticButton';
 import PortfolioSection from '@/components/sections/PortfolioSection';
-import TestimonialsSection from '@/components/sections/TestimonialsSection';
+import TestimonialGrid from '@/components/sections/TestimonialGrid';
 import { CategoryPackages } from '@/components/sections/PackagesSection';
+import QuoteButton from '@/components/ui/QuoteButton';
+import Stars from '@/components/ui/Stars';
+import TrackedLink from '@/components/ui/TrackedLink';
+import { serviceExtras } from '@/data/copy';
+import { packageCategories } from '@/data/packages';
+import { reviewProfiles } from '@/data/site';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata('/');
+
+const logoFrom = packageCategories['logo-design'].cards[0].priceLabel;
+const trustpilot = reviewProfiles.find((p) => p.fiveStarPct && p.count);
 
 export default function HomePage() {
   return (
@@ -29,6 +38,27 @@ export default function HomePage() {
                     <strong>professional logo design services</strong>, created by a professional logo maker team
                     rather than a template generator.
                   </p>
+                  <div className="lmp-home-hero__cta">
+                    <QuoteButton location="home_hero">Get a free quote</QuoteButton>
+                    <TrackedLink href="/logo-design-package" cta="see_pricing" location="home_hero" className="lmp-btn lmp-btn--ghost">
+                      Logo packages from {logoFrom}
+                    </TrackedLink>
+                    {trustpilot && (
+                      <TrackedLink
+                        href={trustpilot.url}
+                        cta="reviews_trustpilot"
+                        location="home_hero"
+                        className="lmp-hero__rating"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Stars value={5} />
+                        <span>
+                          {trustpilot.fiveStarPct}% five-star on {trustpilot.name} <small>({trustpilot.count} reviews)</small>
+                        </span>
+                      </TrackedLink>
+                    )}
+                  </div>
                 </div>
                 <div className="scroll-down">
                   <button>
@@ -163,7 +193,7 @@ export default function HomePage() {
       </section>
       <PortfolioSection />
       {/* Same cards as /logo-design-package, but every card opens the quote popup (as on the live home page). */}
-      <CategoryPackages category="logo-design" forceQuote />
+      <CategoryPackages category="logo-design" forceQuote popular={serviceExtras['logo-design'].packages.popular} />
       <HomeWorkflow>
         <div className="choose-wrapper wf_panel">
           <div className="container">
@@ -257,7 +287,7 @@ export default function HomePage() {
           </div>
         </div>
       </HomeWorkflow>
-      <TestimonialsSection />
+      <TestimonialGrid topic="logo-design" />
     </>
   );
 }

@@ -2,7 +2,13 @@
 
 export const PACKAGES_INTRO = {
   title: 'Logo, Website and Branding Packages',
-  text: 'Logo Makers Pro packages cater to businesses of all sizes, from small startups to large corporations. Explore our offerings to find the package that aligns best with your requirements.',
+  // Hero highlights on /packages; each holds across the package data (money-back: most design packages list it).
+  highlights: [
+    'Clear prices for every package, listed upfront',
+    'A money-back guarantee on most design packages',
+    'Order online in minutes, or let us recommend one',
+  ],
+  text: 'Every package lists its price and exactly what’s included, so you can compare logos, websites, online stores, video, branding and marketing side by side, then order online or ask us to recommend one.',
 };
 
 export const SERVICES_INTRO = {
