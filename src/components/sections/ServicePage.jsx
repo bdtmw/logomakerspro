@@ -10,10 +10,9 @@ import ServiceCtaBand from './ServiceCtaBand';
 import ServiceHero from './ServiceHero';
 import ServiceQuote from './ServiceQuote';
 import StickyCta from './StickyCta';
-import TestimonialGrid from './TestimonialGrid';
+import TestimonialGrid, { heroQuoteFor } from './TestimonialGrid';
 import TrustStrip from './TrustStrip';
 import WhyChooseUs from './WhyChooseUs';
-import { platformReviews, testimonials } from '@/data/testimonials';
 
 function Workflow({ block }) {
   return (
@@ -168,8 +167,7 @@ export default function ServicePage({ blocks, extras = {}, faqs = [], serviceNam
   const body = blocks.filter((b) => !['intro', 'cta', 'work'].includes(b.type));
   const isLogo = extras.packages?.category === 'logo-design';
   // Real client quote under the hero form: the review tagged hero: 'logo' on logo pages, 'general' elsewhere.
-  const heroQuote =
-    [...platformReviews, ...testimonials].find((t) => t.hero === (isLogo ? 'logo' : 'general')) || testimonials[0];
+  const heroQuote = heroQuoteFor(isLogo);
   const cat = extras.packages && packageCategories[extras.packages.category];
   const first = cat?.cards[0];
   const price = first ? { label: `from ${first.priceLabel}${first.period ? ` ${first.period.toLowerCase()}` : ''}` } : null;

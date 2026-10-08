@@ -7,7 +7,17 @@ import { reviewProfiles, site } from '@/data/site';
  * Above-the-fold block for service pages: the promise (H1 + lead), three verified highlights, the starting
  * price and two ways to act (see pricing, call), with a short quote form beside it.
  */
-export default function ServiceHero({ eyebrow, title, lead, highlights = [], price, serviceName, testimonial }) {
+export default function ServiceHero({
+  eyebrow,
+  title,
+  lead,
+  highlights = [],
+  price,
+  serviceName,
+  testimonial,
+  cardTitle = 'Get a free quote',
+  cardText = 'Tell us what you need. No obligation, just ideas and a clear price.',
+}) {
   return (
     <section className="lmp-hero" id="service-hero">
       <div className="container">
@@ -28,7 +38,7 @@ export default function ServiceHero({ eyebrow, title, lead, highlights = [], pri
             <div className="lmp-hero__actions">
               {price && (
                 <TrackedLink href="#packages" cta="see_pricing" location="hero" className="lmp-btn lmp-btn--dark">
-                  See packages {price.label} <i className="fa-solid fa-arrow-down" aria-hidden="true" />
+                  {price.button || `See packages ${price.label}`} <i className="fa-solid fa-arrow-down" aria-hidden="true" />
                 </TrackedLink>
               )}
               <TrackedLink href={`tel:${site.phoneE164}`} cta="call" location="hero" className="lmp-btn lmp-btn--ghost">
@@ -56,8 +66,8 @@ export default function ServiceHero({ eyebrow, title, lead, highlights = [], pri
           </div>
           <div className="col-lg-5">
             <div className="lmp-hero__card">
-              <p className="lmp-hero__card-title">Get a free quote</p>
-              <p className="lmp-hero__card-text">Tell us what you need. No obligation, just ideas and a clear price.</p>
+              <p className="lmp-hero__card-title">{cardTitle}</p>
+              <p className="lmp-hero__card-text">{cardText}</p>
               <QuoteForm variant="service-hero" subject={`${serviceName} quote`} idPrefix="hero-quote" />
             </div>
             {testimonial && (

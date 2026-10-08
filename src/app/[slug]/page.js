@@ -1,13 +1,10 @@
 import { notFound } from 'next/navigation';
 import { packageCategories } from '@/data/packages';
 import { services } from '@/data/services';
-import { packageIntros, serviceExtras, serviceHighlights, whyChooseUs } from '@/data/copy';
+import { serviceExtras, serviceHighlights, whyChooseUs } from '@/data/copy';
 import { industries, industrySlugs } from '@/data/industries';
 import { packageFaqs, serviceFaqs } from '@/data/faqs';
-import CtaSection from '@/components/sections/CtaSection';
-import FaqSection from '@/components/sections/FaqSection';
-import PageIntro from '@/components/sections/PageIntro';
-import { CategoryPackages } from '@/components/sections/PackagesSection';
+import PackagePage from '@/components/sections/PackagePage';
 import ServicePage from '@/components/sections/ServicePage';
 import JsonLd from '@/components/seo/JsonLd';
 import { breadcrumbSchema, faqSchema, offerCatalogSchema, serviceNames, serviceSchema } from '@/lib/schema';
@@ -68,7 +65,6 @@ export default async function SlugPage({ params }) {
   const category = packagePages[slug];
   if (!category) notFound();
   const cat = packageCategories[category];
-  const intro = packageIntros[category];
   const faqs = packageFaqs[category] || [];
   return (
     <>
@@ -83,10 +79,7 @@ export default async function SlugPage({ params }) {
           ]),
         ]}
       />
-      <PageIntro as="h1" title={intro.title} text={intro.text} />
-      <CategoryPackages category={category} />
-      <FaqSection title={`${cat.heading} FAQs`} items={faqs} idPrefix={`faq-${category}`} />
-      <CtaSection />
+      <PackagePage category={category} />
     </>
   );
 }

@@ -83,8 +83,12 @@ export default function CheckoutForm({ packageId, packageName, price }) {
         <textarea id="notes" name="notes" rows={4} />
       </div>
       <button className="btn-checkout" type="submit" disabled={status.state === 'sending'}>
-        {status.state === 'sending' ? 'Submitting…' : 'Place Order'}
+        {status.state === 'sending' ? 'Submitting…' : 'Place my order'}
       </button>
+      <p className="lmp-checkout__note">
+        <i className="fa-solid fa-lock" aria-hidden="true" /> No payment is taken on this page. Our team will contact you
+        to confirm the details and payment.
+      </p>
       {status.message && (
         <p className={`form-status form-status--${status.state}`} role="status" aria-live="polite">
           {status.message}

@@ -11,6 +11,11 @@ const formatDate = (iso) =>
  * Client reviews on service pages as cards (all at once, no slider), skipping the one already quoted in the
  * hero, plus a closing card that turns the proof into a quote request.
  */
+/** The review quoted under a hero form: tagged hero: 'logo' on logo pages, 'general' elsewhere. */
+export function heroQuoteFor(isLogo) {
+  return [...platformReviews, ...testimonials].find((t) => t.hero === (isLogo ? 'logo' : 'general')) || testimonials[0];
+}
+
 /**
  * Pick the reviews for a page: 5-star only, minus the hero quote. Reviews about this page's topic come first.
  * Featured reviews follow, rotated by topic so different pages show a different mix, then other platform reviews

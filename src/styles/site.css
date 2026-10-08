@@ -99,17 +99,17 @@ img {
 
 /* Order page (styles carried over from order/order-now.php). */
 .checkout-section {
-  background: #121212;
+  background: var(--pink-3);
   padding: 160px 0 100px;
 }
 .checkout-container {
-  color: #fff;
+  color: #121212;
   padding: 40px 0;
 }
 .checkout-container h1 {
   font-size: 36px;
   margin-bottom: 10px;
-  color: #fff;
+  color: #121212;
 }
 .checkout-container p {
   font-size: 18px;
@@ -192,7 +192,7 @@ img {
   border-bottom: 1px solid #ddd;
 }
 .checkout-empty {
-  color: #fff;
+  color: #121212;
 }
 @media screen and (max-width: 768px) {
   .checkout-content {
@@ -1414,4 +1414,171 @@ img {
   color: var(--black-2);
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+/* Package pages: Most popular badge on the theme's pricing cards, offer callout spacing */
+.price__item.is-popular {
+  position: relative;
+  outline: 3px solid #e86236;
+  outline-offset: 2px;
+}
+.price__item.is-popular .lmp-pricing__badge {
+  z-index: 2;
+}
+.price__area .lmp-offer-callout {
+  margin-bottom: 40px;
+}
+
+/* Checkout: trust and next steps around the order form */
+.checkout-container .lmp-hero__eyebrow {
+  margin-bottom: 8px;
+}
+.lmp-checkout__rating {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: #121212;
+  font-size: 16px;
+  font-weight: 500;
+}
+.lmp-checkout__rating:hover {
+  color: #121212;
+  text-decoration: underline;
+}
+.lmp-checkout__heading {
+  margin-bottom: 18px;
+  font-size: 24px;
+  color: #121212;
+}
+.lmp-checkout__note {
+  margin-top: 14px;
+  font-size: 14px !important;
+  color: #555;
+}
+.lmp-checkout__note i {
+  color: #1b8a3a;
+  margin-right: 4px;
+}
+.lmp-checkout__label {
+  margin-bottom: 6px;
+  color: #e86236;
+  font-size: 13px !important;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.lmp-checkout__change {
+  margin-top: 10px;
+  font-size: 15px !important;
+}
+.lmp-checkout__change a,
+.lmp-checkout__terms a,
+.lmp-checkout__help a {
+  color: #121212;
+  text-decoration: underline;
+}
+.lmp-checkout__assurance {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #e5e5e5;
+}
+.service-details .lmp-checkout__assurance li {
+  border: 0;
+  padding: 4px 0;
+}
+.lmp-checkout__assurance i {
+  width: 22px;
+  color: #1b8a3a;
+}
+.lmp-checkout__terms {
+  margin-top: 6px;
+  font-size: 13px !important;
+  color: #777;
+}
+.lmp-checkout__review {
+  margin: 22px 0 0;
+  padding: 16px;
+  border-radius: 8px;
+  background: #f6f6f6;
+}
+.lmp-checkout__review blockquote {
+  margin: 8px 0;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.5;
+}
+.lmp-checkout__review figcaption {
+  font-size: 14px;
+  font-weight: 600;
+}
+.lmp-checkout__help {
+  margin-top: 18px;
+  font-size: 15px !important;
+}
+.lmp-checkout__steps {
+  margin-top: 40px;
+  padding: 30px;
+  border-radius: 10px;
+  background: #121212;
+}
+.lmp-checkout__steps h2 {
+  margin-bottom: 20px;
+  color: #fff;
+  font-size: 26px;
+}
+.lmp-checkout__steps ol {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  counter-reset: lmp-co;
+}
+.lmp-checkout__steps li {
+  counter-increment: lmp-co;
+  padding-top: 46px;
+  color: #c2c2c2;
+}
+.lmp-checkout__steps li::before {
+  content: counter(lmp-co);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #e86236;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  line-height: 34px;
+}
+.lmp-checkout__steps strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #fff;
+  font-size: 18px;
+}
+.lmp-checkout__categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.lmp-checkout__categories a {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  background: #fff;
+  color: #121212;
+}
+.lmp-checkout__categories a:hover {
+  border-color: #e86236;
+  color: #121212;
+}
+@media (max-width: 767px) {
+  .lmp-checkout__steps ol {
+    grid-template-columns: 1fr;
+  }
 }

@@ -199,3 +199,24 @@ export const whyChooseUs = {
     { icon: 'fa-file-invoice-dollar', title: 'A clear quote first', text: 'Tell us your app idea and get a custom quote based on its scope.' },
   ],
 };
+
+// Package pages (/<category>-package): which service's highlights, reasons and reviews to borrow, plus highlights
+// for categories that don't map to one service. Same rule: every line is backed by that category in packages.js.
+export const packageService = {
+  'logo-design': 'logo-design',
+  'web-design': 'web-design',
+  'e-commerce': 'e-commerce',
+  animation: 'video-animation',
+  branding: 'brand-services',
+  seo: 'digital-marketing-services',
+  'digital-marketing': 'digital-marketing-services',
+  combo: null,
+};
+export const packageHighlights = {
+  combo: ['A logo and a website in one order', 'Unique design guarantee on every package', 'Money-back guarantee on every package'],
+  'digital-marketing': [
+    'Regular posting on Facebook, Twitter and Instagram',
+    'Content creation from the Startup plan up',
+    'Monthly progress reports on the Startup and Scaling plans',
+  ],
+};

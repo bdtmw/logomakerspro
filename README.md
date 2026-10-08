@@ -86,6 +86,17 @@ Every service and industry page renders through `src/components/sections/Service
 8. Closing quote form with phone and email.
 
 A "Get a Quote" button sits in the header on screens 992px and wider.
+Package pages (`/<category>-package`, `src/components/sections/PackagePage.jsx`) use the same building blocks: a
+hero with the starting price and a "Not sure which package fits?" form, the trust strip, the 15% offer and every
+package card (`#packages`, "Most popular" where set), the mid-page band, reasons, reviews, FAQs and the closing
+form. Highlights and reasons come from the matching service (`packageService` in `src/data/copy.js`); combo and
+social media packages have their own highlights (`packageHighlights`).
+
+Checkout (`/order/order-now`): a "no payment is taken on this page" note under the button, the five-star line, the
+package's own guarantees and timing (quoted from its features, so each package shows only what it includes), a
+review, phone and email, a "Change package" link and three "What happens next" steps. Without a valid package it
+lists the package pages instead of a dead end.
+
 On phones a sticky Get a free quote / Call bar appears whenever neither quote form is on screen.
 
 Measuring: every button sends a GA4 `cta_click` event (`cta`, `location`: header, hero, pricing, mid, reviews, sticky, closing), and the
