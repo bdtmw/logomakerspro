@@ -1,43 +1,54 @@
-import Anthropic from '@anthropic-ai/sdk';
 import { NextResponse } from 'next/server';
 import { site } from '@/data/site';
 import { buildSystemPrompt } from '@/lib/server/chat-knowledge';
 import { sendSubmission } from '@/lib/server/mailer';
 import { clean, clientIp, isEmail } from '@/lib/server/request';
 
-// Website chatbot. The browser sends the visible conversation (text only); this streams the reply back as
-// newline-delimited JSON: {"t":"text","v":"..."} chunks, {"t":"lead","ok":true} when a lead was sent, then
-// {"t":"done"} or {"t":"error","v":"..."}. Needs ANTHROPIC_API_KEY on the server.
+// Website chatbot, powered by Google Gemini. The browser sends the visible conversation (text only); this streams
+// the reply back as newline-delimited JSON: {"t":"text","v":"..."} chunks, {"t":"lead","ok":true} when a lead was
+// sent, then {"t":"done"} or {"t":"error","v":"..."}.
+// Needs GEMINI_API_KEY on the server. Several keys can be given, comma-separated: when one is out of quota or
+// failing, the next one is tried.
 
 export const maxDuration = 60;
 
-const MODEL = 'claude-opus-5-5';
+const MODEL = process.env.GEMINI_MODEL || 'gemini-flash-latest';
+const API = process.env.GEMINI_API_BASE || 'https://generativelanguage.googleapis.com/v1beta/models';
 const MAX_TURNS = 20; // visible messages kept from the conversation
 const MAX_CHARS = 2000; // per visitor message
 const MAX_TOOL_ROUNDS = 2;
 
-// The prompt never changes between requests, so build it once and let prompt caching reuse it.
-const SYSTEM = [{ type: 'text', text: buildSystemPrompt(), cache_control: { type: 'ephemeral' } }];
+const SYSTEM = { parts: [{ text: buildSystemPrompt() }] };
 
 const LEAD_TOOL = {
-  name: 'submit_lead',
-  description:
-    "Send the visitor's contact details and project summary to the Logo Makers Pro team so they can follow up with a quote or to take an order. Use it once you have the visitor's name, email and a short description of what they need.",
-  strict: true,
-  eager_input_streaming: true,
-  input_schema: {
-    type: 'object',
-    additionalProperties: false,
-    properties: {
-      name: { type: 'string', description: "The visitor's name." },
-      email: { type: 'string', description: "The visitor's email address." },
-      phone: { type: 'string', description: 'Phone number, or an empty string if they did not give one.' },
-      package_interest: { type: 'string', description: 'Package or service they are interested in, or an empty string.' },
-      project: { type: 'string', description: 'Short summary of what they need, in their words where possible.' },
+  functionDeclarations: [
+    {
+      name: 'submit_lead',
+      description:
+        "Send the visitor's contact details and project summary to the Logo Makers Pro team so they can follow up with a quote or to take an order. Use it once you have the visitor's name, email and a short description of what they need.",
+      parameters: {
+        type: 'OBJECT',
+        properties: {
+          name: { type: 'STRING', description: "The visitor's name." },
+          email: { type: 'STRING', description: "The visitor's email address." },
+          phone: { type: 'STRING', description: 'Phone number, or an empty string if they did not give one.' },
+          package_interest: { type: 'STRING', description: 'Package or service they are interested in, or an empty string.' },
+          project: { type: 'STRING', description: 'Short summary of what they need, in their words where possible.' },
+        },
+        required: ['name', 'email', 'project'],
+      },
     },
-    required: ['name', 'email', 'phone', 'package_interest', 'project'],
-  },
+  ],
 };
+
+const apiKeys = () =>
+  (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || '')
+    .split(',')
+    .map((k) => k.trim())
+    .filter(Boolean);
+
+// Rotates the starting key between requests so the load spreads across keys.
+let keyCursor = 0;
 
 // Best-effort per-IP limit (per server instance): 30 messages per 10 minutes.
 const hits = new Map();
@@ -96,8 +107,89 @@ async function submitLead(input, { turns, ip, pageUrl }) {
   }
 }
 
+class GeminiError extends Error {
+  constructor(status, message) {
+    super(message);
+    this.status = status;
+  }
+}
+
+/** Starts a streaming request, trying each key in turn on quota, auth or server errors. */
+async function openStream(contents, signal) {
+  const keys = apiKeys();
+  const start = keyCursor++ % keys.length;
+  let lastError;
+  for (let i = 0; i < keys.length; i++) {
+    const res = await fetch(`${API}/${MODEL}:streamGenerateContent?alt=sse`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': keys[(start + i) % keys.length] },
+      body: JSON.stringify({
+        systemInstruction: SYSTEM,
+        contents,
+        tools: [LEAD_TOOL],
+        generationConfig: { maxOutputTokens: 2048, temperature: 0.4 },
+      }),
+      signal,
+    });
+    if (res.ok && res.body) return res;
+    const detail = await res.text().catch(() => '');
+    lastError = new GeminiError(res.status, `Gemini ${res.status}: ${detail.slice(0, 500)}`);
+    // 400 is a bad request: another key won't help.
+    if (res.status === 400) break;
+  }
+  throw lastError;
+}
+
+/** Reads one streamed reply. Calls onText for each text chunk; returns the model turn and its function calls. */
+async function readStream(res, onText) {
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  const parts = [];
+  let finishReason = '';
+  let blocked = false;
+  let buffer = '';
+
+  const handle = (data) => {
+    const chunk = JSON.parse(data);
+    if (chunk.promptFeedback?.blockReason) blocked = true;
+    const cand = chunk.candidates?.[0];
+    if (!cand) return;
+    if (cand.finishReason) finishReason = cand.finishReason;
+    for (const part of cand.content?.parts || []) {
+      if (part.thought) continue;
+      if (typeof part.text === 'string' && part.text) onText(part.text);
+      // Parts go back to the model exactly as received (function calls carry signatures Gemini checks).
+      parts.push(part);
+    }
+  };
+
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const events = buffer.split(/\r?\n\r?\n/);
+    buffer = events.pop();
+    for (const event of events) {
+      const data = event
+        .split(/\r?\n/)
+        .filter((l) => l.startsWith('data:'))
+        .map((l) => l.slice(5).trim())
+        .join('');
+      if (data) handle(data);
+    }
+  }
+  if (buffer.trim().startsWith('data:')) handle(buffer.trim().slice(5).trim());
+
+  return {
+    content: { role: 'model', parts },
+    calls: parts.filter((p) => p.functionCall).map((p) => p.functionCall),
+    finishReason,
+    blocked,
+  };
+}
+
 export async function POST(request) {
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!apiKeys().length) {
     return NextResponse.json({ ok: false, error: 'Chat is not available right now.' }, { status: 503 });
   }
   const ip = clientIp(request);
@@ -115,72 +207,46 @@ export async function POST(request) {
   if (!turns) return NextResponse.json({ ok: false, error: 'Invalid conversation.' }, { status: 400 });
   const pageUrl = clean(body?.pageUrl, 500);
 
-  const client = new Anthropic();
   const encoder = new TextEncoder();
-
   const stream = new ReadableStream({
     async start(controller) {
       const send = (obj) => controller.enqueue(encoder.encode(`${JSON.stringify(obj)}\n`));
-      // Within one request the conversation is append-only: each assistant turn goes back exactly as returned.
-      const messages = turns.map((m) => ({ role: m.role, content: m.content }));
+      const contents = turns.map((m) => ({ role: m.role === 'user' ? 'user' : 'model', parts: [{ text: m.content }] }));
       try {
         for (let round = 0; round <= MAX_TOOL_ROUNDS; round++) {
-          const reply = client.beta.messages.stream(
-            {
-              model: MODEL,
-              max_tokens: 4096,
-              betas: ['server-side-fallback-2026-07-01'],
-              fallbacks: 'default',
-              output_config: { effort: 'low' },
-              system: SYSTEM,
-              tools: [LEAD_TOOL],
-              messages,
-            },
-            { signal: request.signal },
-          );
-          reply.on('text', (delta) => send({ t: 'text', v: delta }));
+          let wrote = false;
+          const res = await openStream(contents, request.signal);
+          const reply = await readStream(res, (text) => {
+            wrote = true;
+            send({ t: 'text', v: text });
+          });
 
-          let message;
-          try {
-            message = await reply.finalMessage();
-          } catch (err) {
-            if (err instanceof Anthropic.APIError) throw err;
-            // A tool input that could not be parsed at all: ask once more.
-            if (round < MAX_TOOL_ROUNDS) continue;
-            throw err;
-          }
-
-          if (message.stop_reason === 'refusal') {
+          if (reply.blocked || reply.finishReason === 'SAFETY' || reply.finishReason === 'PROHIBITED_CONTENT') {
             send({ t: 'text', v: `Sorry, I can't help with that here. For anything else, call us on ${site.phone}.` });
             break;
           }
-          // Anything but a complete tool call (end_turn, or max_tokens cutting a tool input off) ends the turn.
-          const toolUses = message.content.filter((b) => b.type === 'tool_use');
-          if (message.stop_reason !== 'tool_use' || !toolUses.length) break;
+          // No function call (or one cut off by the token limit) ends the turn.
+          if (!reply.calls.length || reply.finishReason === 'MAX_TOKENS') break;
 
-          messages.push({ role: 'assistant', content: message.content });
-          const results = [];
-          for (const tool of toolUses) {
+          contents.push(reply.content);
+          const responses = [];
+          for (const call of reply.calls) {
             const result =
-              tool.name === 'submit_lead'
-                ? await submitLead(tool.input, { turns, ip, pageUrl })
+              call.name === 'submit_lead'
+                ? await submitLead(call.args, { turns, ip, pageUrl })
                 : { ok: false, error: 'Unknown tool.' };
-            if (tool.name === 'submit_lead') send({ t: 'lead', ok: result.ok });
-            results.push({
-              type: 'tool_result',
-              tool_use_id: tool.id,
-              content: JSON.stringify(result),
-              ...(result.ok ? {} : { is_error: true }),
-            });
+            if (call.name === 'submit_lead') send({ t: 'lead', ok: result.ok });
+            responses.push({ functionResponse: { name: call.name, ...(call.id ? { id: call.id } : {}), response: result } });
           }
-          messages.push({ role: 'user', content: results });
-          send({ t: 'text', v: '\n\n' });
+          contents.push({ role: 'user', parts: responses });
+          if (wrote) send({ t: 'text', v: '\n\n' });
         }
         send({ t: 'done' });
       } catch (err) {
         if (request.signal.aborted) {
           // Visitor closed the chat or navigated away.
-        } else if (err instanceof Anthropic.RateLimitError) {
+        } else if (err instanceof GeminiError && err.status === 429) {
+          console.error('chatbot quota', err.message);
           send({ t: 'error', v: 'The assistant is busy right now. Please try again in a moment.' });
         } else {
           console.error('chatbot error', err);

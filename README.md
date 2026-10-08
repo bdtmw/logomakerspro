@@ -62,12 +62,12 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 ## AI chat assistant
 
 - The chat bubble (`src/components/chat/ChatWidget.jsx`) replaces the Zendesk messenger. "Let's talk" buttons open it.
-- `/api/chat` streams replies from Claude (model and effort set at the top of `src/app/api/chat/route.js`) using
-  the Anthropic SDK. Set `ANTHROPIC_API_KEY` on the server; without it the bubble shows the phone number and the
-  quote form instead.
+- `/api/chat` streams replies from Google Gemini (REST API, no SDK). Set `GEMINI_API_KEY` on the server (several
+  keys can be comma-separated; a key that is out of quota is skipped). `GEMINI_MODEL` picks the model (default
+  `gemini-flash-latest`). Without a key the bubble shows the phone number and the quote form instead.
 - What the bot knows is built from the site's own data (packages, prices, service highlights, FAQs, contact details)
   in `src/lib/server/chat-knowledge.js`, so it updates whenever those files change. It is told to quote only those
-  facts, never to invent discounts or reviews, and never to ask for payment details. The prompt is cached.
+  facts, never to invent discounts or reviews, and never to ask for payment details.
 - When a visitor wants a quote, an order or a person, the bot asks for name, email and project details and calls its
   `submit_lead` tool. The server checks the details and emails "New chatbot lead: <name>" with the transcript (SMTP,
   like the other forms).
