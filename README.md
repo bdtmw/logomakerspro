@@ -64,7 +64,8 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 - The chat bubble (`src/components/chat/ChatWidget.jsx`) replaces the Zendesk messenger. "Let's talk" buttons open it.
 - `/api/chat` streams replies from Google Gemini (REST API, no SDK). Set `GEMINI_API_KEY` on the server (several
   keys can be comma-separated; a key that is out of quota is skipped). `GEMINI_MODEL` picks the model (default
-  `gemini-flash-latest`). Without a key the bubble shows the phone number and the quote form instead.
+  `gemini-flash-latest`). If Google reports the model is overloaded, it retries once and then uses
+  `GEMINI_FALLBACK_MODEL` (default `gemini-flash-lite-latest`). Without a key the bubble shows the phone number and the quote form instead.
 - What the bot knows is built from the site's own data (packages, prices, service highlights, FAQs, contact details)
   in `src/lib/server/chat-knowledge.js`, so it updates whenever those files change. It is told to quote only those
   facts, never to invent discounts or reviews, and never to ask for payment details.

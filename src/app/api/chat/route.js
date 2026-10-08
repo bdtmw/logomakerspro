@@ -13,6 +13,8 @@ import { clean, clientIp, isEmail } from '@/lib/server/request';
 export const maxDuration = 60;
 
 const MODEL = process.env.GEMINI_MODEL || 'gemini-flash-latest';
+// Used when the main model is overloaded (Gemini returns 503 "high demand" fairly often).
+const FALLBACK_MODEL = process.env.GEMINI_FALLBACK_MODEL || 'gemini-flash-lite-latest';
 const API = process.env.GEMINI_API_BASE || 'https://generativelanguage.googleapis.com/v1beta/models';
 const MAX_TURNS = 20; // visible messages kept from the conversation
 const MAX_CHARS = 2000; // per visitor message
@@ -114,15 +116,29 @@ class GeminiError extends Error {
   }
 }
 
-/** Starts a streaming request, trying each key in turn on quota, auth or server errors. */
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Starts a streaming request. On quota, auth or server errors it tries the next key; when the model is overloaded it
+ * retries once after a short pause, then moves to the fallback model.
+ */
 async function openStream(contents, signal) {
   const keys = apiKeys();
   const start = keyCursor++ % keys.length;
+  const models = [...new Set([MODEL, FALLBACK_MODEL].filter(Boolean))];
+  const attempts = models.flatMap((model, m) =>
+    keys.flatMap((_, i) => {
+      const key = keys[(start + i) % keys.length];
+      // The main model gets a second try on the first key, since overload spikes are usually brief.
+      return m === 0 && i === 0 ? [{ model, key }, { model, key, wait: 1000 }] : [{ model, key }];
+    }),
+  );
   let lastError;
-  for (let i = 0; i < keys.length; i++) {
-    const res = await fetch(`${API}/${MODEL}:streamGenerateContent?alt=sse`, {
+  for (const { model, key, wait } of attempts) {
+    if (wait) await sleep(wait);
+    const res = await fetch(`${API}/${model}:streamGenerateContent?alt=sse`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': keys[(start + i) % keys.length] },
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
       body: JSON.stringify({
         systemInstruction: SYSTEM,
         contents,
@@ -133,8 +149,8 @@ async function openStream(contents, signal) {
     });
     if (res.ok && res.body) return res;
     const detail = await res.text().catch(() => '');
-    lastError = new GeminiError(res.status, `Gemini ${res.status}: ${detail.slice(0, 500)}`);
-    // 400 is a bad request: another key won't help.
+    lastError = new GeminiError(res.status, `Gemini ${model} ${res.status}: ${detail.slice(0, 300)}`);
+    // 400 is a bad request: another key or model won't help.
     if (res.status === 400) break;
   }
   throw lastError;
