@@ -16,7 +16,9 @@ export async function db() {
   // One small pool per server instance (kept on globalThis so dev hot reloads don't open new ones).
   const g = globalThis;
   if (!g.__lmpSql) {
-    g.__lmpSql = postgres(url(), { max: 3, idle_timeout: 20, connect_timeout: 10, onnotice: () => {} });
+    // prepare: false keeps pooled connection strings working (Supabase's pooler, Neon's "-pooler" host), which
+    // can't hold prepared statements between queries.
+    g.__lmpSql = postgres(url(), { max: 3, idle_timeout: 20, connect_timeout: 10, prepare: false, onnotice: () => {} });
   }
   const sql = g.__lmpSql;
   if (!ready) {

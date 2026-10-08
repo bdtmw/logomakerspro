@@ -708,6 +708,16 @@
 .crm-setup p {
   margin-top: 12px;
 }
+.crm-setup__error {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fdecec;
+  color: #b91c1c;
+  font-size: 13px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
 
 /* Small screens: nav becomes a top bar */
 @media (max-width: 1100px) {
