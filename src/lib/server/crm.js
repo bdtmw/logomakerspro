@@ -210,3 +210,75 @@ export async function allLeadsForExport() {
   const sql = await db();
   return sql`SELECT * FROM crm_leads ORDER BY created_at DESC`;
 }
+
+const RANGES = { 7: 'day', 30: 'day', 90: 'week', 365: 'month' };
+export const ANALYTICS_RANGES = Object.keys(RANGES).map(Number);
+
+/**
+ * Lead analytics for the last `days` days (7, 30, 90 or 365), counted by when each lead came in, plus the same
+ * numbers for the period before it so the page can show the change.
+ */
+export async function analytics(days) {
+  const span = ANALYTICS_RANGES.includes(days) ? days : 30;
+  const bucket = RANGES[span];
+  const tz = process.env.CRM_TIMEZONE || 'America/New_York';
+  const sql = await db();
+  const since = sql`now() - make_interval(days => ${span})`;
+  const prevSince = sql`now() - make_interval(days => ${span * 2})`;
+  // Bucket names can't be parameters; `bucket` only ever comes from the RANGES table above.
+  const unit = sql.unsafe(`'${bucket}'`);
+  const step = sql.unsafe(`interval '1 ${bucket}'`);
+
+  const [[totals], [previous], series, bySource, byPage, byInterest, [speed]] = await Promise.all([
+    sql`
+      SELECT
+        count(*)::int AS leads,
+        count(*) FILTER (WHERE status = 'won')::int AS won,
+        count(*) FILTER (WHERE status = 'lost')::int AS lost,
+        count(*) FILTER (WHERE status = 'won' AND value IS NOT NULL)::int AS won_valued,
+        coalesce(sum(value) FILTER (WHERE status = 'won'), 0)::float AS revenue
+      FROM crm_leads WHERE created_at > ${since}`,
+    sql`
+      SELECT
+        count(*)::int AS leads,
+        count(*) FILTER (WHERE status = 'won')::int AS won,
+        coalesce(sum(value) FILTER (WHERE status = 'won'), 0)::float AS revenue
+      FROM crm_leads WHERE created_at > ${prevSince} AND created_at <= ${since}`,
+    sql`
+      SELECT to_char(g, 'YYYY-MM-DD') AS day, count(l.id)::int AS leads, count(l.id) FILTER (WHERE l.status = 'won')::int AS won
+      FROM generate_series(
+        date_trunc(${unit}, (${since}) AT TIME ZONE ${tz}),
+        date_trunc(${unit}, now() AT TIME ZONE ${tz}),
+        ${step}
+      ) AS g
+      LEFT JOIN crm_leads l
+        ON l.created_at > ${since} AND date_trunc(${unit}, l.created_at AT TIME ZONE ${tz}) = g
+      GROUP BY g ORDER BY g`,
+    sql`
+      SELECT source, count(*)::int AS leads,
+        count(*) FILTER (WHERE status = 'won')::int AS won,
+        coalesce(sum(value) FILTER (WHERE status = 'won'), 0)::float AS revenue
+      FROM crm_leads WHERE created_at > ${since}
+      GROUP BY source ORDER BY leads DESC, source`,
+    sql`
+      SELECT coalesce(nullif(substring(page_url FROM '^https?://[^/]+(/[^?#]*)'), ''), '/') AS page, count(*)::int AS leads
+      FROM crm_leads WHERE created_at > ${since} AND page_url <> ''
+      GROUP BY page ORDER BY leads DESC, page LIMIT 8`,
+    sql`
+      SELECT interest, count(*)::int AS leads, count(*) FILTER (WHERE status = 'won')::int AS won
+      FROM crm_leads WHERE created_at > ${since} AND interest <> ''
+      GROUP BY interest ORDER BY leads DESC, interest LIMIT 8`,
+    // Time from a lead arriving to its first stage change (the first time someone moved it on from New).
+    sql`
+      SELECT count(*)::int AS contacted,
+        percentile_cont(0.5) WITHIN GROUP (ORDER BY extract(epoch FROM first_move - created_at)) AS median_seconds
+      FROM (
+        SELECT l.created_at, min(a.created_at) AS first_move
+        FROM crm_leads l JOIN crm_activities a ON a.lead_id = l.id AND a.kind = 'status'
+        WHERE l.created_at > ${since}
+        GROUP BY l.id, l.created_at
+      ) t`,
+  ]);
+
+  return { days: span, bucket, totals, previous, series, bySource, byPage, byInterest, speed };
+}

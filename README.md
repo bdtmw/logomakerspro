@@ -87,6 +87,10 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
   `/admin/leads` (search and filter by stage or source), lead pages (edit details, stage, deal value and follow-up
   date; notes; every submission with its fields and chat transcript; email and call buttons), `/admin/pipeline`
   (board by stage, move leads with the arrows), manual "Add lead", and a CSV export of all leads.
+- `/admin/analytics`: last 7 / 30 / 90 days or 12 months. Leads, won, win rate, revenue won (with change vs the
+  previous period), average deal, median time to first contact (lead arriving to its first stage change), leads per
+  day / week / month chart, and tables of lead sources, pages that brought leads, and what leads asked for. Counts
+  are leads that came in during the period, by their current stage.
 - Stages: New, Contacted, Quoted, Won, Lost. Stage changes are logged on the lead's timeline.
 - Setup: add a Postgres database (Vercel > Storage > Neon or Supabase, connected to the project, sets
   `DATABASE_URL`) and set `ADMIN_PASSWORD` (8+ characters). Tables are created on first use. Without a database,

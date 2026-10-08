@@ -8,6 +8,7 @@ const LINKS = [
   { href: '/admin', label: 'Dashboard', icon: 'fa-solid fa-gauge' },
   { href: '/admin/leads', label: 'Leads', icon: 'fa-solid fa-address-book' },
   { href: '/admin/pipeline', label: 'Pipeline', icon: 'fa-solid fa-table-columns' },
+  { href: '/admin/analytics', label: 'Analytics', icon: 'fa-solid fa-chart-column' },
   { href: '/admin/leads/new', label: 'Add lead', icon: 'fa-solid fa-user-plus' },
 ];
 

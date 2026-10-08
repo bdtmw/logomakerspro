@@ -690,6 +690,230 @@
   color: var(--crm-accent);
 }
 
+/* Analytics */
+.crm-range {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 18px;
+  padding: 4px;
+  border: 1px solid var(--crm-line);
+  border-radius: 10px;
+  background: #fff;
+}
+.crm-range a {
+  padding: 6px 12px;
+  border-radius: 7px;
+  color: #374151 !important;
+  font-size: 14px;
+  text-decoration: none !important;
+}
+.crm-range a:hover {
+  background: #f3f4f6;
+}
+.crm-range a.is-active {
+  background: var(--crm-dark);
+  color: #fff !important;
+  font-weight: 500;
+}
+.crm-stats--six {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.crm-delta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.crm-delta span {
+  color: var(--crm-muted);
+  font-weight: 400;
+}
+.crm-delta--up {
+  color: #17703b;
+}
+.crm-delta--down {
+  color: #b91c1c;
+}
+.crm-section {
+  margin-bottom: 18px;
+}
+.crm-section h2 .crm-muted {
+  font-size: 13px;
+  font-weight: 400;
+}
+.crm-footnote {
+  margin-top: 18px !important;
+  font-size: 13px !important;
+}
+.crm-table-scroll {
+  overflow-x: auto;
+}
+.crm-table--compact td,
+.crm-table--compact th {
+  padding: 9px 10px;
+}
+.crm-table--compact th:first-child,
+.crm-table--compact td:first-child {
+  padding-left: 0;
+}
+.crm-section .crm-table th:first-child,
+.crm-section .crm-table td:first-child {
+  padding-left: 0;
+}
+.crm-table__path {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.crm-countbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 140px;
+  font-variant-numeric: tabular-nums;
+}
+.crm-countbar__track {
+  flex: 1;
+  max-width: 180px;
+  height: 8px;
+}
+.crm-countbar__track span {
+  display: block;
+  height: 100%;
+  min-width: 2px;
+  border-radius: 0 4px 4px 0;
+  background: var(--crm-accent);
+}
+
+/* Column chart: 1px solid gridlines, columns up to 24px wide with a 4px rounded cap, one tooltip */
+.crm-chart {
+  margin: 0;
+}
+.crm-chart__plot {
+  position: relative;
+  height: 240px;
+  margin: 28px 0 0 36px;
+}
+.crm-chart__grid span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #eceef1;
+}
+.crm-chart__grid em {
+  position: absolute;
+  right: calc(100% + 8px);
+  top: -8px;
+  color: var(--crm-muted);
+  font-size: 12px;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  line-height: 16px;
+}
+.crm-chart__bars {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+}
+.crm-chart__col {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 0;
+  outline: none;
+  cursor: default;
+}
+.crm-chart__col:focus-visible {
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(232, 98, 54, 0.35);
+}
+.crm-chart__col.is-active {
+  background: rgba(17, 24, 39, 0.04);
+}
+.crm-chart__bar {
+  width: 100%;
+  max-width: 24px;
+  min-height: 2px;
+  border-radius: 4px 4px 0 0;
+  background: var(--crm-accent);
+}
+.crm-chart__col.is-active .crm-chart__bar {
+  background: #f07a52;
+}
+.crm-chart__cap {
+  position: absolute;
+  left: 50%;
+  margin-bottom: 4px;
+  transform: translateX(-50%);
+  color: var(--crm-text);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.crm-chart__tip {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: calc(50% + 10px);
+  display: flex;
+  flex-direction: column;
+  padding: 7px 10px;
+  border: 1px solid var(--crm-line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(17, 24, 39, 0.12);
+  font-size: 13px;
+  line-height: 1.35;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.crm-chart__tip--left {
+  left: auto;
+  right: calc(50% + 10px);
+}
+.crm-chart__tip strong {
+  color: var(--crm-text);
+  font-weight: 600;
+}
+.crm-chart__tip span {
+  color: var(--crm-muted);
+  font-size: 12px;
+}
+.crm-chart__x {
+  display: flex;
+  gap: 2px;
+  margin: 6px 0 0 36px;
+  border-top: 1px solid #d1d5db;
+  padding-top: 6px;
+}
+.crm-chart__x span {
+  flex: 1;
+  min-width: 0;
+  overflow: visible;
+  color: var(--crm-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.crm-chart__table {
+  margin-top: 14px;
+  font-size: 13px;
+}
+.crm-chart__table summary {
+  color: var(--crm-accent-dark);
+  cursor: pointer;
+}
+.crm-chart__table table {
+  max-width: 420px;
+  margin-top: 8px;
+}
+
 /* Login and setup */
 .crm-login {
   display: grid;
@@ -721,7 +945,8 @@
 
 /* Small screens: nav becomes a top bar */
 @media (max-width: 1100px) {
-  .crm-stats {
+  .crm-stats,
+  .crm-stats--six {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .crm-grid,
@@ -779,7 +1004,8 @@
   }
 }
 @media (max-width: 480px) {
-  .crm-stats {
+  .crm-stats,
+  .crm-stats--six {
     grid-template-columns: minmax(0, 1fr);
   }
   .crm-filters {
