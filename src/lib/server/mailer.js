@@ -3,6 +3,13 @@ import nodemailer from 'nodemailer';
 
 let transporter;
 
+// Lead notifications go to info@ unless MAIL_TO overrides it. Mail is sent from MAIL_FROM, else the SMTP login
+// (most providers only accept a From address that matches the login), else info@.
+const TEAM_INBOX = 'info@logomakerspro.com';
+const fromAddress = () =>
+  process.env.MAIL_FROM ||
+  (/@/.test(process.env.SMTP_USER || '') ? `Logo Makers Pro <${process.env.SMTP_USER}>` : `Logo Makers Pro <${TEAM_INBOX}>`);
+
 function getTransporter() {
   if (!process.env.SMTP_HOST) return null;
   if (!transporter) {
@@ -26,7 +33,7 @@ export async function sendEmail({ to, subject, text, html, replyTo }) {
     console.info(`[mail disabled: set SMTP_HOST] to ${to}: ${subject}\n${text}`);
     return { sent: false };
   }
-  await t.sendMail({ from: process.env.MAIL_FROM || 'no-reply@logomakerspro.com', to, replyTo, subject, text, html });
+  await t.sendMail({ from: fromAddress(), to, replyTo, subject, text, html });
   return { sent: true };
 }
 
@@ -37,7 +44,7 @@ export async function sendSubmission({ subject, fields, replyTo }) {
     .map(([k, v]) => `<tr><th align="left" style="padding:4px 12px 4px 0;vertical-align:top">${escapeHtml(k)}</th><td>${escapeHtml(v)}</td></tr>`)
     .join('')}</table>`;
   const text = entries.map(([k, v]) => `${k}: ${v}`).join('\n');
-  return sendEmail({ to: process.env.MAIL_TO || 'support@logomakerspro.com', subject, text, html, replyTo });
+  return sendEmail({ to: process.env.MAIL_TO || TEAM_INBOX, subject, text, html, replyTo });
 }
 
 export { escapeHtml };

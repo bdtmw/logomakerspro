@@ -41,7 +41,8 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
 - Quote popup and contact form POST to `/api/lead` (replaces `assets/include/bannerFormController.php`).
 - Package "ORDER NOW" buttons go to `/order/order-now?package=<id>`; the order form POSTs to `/api/order`.
   Package name and price are looked up on the server from `packages.js`, so they can't be edited in the browser.
-- Both endpoints verify reCAPTCHA v3 (when `RECAPTCHA_SECRET_KEY` is set) and email the submission via SMTP
+- Both endpoints verify reCAPTCHA v3 (when `RECAPTCHA_SECRET_KEY` is set) and email the submission to
+  info@logomakerspro.com (`MAIL_TO` overrides it) via SMTP
   (when `SMTP_HOST` is set; otherwise they log to the console). No payment gateway is wired in; add it in
   `src/app/api/order/route.js` if needed.
 
