@@ -59,6 +59,22 @@ Deploys to Vercel as-is (no extra config). Node 18.18+.
   `NEXT_PUBLIC_OFFER_ENABLED=false` to switch it off. Timing and excluded pages: `leadOffer` in `src/data/site.js`.
 - Tracking: GA4 `view_promotion` when it opens, GA4 `generate_lead` (form `discount_popup`) and Meta `Lead` on signup.
 
+## AI chat assistant
+
+- The chat bubble (`src/components/chat/ChatWidget.jsx`) replaces the Zendesk messenger. "Let's talk" buttons open it.
+- `/api/chat` streams replies from Claude (model and effort set at the top of `src/app/api/chat/route.js`) using
+  the Anthropic SDK. Set `ANTHROPIC_API_KEY` on the server; without it the bubble shows the phone number and the
+  quote form instead.
+- What the bot knows is built from the site's own data (packages, prices, service highlights, FAQs, contact details)
+  in `src/lib/server/chat-knowledge.js`, so it updates whenever those files change. It is told to quote only those
+  facts, never to invent discounts or reviews, and never to ask for payment details. The prompt is cached.
+- When a visitor wants a quote, an order or a person, the bot asks for name, email and project details and calls its
+  `submit_lead` tool. The server checks the details and emails "New chatbot lead: <name>" with the transcript (SMTP,
+  like the other forms).
+- Limits: 30 messages per 10 minutes per IP (per server instance), last 20 messages and 2,000 characters per message.
+  The conversation is kept for the browser session only.
+- Tracking: GA4 `chat_open`, `chat_message`, and `generate_lead` (form `chatbot`) plus Meta `Lead` when a lead is sent.
+
 ## Service pages (conversion layout)
 
 Every service and industry page renders through `src/components/sections/ServicePage.jsx` in this order:
@@ -147,7 +163,7 @@ placements convert.
 
 ## Tracking (kept from the live site)
 
-GA4, Meta Pixel, Zendesk chat, reCAPTCHA v3, plus the Google Ads tag on the order page. IDs default to the live ones
+GA4, Meta Pixel, reCAPTCHA v3, plus the Google Ads tag on the order page. IDs default to the live ones
 and can be overridden with the `NEXT_PUBLIC_*` variables in `.env.example`.
 
 GA4 sends page views and events to `G-VX4M5HDTGV`. `NEXT_PUBLIC_GA_ID` takes a comma-separated list if you ever need
@@ -159,8 +175,8 @@ to send to more than one property.
   everything after the intro italic and stacks the two intro images. This version renders them as intended.
 - **Meta Pixel fixed.** The live pixel loads `fbevents.js` from a broken relative path, so it never loads; here it uses
   Facebook's URL.
-- **"Let's talk" buttons** call Tawk on the live site (not installed). Here they open Zendesk chat, or the quote popup
-  if chat hasn't loaded.
+- **"Let's talk" buttons** call Tawk on the live site (not installed). Here they open the AI chat assistant
+  (Zendesk has been removed).
 - **Order page** uses the main site layout. The live one uses an older template (broken logo, links to pages that
   don't exist).
 - **Every title and meta description rewritten** (5 titles and 11 descriptions were empty on the live site).

@@ -5,7 +5,7 @@ import Script from 'next/script';
 import { usePathname } from 'next/navigation';
 import { tracking } from '@/data/site';
 
-// GA4, Meta Pixel and Zendesk chat on every page. reCAPTCHA v3 loads on demand from the forms (lib/recaptcha-client.js).
+// GA4 and Meta Pixel on every page (chat is the built-in AI assistant). reCAPTCHA v3 loads on demand from the forms (lib/recaptcha-client.js).
 export default function Analytics() {
   const pathname = usePathname();
   const first = useRef(true);
@@ -56,10 +56,6 @@ fbq('track','PageView');`}
             />
           </noscript>
         </>
-      )}
-
-      {tracking.zendeskKey && (
-        <Script id="ze-snippet" src={`https://static.zdassets.com/ekr/snippet.js?key=${tracking.zendeskKey}`} strategy="lazyOnload" />
       )}
     </>
   );

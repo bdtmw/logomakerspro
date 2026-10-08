@@ -11,7 +11,7 @@ export function UIProvider({ children }) {
 
   const openQuote = useCallback(() => setQuoteOpen(true), []);
   const closeQuote = useCallback(() => setQuoteOpen(false), []);
-  // "Let's talk" buttons: open the live chat, fall back to the quote form if chat hasn't loaded.
+  // "Let's talk" buttons: open the chat assistant (falls back to the quote form where chat can't open).
   const openChat = useCallback(() => {
     if (!openLiveChat()) setQuoteOpen(true);
   }, []);

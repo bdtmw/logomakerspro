@@ -1,6 +1,7 @@
 'use client';
 
 import { UIProvider } from '@/components/ui/UIContext';
+import ChatWidget from '@/components/chat/ChatWidget';
 import OfferPopup from '@/components/ui/OfferPopup';
 import QuoteModal from '@/components/ui/QuoteModal';
 import CustomCursor from './CustomCursor';
@@ -25,6 +26,7 @@ export default function SiteShell({ children }) {
       </SmoothScroll>
       <QuoteModal />
       <OfferPopup />
+      <ChatWidget />
     </UIProvider>
   );
 }

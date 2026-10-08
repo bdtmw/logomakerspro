@@ -33,7 +33,6 @@ export const tracking = {
     .filter(Boolean),
   googleAdsId: process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ?? 'AW-10973222728',
   metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID ?? '861664211729887',
-  zendeskKey: process.env.NEXT_PUBLIC_ZENDESK_KEY ?? 'd9bf55c7-7b4e-40f2-8fa5-d7ad83b0b767',
   recaptchaSiteKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? '6LekOy8rAAAAADfvTHUIgOap9Xb7Z6s6OH8TW6sV',
 };
 
