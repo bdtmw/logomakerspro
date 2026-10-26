@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bright Smile Dental — Growth System Demo</title>
+<style>
+  :root{--primary:#0E7C86;--primary-dark:#0A5C64;--primary-light:#E3F4F5;--accent:#F2994A;--dark:#12202B;--muted:#5C6B77;--bg:#F6F9FA;--white:#fff;--green:#17A673;--radius:16px;--shadow:0 4px 24px rgba(18,32,43,.08);--shadow-lg:0 12px 48px rgba(18,32,43,.16);--serif:Georgia,'Times New Roman',serif;--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--sans);color:var(--dark);background:var(--bg);line-height:1.55}
+  .topbar{position:sticky;top:0;z-index:100;background:var(--dark);color:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center}
+  .topbar .l{display:flex;gap:12px;align-items:center;font-size:.9rem}
+  .badge{background:var(--accent);color:#fff;padding:4px 10px;border-radius:6px;font-weight:700;font-size:.78rem}
+  .progress{position:sticky;top:45px;z-index:99;height:4px;background:var(--primary-light)}
+  .progress div{height:100%;width:0;background:var(--primary);transition:width .3s}
+  .wrap{max-width:1040px;margin:0 auto;padding:36px 24px 130px}
+  .slide{display:none;animation:fade .4s ease}.slide.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .label{display:inline-block;background:var(--primary-light);color:var(--primary);padding:6px 14px;border-radius:50px;font-size:.76rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+  h2{font-family:var(--serif);font-size:2.1rem;line-height:1.2;margin-bottom:12px}
+  .lead{color:var(--muted);font-size:1.02rem;max-width:640px;margin-bottom:14px}
+  .tag{display:inline-block;background:var(--green);color:#fff;padding:4px 12px;border-radius:50px;font-size:.74rem;font-weight:600;margin-bottom:14px}
+  .tag::before{content:'✓ '}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+  ul.pts{list-style:none;margin-top:6px}
+  ul.pts li{padding:7px 0 7px 28px;position:relative;font-size:.98rem}
+  ul.pts li::before{content:'✓';position:absolute;left:0;color:var(--green);font-weight:700}
+  .frame{border-radius:12px;overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid rgba(0,0,0,.08);background:#fff}
+  .frame .bar{background:#E5E8EA;padding:9px 14px;display:flex;gap:7px;align-items:center}
+  .frame .bar i{width:11px;height:11px;border-radius:50%;display:block}
+  .frame .bar i:nth-child(1){background:#FF5F5F}.frame .bar i:nth-child(2){background:#FFBE2E}.frame .bar i:nth-child(3){background:#28C840}
+  .frame .bar span{margin-left:10px;background:#fff;border-radius:6px;padding:3px 12px;font-size:.74rem;color:var(--muted);flex:1}
+  /* hero */
+  .hero{background:linear-gradient(135deg,#0A5C64,#0E7C86);color:#fff;padding:28px}
+  .hero h4{font-family:var(--serif);font-size:1.35rem;margin-bottom:6px}.hero h4 em{color:#FFD9A8}
+  .hero p{font-size:.82rem;opacity:.85;margin-bottom:12px}
+  .hero .btn{display:inline-block;background:var(--accent);padding:7px 18px;border-radius:50px;font-size:.78rem;font-weight:700}
+  .hero .form{background:rgba(255,255,255,.12);border-radius:12px;padding:14px;margin-top:14px}
+  .hero .f{background:rgba(255,255,255,.18);height:28px;border-radius:7px;margin-bottom:7px}
+  .hero .go{background:#fff;color:var(--primary-dark);height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.76rem}
+  /* leadgen */
+  .src{padding:22px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .src div{background:var(--primary-light);border-radius:10px;padding:14px;font-size:.82rem}
+  .src b{display:block;color:var(--primary-dark);margin-bottom:2px}
+  .src .arrow{grid-column:1/-1;text-align:center;color:var(--primary);font-weight:700;font-size:.8rem;background:none;padding:0}
+  .crm-chip{grid-column:1/-1;background:var(--dark)!important;color:#fff;text-align:center;font-weight:600}
+  /* reviews */
+  .rev{padding:20px;background:#F3FAFB}
+  .sms{background:#fff;border-radius:14px 14px 14px 4px;padding:11px 14px;font-size:.8rem;margin-bottom:10px;max-width:88%;box-shadow:var(--shadow)}
+  .sms.me{background:var(--primary);color:#fff;margin-left:auto;border-radius:14px 14px 4px 14px}
+  .stars{color:#F5B301;letter-spacing:2px}
+  /* chat */
+  .chat{background:var(--dark);padding:20px}
+  .chat div{padding:8px 12px;border-radius:12px;font-size:.78rem;margin-bottom:8px;max-width:86%;background:rgba(255,255,255,.1);color:#fff}
+  .chat .u{background:var(--primary);margin-left:auto}
+  /* msg */
+  .msgs{padding:20px}
+  .email{border:1px solid #E1E6E9;border-radius:10px;padding:12px;margin:8px 0}
+  .email b{font-size:.82rem;display:block}.email span{font-size:.75rem;color:var(--muted)}
+  /* booking */
+  .book{padding:20px}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .cal div{aspect-ratio:1;background:var(--primary-light);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem}
+  .cal .s{background:var(--primary);color:#fff}.cal .o{background:#F0F0F0;color:#bbb}
+  .times{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+  .times span{padding:6px 10px;border:1px solid #DDE3E6;border-radius:8px;font-size:.72rem}
+  .times .s{background:var(--primary);color:#fff;border-color:var(--primary)}
+  /* pipeline */
+  .pipe{padding:18px;display:flex;gap:8px;overflow-x:auto}
+  .col{flex:1;min-width:104px}.col h5{font-size:.7rem;color:var(--muted);text-align:center;margin-bottom:8px}
+  .card{background:#F7FAFB;border-left:3px solid var(--primary);border-radius:8px;padding:9px;margin-bottom:6px}
+  .card b{font-size:.74rem;display:block}.card span{font-size:.66rem;color:var(--muted)}
+  /* results */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+  .stat{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);text-align:center}
+  .stat b{display:block;font-family:var(--serif);font-size:1.9rem;color:var(--primary)}.stat span{font-size:.8rem;color:var(--muted)}
+  .note{font-size:.75rem;color:var(--muted)}
+  .cta{display:inline-flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+  .cta span{padding:10px 24px;border-radius:50px;color:#fff;font-weight:600;font-size:.88rem}
+  /* narration caption */
+  .caption{margin-top:22px;background:var(--dark);color:rgba(255,255,255,.88);border-left:4px solid var(--accent);border-radius:var(--radius);padding:16px 22px;font-size:.92rem}
+  .caption::before{content:'🎙 NARRATION';display:block;font-size:.68rem;letter-spacing:1.5px;font-weight:700;color:var(--accent);margin-bottom:6px}
+  .nav{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:200;background:var(--dark);border-radius:50px;padding:8px;display:flex;align-items:center;gap:8px;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+  .nav button{background:rgba(255,255,255,.12);color:#fff;border:0;height:40px;min-width:40px;border-radius:50px;cursor:pointer;font-size:.85rem;padding:0 14px}
+  .nav button:hover{background:rgba(255,255,255,.22)}.nav button:disabled{opacity:.3;cursor:not-allowed}
+  .nav .c{color:#fff;font-weight:600;font-size:.85rem;padding:0 8px}
+  body.rec .topbar,body.rec .progress,body.rec .nav{display:none}
+  @media(max-width:700px){.two,.stats{grid-template-columns:1fr}h2{font-size:1.5rem}.nav{width:calc(100% - 24px);justify-content:center;flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="l"><span class="badge">DEMO</span><span>Bright Smile Dental — Growth System</span></div><div style="font-size:.8rem;opacity:.7">Press <b>R</b> for clean recording view</div></div>
+<div class="progress"><div id="fill"></div></div>
+
+<div class="wrap">
+
+<!-- 1 -->
+<section class="slide active">
+  <div class="label">0:00 — Introduction</div>
+  <h2>Hi Dr. Mitchell, I built something for Bright Smile Dental</h2>
+  <p class="lead">A complete growth system that helps your Austin practice attract more new patients, fill the schedule, and earn more five-star reviews, all on one platform.</p>
+  <div class="two">
+    <ul class="pts">
+      <li>Modern website that converts visitors</li>
+      <li>Lead generation and instant follow-up</li>
+      <li>Review and reputation automation</li>
+      <li>AI chatbot, email and SMS, booking, CRM</li>
+    </ul>
+    <div class="frame"><div class="bar"><i></i><i></i><i></i><span>Google Business Profile</span></div>
+      <div style="padding:22px"><b style="font-size:1.05rem">Bright Smile Dental</b><div class="stars">★★★★☆ <span style="color:var(--muted);letter-spacing:0;font-size:.8rem">4.7 · 180 reviews</span></div>
+      <p style="font-size:.8rem;color:var(--muted);margin-top:8px">Dentist · Austin, TX<br>Website: slow, not mobile friendly, no online booking</p></div></div>
+  </div>
+  <div class="caption" data-n="0"></div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="label">0:20 — Website Design & Development</div>
+  <h2>A website built to turn visitors into patients</h2>
+  <span class="tag">Website design and development</span>
+  <div class="two">
+    <ul class="pts">
+      <li>Fast, mobile-first design</li>
+      <li>Clear "Book Your Visit" button on every page</li>
+      <li>Service pages for cleanings, implants, whitening</li>
+      <li>Built to rank for "dentist near me" in Austin</li>
+    </ul>
+    <div class="frame"><div class="bar"><i></i><i></i><i></i><span>brightsmileaustin.com</span></div>
+      <div class="hero"><h4>Gentle dental care for the whole family in <em>Austin</em></h4><p>New patients welcome. Same-week appointments available.</p><span class="btn">Book Your Visit</span>
+      <div class="form"><div style="font-size:.76rem;color:#FFD9A8;font-weight:600;margin-bottom:7px">New patient special: $99 exam and X-rays</div><div class="f"></div><div class="f"></div><div class="go">Claim My Offer</div></div></div></div>
+  </div>
+  <div class="caption" data-n="1"></div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="label">0:45 — Lead Generation</div>
+  <h2>Every inquiry captured, none lost</h2>
+  <span class="tag">Lead generation</span>
+  <div class="two">
+    <ul class="pts">
+      <li>Offer forms on the site and Google profile</li>
+      <li>Missed-call text-back in seconds</li>
+      <li>Facebook and Google lead ads feed straight in</li>
+      <li>Every contact lands in your CRM automatically</li>
+    </ul>
+    <div class="frame"><div class="bar"><i></i><i></i><i></i><span>Lead sources</span></div>
+      <div class="src"><div><b>Website form</b>$99 new patient offer</div><div><b>Missed call</b>Auto text-back</div><div><b>Google / Facebook ads</b>Lead forms</div><div><b>Chat and DMs</b>AI assistant</div><div class="arrow">▼</div><div class="crm-chip">One CRM · every new patient lead</div></div></div>
+  </div>
+  <div class="caption" data-n="2"></div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="label">1:05 — Reputation Management</div>
+  <h2>Happy patients become five-star reviews</h2>
+  <span class="tag">Reputation management and review generation</span>
+  <div class="two">
+    <ul class="pts">
+      <li>Review request texted right after every visit</li>
+      <li>4–5 star answers go to your Google page</li>
+      <li>Low scores come to you privately first</li>
+      <li>Reply to reviews from one inbox</li>
+    </ul>
+    <div class="frame"><div class="bar"><i></i><i></i><i></i><span>Patient text message</span></div>
+      <div class="rev"><div class="sms">Hi Maria, thanks for visiting Bright Smile today! How was your experience? Reply 1–5.</div><div class="sms me">5! Everyone was so kind</div><div class="sms">Wonderful! Would you share that on Google? <u>g.page/brightsmile</u> <span class="stars">★★★★★</span></div></div></div>
+  </div>
+  <div class="caption" data-n="3"></div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="label">1:25 — AI Chatbot & Follow-ups</div>
+  <h2>A front desk that never sleeps</h2>
+  <span class="tag">AI chatbots and automated follow-ups</span>
+  <div class="two">
+    <ul class="pts">
+      <li>Answers insurance, pricing and hours questions 24/7</li>
+      <li>Collects name and phone number</li>
+      <li>Books the visit right inside the chat</li>
+      <li>Follows up if the patient goes quiet</li>
+    </ul>
+    <div class="frame"><div class="bar"><i></i><i></i><i></i><span>brightsmileaustin.com — Chat</span></div>
+      <div class="chat"><div>Hi! Welcome to Bright Smile 😊 How can I help?</div><div class="u">Do you take Delta Dental? I have a toothache.</div><div>Yes, we do! I can get you in tomorrow at 9:30 AM. Shall I book it?</div><div class="u">Yes please</div><div>Done! You'll get a text confirmation shortly 📱</div></div></div>
+  </div>
+  <div class="caption" data-n="4"></div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="label">1:45 — Email & SMS Marketing</div>
+  <h2>Stay in touch without lifting a finger</h2>
+  <span class="tag">Email and SMS marketing</span>
+  <div class="two">
+    <ul class="pts">
+      <li>Welcome sequence for every new lead</li>
+      <li>Six-month recall reminders for cleanings</li>
+      <li>Whitening, Invisalign and holiday promotions</li>
+      <li>Win-back messages for inactive patients</li>
+    </ul>
+    <div class="frame"><div class="bar"><i></i><i></i><i></i><span>Automation workflow</span></div>
+      <div class="msgs"><div class="sms">Welcome to Bright Smile! Your $99 new patient offer is ready. Book here 👉</div>
+      <div class="email"><b>It's been six months, Maria 🦷</b><span>Time for your cleaning. Pick a time that suits you...</span></div>
+      <div class="sms">We miss you! Take $25 off your next visit this month.</div></div></div>
+  </div>
+  <div class="caption" data-n="5"></div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="label">2:05 — Appointment Booking & Reminders</div>
+  <h2>A full schedule, with fewer no-shows</h2>
+  <span class="tag">Appointment booking and reminders</span>
+  <div class="two">
+    <ul class="pts">
+      <li>24/7 online booking with live availability</li>
+      <li>Instant confirmation by text and email</li>
+      <li>Reminders 48 hours and 2 hours before</li>
+      <li>One-tap confirm or reschedule</li>
+    </ul>
+    <div class="frame"><div class="bar"><i></i><i></i><i></i><span>brightsmileaustin.com/book</span></div>
+      <div class="book"><div class="cal"><div class="o"></div><div class="o"></div><div class="o"></div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div class="s">10</div><div>11</div></div>
+      <div class="times"><span>8:00 AM</span><span class="s">9:30 AM</span><span>11:00 AM</span><span>1:30 PM</span><span>3:00 PM</span></div></div></div>
+  </div>
+  <div class="caption" data-n="6"></div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="label">2:25 — CRM & Sales Pipeline</div>
+  <h2>See every patient journey in one place</h2>
+  <span class="tag">CRM and sales pipeline automation</span>
+  <div class="frame" style="margin-top:6px"><div class="bar"><i></i><i></i><i></i><span>Patient pipeline</span></div>
+    <div class="pipe">
+      <div class="col"><h5>New Lead</h5><div class="card"><b>Daniel R.</b><span>Website offer</span></div><div class="card"><b>Priya S.</b><span>Chatbot</span></div></div>
+      <div class="col"><h5>Contacted</h5><div class="card" style="border-color:#F2994A"><b>Tom W.</b><span>Replied to SMS</span></div></div>
+      <div class="col"><h5>Booked</h5><div class="card" style="border-color:#17A673"><b>Maria G.</b><span>Tue 9:30 AM</span></div></div>
+      <div class="col"><h5>Visited</h5><div class="card" style="border-color:#17A673"><b>James L.</b><span>Review requested</span></div></div>
+      <div class="col"><h5>Treatment Plan</h5><div class="card" style="border-color:#6B5BD2"><b>Olivia K.</b><span>Invisalign · follow-up</span></div></div>
+    </div></div>
+  <div class="caption" data-n="7"></div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="label">2:45 — The Result</div>
+  <h2>More patients, more reviews, more revenue</h2>
+  <div class="stats">
+    <div class="stat"><b>24/7</b><span>lead capture and booking</span></div>
+    <div class="stat"><b>&lt; 60 sec</b><span>first response to every inquiry</span></div>
+    <div class="stat"><b>1 platform</b><span>instead of 6 separate tools</span></div>
+  </div>
+  <p class="note">Illustrative targets for a practice like Bright Smile. Actual results depend on market and ad spend.</p>
+  <div class="cta"><span style="background:var(--primary)">📧 Reply to this email</span><span style="background:var(--green)">📅 Book a 15-minute walkthrough</span></div>
+  <div class="caption" data-n="8"></div>
+</section>
+
+</div>
+
+<div class="nav">
+  <button id="prev">‹</button><span class="c"><span id="cur">1</span> / 9</span>
+  <button id="play">▶ Play Narration</button>
+  <button id="auto">🔁 Auto-Play All</button>
+  <button id="rec">🎬 Recording View</button>
+  <button id="next">›</button>
+</div>
+
+<script>
+  // Edit this to your own name before recording.
+  const PRESENTER = "[Your Name]";
+
+  const NARRATION = [
+    "Hi Doctor Mitchell, this is " + PRESENTER + ". I came across Bright Smile Dental in Austin, and your patients clearly love you, four point seven stars from one hundred eighty reviews. But I noticed your website is slow on mobile and there's no way to book online. So I built a quick growth system for your practice. Here's what it does.",
+    "First, a modern website. It loads fast, looks great on phones, and every page has a Book Your Visit button. Dedicated pages for cleanings, implants and whitening help you show up when someone in Austin searches for a dentist near me.",
+    "Second, lead generation. Your new patient offer captures names and numbers on the site, from Google and Facebook ads, and even from missed calls. If a call goes unanswered, the caller gets a text within seconds. Every lead lands in one place, so no one slips away.",
+    "Third, reputation. After each visit, patients automatically get a text asking how it went. Happy patients are sent straight to your Google page. If someone is unhappy, you hear about it privately first, so you can fix it. More five star reviews means more trust, and more new patients.",
+    "Fourth, an AI assistant that works around the clock. It answers questions about insurance, pricing and hours, even at midnight, then books the appointment right in the chat and follows up if the patient goes quiet.",
+    "Fifth, email and text marketing. New leads get a welcome sequence. Existing patients get six month cleaning reminders, and inactive ones get a friendly win back offer. It all runs on autopilot.",
+    "Sixth, booking and reminders. Patients choose a time online, get instant confirmation, and receive reminders two days and two hours before. That means a fuller schedule and fewer no shows.",
+    "And everything connects in your CRM. You can see each person move from new lead, to booked, to visited, to treatment plan, with automatic follow ups at every step. Nothing falls through the cracks.",
+    "The result is more new patients, more reviews, and more revenue, with less manual work for your team. If you'd like to see it live, reply to this message and let's book a fifteen minute walkthrough. Thanks for watching, Doctor Mitchell."
+  ];
+
+  const slides = [...document.querySelectorAll('.slide')];
+  const total = slides.length;
+  let cur = 0, auto = false, speaking = false, timer = null;
+
+  document.querySelectorAll('.caption').forEach(c => c.textContent = NARRATION[+c.dataset.n]);
+
+  function stop(){
+    if (window.speechSynthesis) speechSynthesis.cancel();
+    clearTimeout(timer); speaking = false; $('play').textContent = '▶ Play Narration';
+  }
+  function $(id){ return document.getElementById(id); }
+
+  function show(n){
+    stop();
+    cur = n;
+    slides.forEach((s,i) => s.classList.toggle('active', i === n));
+    $('cur').textContent = n + 1;
+    $('fill').style.width = ((n + 1) / total * 100) + '%';
+    $('prev').disabled = n === 0; $('next').disabled = n === total - 1;
+    window.scrollTo({top:0});
+  }
+
+  function pickVoice(){
+    const v = speechSynthesis.getVoices().filter(x => x.lang.startsWith('en'));
+    return v.find(x => /natural|neural|online/i.test(x.name)) ||
+           v.find(x => /google|samantha|aria|jenny|daniel/i.test(x.name)) || v[0];
+  }
+
+  function advance(){
+    if (auto && cur < total - 1){ show(cur + 1); timer = setTimeout(narrate, 700); }
+    else if (auto){ auto = false; $('auto').textContent = '🔁 Auto-Play All'; }
+  }
+
+  function narrate(){
+    stop();
+    const text = NARRATION[cur];
+    speaking = true; $('play').textContent = '⏸ Pause Narration';
+    if (!window.speechSynthesis){ timer = setTimeout(() => { speaking = false; advance(); }, text.split(' ').length * 400); return; }
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.98; u.pitch = 1; const v = pickVoice(); if (v) u.voice = v;
+    u.onend = () => { speaking = false; $('play').textContent = '▶ Play Narration'; advance(); };
+    u.onerror = () => { speaking = false; $('play').textContent = '▶ Play Narration'; };
+    speechSynthesis.speak(u);
+  }
+
+  $('prev').onclick = () => show(cur - 1);
+  $('next').onclick = () => show(cur + 1);
+  $('play').onclick = () => speaking ? stop() : narrate();
+  $('auto').onclick = () => {
+    auto = !auto;
+    $('auto').textContent = auto ? '⏹ Stop Auto-Play' : '🔁 Auto-Play All';
+    if (auto) narrate(); else stop();
+  };
+  $('rec').onclick = () => document.body.classList.add('rec');
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft' && cur > 0) show(cur - 1);
+    if (e.key === 'ArrowRight' && cur < total - 1) show(cur + 1);
+    if (e.key === ' '){ e.preventDefault(); speaking ? stop() : narrate(); }
+    if (e.key.toLowerCase() === 'r') document.body.classList.toggle('rec');
+    if (e.key.toLowerCase() === 'a'){ auto = true; narrate(); }
+  });
+
+  if (window.speechSynthesis) speechSynthesis.getVoices();
+  show(0);
+</script>
+</body>
+</html>
